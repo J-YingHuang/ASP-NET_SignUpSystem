@@ -19,18 +19,18 @@
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-3 col-form-label text-left">Account</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="account" placeholder="Username or Email">
+                            <input type="text" class="form-control" id="account" placeholder="Username or Email" runat="server">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPassword" class="col-sm-3 col-form-label text-left">Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" id="password" placeholder="Password" runat="server">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <asp:Button ID="btn_Login" runat="server" Text="Login" Width="100%" CssClass="btn btn-outline-secondary" />
+                            <asp:Button ID="btn_Login" runat="server" Text="Login" Width="100%" CssClass="btn btn-outline-secondary" OnClick="btn_Login_Click" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -49,7 +49,9 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <br /><br /><br /><br /><br /><br /><br />
+                <label id="loginSession" runat="server"></label>
+                <br />
+                <br /><br /><br /><br /><br /><br />
             </div>
         </div>
     </div>
