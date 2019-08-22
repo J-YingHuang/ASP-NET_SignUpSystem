@@ -1,3 +1,175 @@
-ï»¿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EarthquakeRegistrationPage.aspx.cs" Inherits="SignUpSystem.EarthquakeRegistrationPage" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EarthquakeRegistrationPage.aspx.cs" Inherits="SignUpSystem.EarthquakeRegistrationPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<div class="container"  style="width:60%; margin-left:20%; margin-right:20%;">
+
+  <div class="form-group row" style="font-size:30px">
+    <div class="col">
+        <br />
+        <div class="row justify-content-center">     
+                °ª¬ì¤j§J¾_³ø¦W¸ê°T 
+        </div>     
+    </div>
+  </div>
+  <div class="form-group row" style="font-size:20px">
+    <div class="col">
+        <hr  color="black" />
+    </div>
+  </div>
+
+
+     
+  <div class="form-group row" style="font-size:20px">
+     <div class="col">
+        ¤@,«ü¾É¦Ñ®v¸ê°T
+     </div>
+  </div>
+
+
+  <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        1.«ü¾É¦Ñ®v©m¦W:
+        <select class="form-control form-control-sm" style="font-size: 12px; ">
+            <option>©m¦W</option>
+        </select>
+     </div>
+     <div class="col">
+        2.«ü¾É¦Ñ®vEmail:
+        <select class="form-control form-control-sm" style="font-size: 12px; ">
+            <option>Email</option>
+        </select>
+     </div>
+   </div>
+
+
+  <div class="form-group row " style="font-size: 18px; ">
+     <div class="col  ">
+        3.«ü¾É¦Ñ®v¹q¸Ü:
+        <select class="form-control form-control-sm" style="font-size: 12px; " >
+            <option>¹q¸Ü</option>
+        </select>
+     </div>
+     <div class="col">
+        4.¨®µP¸¹½X:
+         <input class="form-control form-control-sm" type="text" placeholder="¨®µP"style="font-size:8px;">
+     </div>
+   </div>
+  
+
+
+
+  <div class="form-group row" style="font-size:20px">
+     <div class="col">
+        ¤G,¶¤¥î¸ê°T
+     </div>
+  </div>
+
+
+  <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        1.¶¤¥î¦WºÙ:
+          <input class="form-control form-control-sm" type="text" placeholder="¤£±o¶W¹L10­Ó¦r"style="font-size:8px;"maxlength="10">
+     </div>
+  <div class="col">
+        2.¶¤¥î¤H¼Æ:(§t¶¤ªø³Ì¦h6¤H)
+           <select class="form-control form-control-sm" style="font-size: 12px;">
+               <option>1¤H</option>
+               <option>2¤H</option>
+               <option>3¤H</option>
+               <option>4¤H</option>
+               <option>5¤H</option>
+               <option>6¤H</option>
+           </select>
+           </div>
+  </div>
+
+
+  <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        3.¦Y¯À¤H¼Æ:(§t¦Ñ®v¤Î¶¤ªø)
+           <select class="form-control form-control-sm" style="font-size: 12px; ">
+               <option>µL</option>
+               <option>1¤H</option>
+               <option>2¤H</option>
+               <option>3¤H</option>
+               <option>4¤H</option>
+               <option>5¤H</option>
+               <option>6¤H</option>
+               <option>7¤H</option>
+           </select>
+     </div>
+     <div class="col">
+        4.¶¤ªø¹q¸Ü:
+         <input class="form-control form-control-sm" type="text" placeholder="¹q¸Ü"style="font-size:8px;">
+     </div>
+   </div>
+
+  <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        5.¶¤­û1©m¦W:
+         <input class="form-control form-control-sm" type="text" placeholder="©m¦W"style="font-size:8px;">
+     </div>
+     <div class="col">
+        6.¶¤­û2©m¦W:
+         <input class="form-control form-control-sm" type="text" placeholder="©m¦W"style="font-size:8px;"> 
+     </div>
+   </div>
+
+
+  <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        7.¶¤­û3©m¦W:
+         <input class="form-control form-control-sm" type="text" placeholder="©m¦W"style="font-size:8px;">
+     </div>
+     <div class="col">
+        8.¶¤­û4©m¦W:
+         <input class="form-control form-control-sm" type="text" placeholder="©m¦W"style="font-size:8px;">
+     </div>
+   </div>
+
+
+  <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        9.¶¤­û5©m¦W:
+         <input class="form-control form-control-sm" type="text" placeholder="©m¦W"style="font-size:8px;">
+     </div>
+     <div class="col">
+        10.¶¤­û6©m¦W:
+         <input class="form-control form-control-sm" type="text" placeholder="©m¦W"style="font-size:8px;">
+     </div>
+   </div>
+
+
+
+
+
+<form> 
+<div>1<input type="text" name="T1"></div> 
+<span id="fieldSpace"></span> 
+<a href="javascript:" onclick="addField()">·s¼WÄæ¦ì</a>
+<a href="javascript:" onclick="delField()">§R°£Äæ¦ì</a>
+<p><input type="submit" value="´£¥æ"><input type="reset" value="­«·s³]©w"></p> 
+</form> 
+<script> 
+    var countMin = 1;
+    var countMax = 6;
+    var count = countMin
+    function addField() {
+        if (count == countMax)
+            alert("³Ì¦h" + countMax + "­ÓÄæ¦ì");
+        else
+            document.getElementById("fieldSpace").innerHTML = document.getElementById("fieldSpace").innerHTML
+                + "<div>²Ä" + (++count) + '­Ó¶¤­û¡G<input class="form-control form-control-sm" type="text" name="T' + count + '"></div>';
+    }
+    function delField() {
+        if (count > countMin) {
+            document.getElementById("fieldSpace").removeChild(document.getElementById("fieldSpace").lastChild);
+            count--;
+        }
+    }
+</script>
+
+
+
+</div>
 </asp:Content>
+
