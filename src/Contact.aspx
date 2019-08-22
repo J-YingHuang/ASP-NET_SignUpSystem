@@ -8,23 +8,23 @@
         <br />
         <div class="row justify-content-center">     
             <font size="+3">
-                聯絡我們<br />
+                聯絡我們 
             </font>
-        </div>      
+        </div>     
+        <br />
     </div>
   </div>
 
   <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active" data-interval="10000">
-      <img src="images/聯絡我們_建工門口1.jpg" width="300" height="500" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item" data-interval="2000">
-      <img src="images/高科大%20地圖.jpg" width="300" height="500" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="images/聯絡我們_建工門口3.jpg" width="300" height="500" class="d-block w-100" alt="...">
-    </div>
+    <a href="https://goo.gl/maps/BUzyZ8b1CcToSmQb6" target="_blank" >
+       <div class="carousel-item active" data-interval="6000">
+           <img src="images/聯絡我們_建工門口1.jpg" width="300" height="500" class="d-block w-100">
+       </div>
+       <div class="carousel-item" data-interval="6000">
+           <img src="images/google%20map.jpg"  width="300" height="500" class="d-block w-100" > 
+       </div>
+     </a>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -52,11 +52,9 @@
   </div>
 
    <div class="row">  
-    <div class="col">
-        <div class="row justify-content-center">
-           <font color="#C4C4C4">高 雄 科 技 大 學</font><br>
-        </div>
-    </div>
+      <div class="col">
+          <br />
+      </div>
    </div>
 </div>
 </asp:Content>
