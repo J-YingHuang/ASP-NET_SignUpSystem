@@ -46,6 +46,16 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" runat="server" href="~/">首頁</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="registrationList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            報名名單
+                        </a>        
+                                
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">抗震大作戰</a>
+                            <a class="dropdown-item" href="#">橋梁變變變</a>
+                        </div>
+                    </li>
                     <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">聯絡我們</a></li>
                 </ul>
             </div>
