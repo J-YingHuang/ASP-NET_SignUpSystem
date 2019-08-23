@@ -23,17 +23,7 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
-            SqlCommand command;
-            if (account.Value.Contains("@"))
-            {
-                //登入使用Email
-                command = new SqlCommand("SELECT * FROM Account WHERE Email = '" + account.Value + "';", conn);
-            }
-            else
-            {
-                //登入使用UserName
-                command = new SqlCommand("SELECT * FROM Account WHERE Username = '" + account.Value + "';", conn);
-            }
+            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Email = '{account.Value}' OR Username = '{account.Value}';");
             SqlDataReader dr = command.ExecuteReader();
 
             if (dr.HasRows)
@@ -42,6 +32,13 @@ namespace SignUpSystem
                 {
                     IDataRecord data = (IDataRecord)dr;
                     loginSession.InnerText = "Login Account " + data["Username"].ToString() + " Finish!";
+                    if (data["Password"].ToString().Trim() == password.Value)
+                    {
+                        //successful login
+
+                    }
+                    else
+                        loginSession.InnerText = "Password is invaild!";
                 }
                 //Response.Redirect("~/Intro.aspx");
             }
@@ -52,3 +49,5 @@ namespace SignUpSystem
         }
     }
 }
+
+
