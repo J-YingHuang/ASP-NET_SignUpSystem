@@ -23,7 +23,7 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
-            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Email = '{account.Value}' OR Username = '{account.Value}';");
+            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Email = '{account.Value}' OR Username = '{account.Value}';",conn);
             SqlDataReader dr = command.ExecuteReader();
 
             if (dr.HasRows)
@@ -46,6 +46,23 @@ namespace SignUpSystem
                 loginSession.InnerText = "Login Error";
 
             conn.Close();
+        }
+
+        protected void btn_Sendmessage_Click(object sender, EventArgs e)
+        {
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("SELECT account FROM Account WHERE Username=@username AND Email=@Email AND Password=@password");
+            command.Parameters.AddWithValue("@username", AccountNname ) ;
+            command.Parameters.AddWithValue("@Email", EmailName);
+            command.Parameters.AddWithValue("@password", PasswordText);
+            SqlDataReader dr = command.ExecuteReader();
+
+         
+            
+            
         }
     }
 }

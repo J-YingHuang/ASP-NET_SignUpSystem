@@ -35,42 +35,11 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12" style="font-size: 12px;">
-                            <a>
-                                註冊
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
+                            <a class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
+                                註冊  
                             </a>
                             |
-                            <a>
+                            <a class="btn btn-outline-light btn-sm"  data-toggle="modal" data-target="#exampleModal2">
                                 忘記密碼
                             </a>
                         </div>
@@ -86,4 +55,57 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">首次登入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="AccountName" class="col-form-label">Account:</label>
+            <input type="text" class="form-control" id="AccountNname" runat="server">
+          </div>
+          <div class="form-group">
+            <label for="PasswordText" class="col-form-label">Password:</label>
+            <input type="text" class="form-control" id="PasswordText" runat="server">
+          </div>
+          <div class="form-group">
+            <label for="EmailName" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="EmailName" runat="server">
+          </div>
+      
+      </div>
+      <div class="modal-footer">
+        
+        <button ID="btn_Sendmessage" type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">忘記密碼</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        請至信箱領取密碼
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </asp:Content>
