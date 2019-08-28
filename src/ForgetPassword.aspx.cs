@@ -44,6 +44,7 @@ namespace SignUpSystem
 
 
                     MailMessage msg = new MailMessage();
+                    string lineSymbol = "<br />";
                     // 寄信人資料 wix email & show name
                     msg.From = new MailAddress("civilkuas@gmail.com", "國立高雄科技大學土木工程系", System.Text.Encoding.UTF8);
                     msg.SubjectEncoding = Encoding.UTF8;
@@ -60,7 +61,9 @@ namespace SignUpSystem
                     msg.Body = "您好,已確定此為已註冊帳號,以下為您的登入密碼:" + lineSymbol
                                 + data["Password"].ToString() + lineSymbol+
                                "請再回登入頁面輸入一次帳號及密碼," + lineSymbol+
-                               "若有相關問題歡迎聯絡我們" +
+                               "若有相關問題歡迎聯絡我們" + lineSymbol +
+                               lineSymbol +
+                               lineSymbol +
                                 "國立高雄科技大學土木工程系 蔡宛蓁小姐 07-3814526#15200";
 
                     SmtpClient client = new SmtpClient();

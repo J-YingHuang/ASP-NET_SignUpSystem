@@ -12,13 +12,16 @@
 
             <form>
                 <div class="form-group">
-                    <label for="inputemail">Email address:</label>
+                    <label class="col-2" for="inputemail"> Email address: </label>
+                    
                     <input type="text" class="form-control-label" id="email_name" placeholder="Your Email" runat="server">
-                     <label  id = "serch_email" class="form-text text-muted smail" runat= "server"  > </label>
+                     <label  id = "serch_email" class="form-text text-muted smail" runat= "server"  ></label>
                 </div>
 
-                <button id="btn_CheckEmail" type="button" class="btn btn-primary" runat="server" onserverclick="btn_SendEmail_Click">Send Email</button>
-             <form>
+                <asp:Button  id="btn_CheckEmail" type="button" class="btn btn-primary" runat="server" OnClick="btn_SendEmail_Click" Text="Send Email" />
+              
+                <form>
+
                 </br>
 
         

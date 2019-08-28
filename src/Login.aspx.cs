@@ -54,7 +54,7 @@ namespace SignUpSystem
 
         protected void btn_ForgetPassword_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ForgetPassword.aspx");
+            Response.Redirect("~/ForgetPassword.aspx");
         }
     }
     }

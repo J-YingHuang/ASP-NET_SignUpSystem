@@ -10,16 +10,25 @@
 namespace SignUpSystem {
     
     
-    public partial class ForgetPassword {
+    public partial class ManagerLoginin {
         
         /// <summary>
-        /// email_name 控制項。
+        /// account_name 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText email_name;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText account_name;
+        
+        /// <summary>
+        /// Text1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Text1;
         
         /// <summary>
         /// serch_email 控制項。
@@ -31,12 +40,12 @@ namespace SignUpSystem {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl serch_email;
         
         /// <summary>
-        /// btn_CheckEmail 控制項。
+        /// btn_MangerLogin 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_CheckEmail;
+        protected global::System.Web.UI.WebControls.Button btn_MangerLogin;
     }
 }
