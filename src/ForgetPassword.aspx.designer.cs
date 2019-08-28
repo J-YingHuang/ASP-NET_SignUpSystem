@@ -10,51 +10,33 @@
 namespace SignUpSystem {
     
     
-    public partial class Login {
+    public partial class ForgetPassword {
         
         /// <summary>
-        /// account 控制項。
+        /// email_name 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText account;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText email_name;
         
         /// <summary>
-        /// password 控制項。
+        /// serch_email 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl serch_email;
         
         /// <summary>
-        /// btn_Login 控制項。
+        /// btn_CheckEmail 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Login;
-        
-        /// <summary>
-        /// btn_ForgetPassword 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_ForgetPassword;
-        
-        /// <summary>
-        /// loginSession 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginSession;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btn_CheckEmail;
     }
 }

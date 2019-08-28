@@ -7,6 +7,10 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Net;
+using System.Net.Mail;
+using System.IO;
+using System.Text;
 
 namespace SignUpSystem
 {
@@ -23,7 +27,7 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
-            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Email = '{account.Value}' OR Username = '{account.Value}';",conn);
+            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Email = '{account.Value}' OR Username = '{account.Value}';", conn);
             SqlDataReader dr = command.ExecuteReader();
 
             if (dr.HasRows)
@@ -32,7 +36,7 @@ namespace SignUpSystem
                 {
                     IDataRecord data = (IDataRecord)dr;
                     loginSession.InnerText = "Login Account " + data["Username"].ToString() + " Finish!";
-                    if (data["Password"].ToString().Trim() == password.Value)
+                    if (data["Password"].ToString() == password.Value)
                     {
                         //successful login
 
@@ -48,23 +52,12 @@ namespace SignUpSystem
             conn.Close();
         }
 
-        protected void btn_Sendmessage_Click(object sender, EventArgs e)
+        protected void btn_ForgetPassword_Click(object sender, EventArgs e)
         {
-            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
-            SqlConnection conn = new SqlConnection(strConn);
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT account FROM Account WHERE Username=@username AND Email=@Email AND Password=@password");
-            command.Parameters.AddWithValue("@username", AccountNname ) ;
-            command.Parameters.AddWithValue("@Email", EmailName);
-            command.Parameters.AddWithValue("@password", PasswordText);
-            SqlDataReader dr = command.ExecuteReader();
-
-         
-            
-            
+            Response.Redirect("ForgetPassword.aspx");
         }
     }
-}
+    }
+
 
 
