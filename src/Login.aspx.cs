@@ -35,7 +35,7 @@ namespace SignUpSystem
                 while (dr.Read())
                 {
                     IDataRecord data = (IDataRecord)dr;
-                    loginSession.InnerText = "Login Account " + data["Username"].ToString() + " Finish!";
+                    loginSession.InnerText = "信箱確認,請至Email收取信件!";
                     if (data["Password"].ToString() == password.Value)
                     {
                         //successful login

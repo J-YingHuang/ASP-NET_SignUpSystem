@@ -57,8 +57,10 @@ namespace SignUpSystem
                     msg.To.Add(email_name.Value.ToString());
 
                     // Email content
-                    msg.Body = "您好,已確定此為已註冊帳號,以下為您的登入密碼:" + data["Password"].ToString() +
-                               "請再回登入頁面輸入一次帳號及密碼,若有相關問題歡迎聯絡我們" +
+                    msg.Body = "您好,已確定此為已註冊帳號,以下為您的登入密碼:" + lineSymbol
+                                + data["Password"].ToString() + lineSymbol+
+                               "請再回登入頁面輸入一次帳號及密碼," + lineSymbol+
+                               "若有相關問題歡迎聯絡我們" +
                                 "國立高雄科技大學土木工程系 蔡宛蓁小姐 07-3814526#15200";
 
                     SmtpClient client = new SmtpClient();
