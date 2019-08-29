@@ -18,9 +18,11 @@ namespace SignUpSystem
             //讀抗震大作戰的隊伍資訊
             if (!IsPostBack)
             {
-                if (Session["Login"] == null || Session["Login"].ToString() != "Y")
+                if (Session["Login"] != null && Session["Login"].ToString() == "Y")
+                    LoadAccountInfo();
+                else
                     Response.Redirect("Login.aspx");
-                LoadAccountInfo();
+                
             }
             if(a_Earthquake.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Earthquake);

@@ -13,5 +13,17 @@ namespace SignUpSystem
         {
 
         }
+
+        protected void Unnamed_ServerClick(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
+        }
+
+        protected void Unnamed_ServerClick1(object sender, EventArgs e)
+        {
+            Session["Login"] = null;
+            Session["LoginId"] = null;
+            Response.Redirect("Default.aspx");
+        }
     }
 }

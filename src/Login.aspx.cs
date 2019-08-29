@@ -41,7 +41,7 @@ namespace SignUpSystem
                         //successful login
                         //3小時 Session
                         Session.Timeout = 180;
-                        Session["Lonin"] = "Y";
+                        Session["Login"] = "Y";
                         Session["LoginId"] = data["Id"].ToString();
                         Response.Redirect("Intro.aspx");
                     }
