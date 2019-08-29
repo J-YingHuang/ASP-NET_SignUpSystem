@@ -195,7 +195,7 @@ namespace SignUpSystem
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Id = {Session["LoginId"]}", conn);
+            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Id = {Session["LoginId"]};", conn);
             SqlDataReader reader = command.ExecuteReader();
             int schoolid = 0;
             while (reader.Read())
@@ -240,6 +240,14 @@ namespace SignUpSystem
             //去查看隊伍資訊的頁面
             //HtmlAnchor control = (HtmlAnchor)sender;
             //String sendInfo = control.ID;
+        }
+
+        protected void Unnamed_ServerClick(object sender, EventArgs e)
+        {
+            //登出
+            Session["Login"] = "N";
+            Session["LoginId"] = "Null";
+            Response.Redirect("Default.aspx");
         }
     }
     enum TeamType

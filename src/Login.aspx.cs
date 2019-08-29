@@ -39,7 +39,9 @@ namespace SignUpSystem
                     if (data["Password"].ToString() == password.Value)
                     {
                         //successful login
-
+                        Session["Lonin"] = "Y";
+                        Session["LoginId"] = data["Id"].ToString();
+                        Response.Redirect("Intro.aspx");
                     }
                     else
                         loginSession.InnerText = "Password is invaild!";
