@@ -40,10 +40,10 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm" style="font-size: 12px;">
-
-                            <asp:Button ID="btn_ForgetPassword" class="btn btn-outline-light btn-sm" runat="server" Text="忘記密碼" OnClick="btn_ForgetPassword_Click" />
-                            
+                        <div class="col-sm" style="font-size: 12px;">                                                   
+                            <a href="#" Id="btn_ForgetPassword" style="color: dimgray;" runat="server" onserverclick="btn_ForgetPassword_Click">
+                                忘記密碼
+                            </a>
                         </div>
                     </div>
                 </form>
@@ -64,11 +64,11 @@
 
         </div>
 
-        
-                </div>
-            
-        
-    
+
+    </div>
+
+
+
 </asp:Content>
 
 

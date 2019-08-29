@@ -15,15 +15,11 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //補Session
-            //if (Session["Login"] == null)
-            //    Session["Login"] = "Y";
-            //if (Session["LoginId"] == null)
-            //    Session["LoginId"] = "1";
-
             //讀抗震大作戰的隊伍資訊
             if (!IsPostBack)
             {
+                if (Session["Login"] == null || Session["Login"].ToString() != "Y")
+                    Response.Redirect("Login.aspx");
                 LoadAccountInfo();
             }
             if(a_Earthquake.Attributes["class"].Contains("active"))
@@ -195,7 +191,7 @@ namespace SignUpSystem
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Id = {Session["LoginId"]}", conn);
+            SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Id = {Session["LoginId"]};", conn);
             SqlDataReader reader = command.ExecuteReader();
             int schoolid = 0;
             while (reader.Read())
@@ -240,6 +236,14 @@ namespace SignUpSystem
             //去查看隊伍資訊的頁面
             //HtmlAnchor control = (HtmlAnchor)sender;
             //String sendInfo = control.ID;
+        }
+
+        protected void Unnamed_ServerClick(object sender, EventArgs e)
+        {
+            //登出
+            Session["Login"] = "N";
+            Session["LoginId"] = "Null";
+            Response.Redirect("Default.aspx");
         }
     }
     enum TeamType
