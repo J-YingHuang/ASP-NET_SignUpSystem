@@ -115,7 +115,7 @@
     <Content Include="ForgetPassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="images\校徽無框.jpg" />
-    <Content Include="IntroPage.aspx" />
+    <Content Include="Intro.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -181,6 +181,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BackgroundDataManagement.aspx.cs">
+      <DependentUpon>BackgroundDataManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackgroundDataManagement.aspx.designer.cs">
+      <DependentUpon>BackgroundDataManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -205,12 +212,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IntroPage.aspx.cs">
-      <DependentUpon>IntroPage.aspx</DependentUpon>
+    <Compile Include="Intro.aspx.cs">
+      <DependentUpon>Intro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="IntroPage.aspx.designer.cs">
-      <DependentUpon>IntroPage.aspx</DependentUpon>
+    <Compile Include="Intro.aspx.designer.cs">
+      <DependentUpon>Intro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
