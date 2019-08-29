@@ -15,15 +15,11 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //補Session
-            //if (Session["Login"] == null)
-            //    Session["Login"] = "Y";
-            //if (Session["LoginId"] == null)
-            //    Session["LoginId"] = "1";
-
             //讀抗震大作戰的隊伍資訊
             if (!IsPostBack)
             {
+                if (Session["Login"] == null || Session["Login"].ToString() != "Y")
+                    Response.Redirect("Login.aspx");
                 LoadAccountInfo();
             }
             if(a_Earthquake.Attributes["class"].Contains("active"))
