@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EarthquakeRegistrationPage.aspx.cs" Inherits="SignUpSystem.EarthquakeRegistrationPage" %>
+ï»¿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EarthquakeRegistrationPage.aspx.cs" Inherits="SignUpSystem.EarthquakeRegistrationPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <div class="container"  style="width:80%; margin-left:10%; margin-right:10%;">
 
@@ -6,7 +6,7 @@
     <div class="col">
         <br />
         <div class="row justify-content-center">     
-                °ª¬ì¤j§J¾_³ø¦W¸ê°T 
+                é«˜ç§‘å¤§å…‹éœ‡å ±åè³‡è¨Š 
         </div>     
     </div>
   </div>
@@ -20,23 +20,28 @@
      
   <div class="form-group row" style="font-size:20px">
      <div class="col">
-        ¤@,«ü¾É¦Ñ®v¸ê°T
+        ä¸€,æŒ‡å°è€å¸«è³‡è¨Š
      </div>
   </div>
 
 
   <div class="form-group row" style="font-size:18px">
      <div class="col">
-        1.«ü¾É¦Ñ®v©m¦W:
-        <select class="form-control form-control-sm" style="font-size: 12px; ">
-            <option>©m¦W</option>
-        </select>
+       1.æŒ‡å°è€å¸«å§“åï¼š
+         <input list="å§“å" placeholder="å§“å" class="form-control form-control-sm" style="font-size: 12px; " />
+         <datalist id="å§“å" >
+           <option value="" />
+            <option value="" />
+            <option value="" />
+           
+        </datalist>
+        
      </div>
      <div class="col">
-        2.«ü¾É¦Ñ®vEmail:
-        <select class="form-control form-control-sm" style="font-size: 12px; ">
-            <option>Email</option>
-        </select>
+        2.æŒ‡å°è€å¸«Emailï¼š
+        <input placeholder="email" class="form-control form-control-sm" style="font-size: 12px; " />
+           
+       
      </div>
    </div>
 
@@ -44,85 +49,112 @@
 
   <div class="form-group row " style="font-size: 18px; ">
      <div class="col  ">
-        3.«ü¾É¦Ñ®v¹q¸Ü:
-        <select class="form-control form-control-sm" style="font-size: 12px; " >
-            <option>¹q¸Ü</option>
-        </select>
+        3.æŒ‡å°è€å¸«é›»è©±ï¼š
+        <input placeholder="é›»è©±" class="form-control form-control-sm" style="font-size: 12px; " />
      </div>
+      </div>
+
+    <div class="form-group row" style="font-size:20px">
+     <div class="col">
+        äºŒ,éšŠä¼è³‡è¨Š
+        </div>
+    </div>
+      <div class="form-group row" style="font-size:18px">
+     <div class="col">
+        1.éšŠä¼åç¨±ï¼š
+          <input class="form-control form-control-sm" type="text" placeholder="ä¸å¾—è¶…é10å€‹å­—"style="font-size:8px;"maxlength="10">
+     </div>
+          
+              
+      <div class="col">
+   2.éšŠå“¡è³‡è¨Šï¼š
+          <div>
+<table>
+ã€€<tr>
+ã€€<td >éšŠå“¡åå­—</td>
+ã€€<td>éšŠé•·</td>
+ã€€</tr>
+ã€€<tr>
+ã€€<td >ç¬¬1å€‹éšŠå“¡ï¼š<input type="text" style="font-size:8px;"  name="T1"  /></td>
+ã€€<td><input type="radio" name="radiobutton" /></td>
+ã€€</tr>
+    <tr>
+    <td>ç¬¬2å€‹éšŠå“¡ï¼š<input type="text" style="font-size:8px" name="T2" /></td>
+ã€€<td><input type="radio" name="radiobutton" /></td>
+    </tr>
+    <tr>
+    <td>ç¬¬3å€‹éšŠå“¡ï¼š<input type="text" style="font-size:8px" name="T3" /></td>
+ã€€<td><input type="radio" name="radiobutton" /></td>
+    </tr>
      
-   </div>
-  
+</table>
 
-
-
-  <div class="form-group row" style="font-size:20px">
-     <div class="col">
-        ¤G,¶¤¥î¸ê°T
-     </div>
-  </div>
-
-
-  <div class="form-group row" style="font-size:18px">
-     <div class="col">
-        1.¶¤¥î¦WºÙ:
-          <input class="form-control form-control-sm" type="text" placeholder="¤£±o¶W¹L10­Ó¦r"style="font-size:8px;"maxlength="10">
-     </div>
- 
-  </div>
-
-<form> 
-        2.¶¤­û¸ê°T:
-<div>¶¤ªø:<input type="text" name="T1"></div> 
+   
+              
 <span id="fieldSpace"></span> 
 <p></p>
 <button type="button" class="btn btn-outline-dark" onclick="addField()">+</button>
 <button type="button" class="btn btn-outline-dark" onclick="delField()">-</button>
+              </div>
 
-    <div class="form-group row" style="font-size:18px">
-     <div class="col">
-        3.¦Y¯À¤H¼Æ:(§t¦Ñ®v¤Î¶¤ªø)
+          </div>
+          </div>
+<div class="form-group row " style="font-size: 18px; ">
+     <div class="col  ">
+        3.åƒç´ äººæ•¸ï¼š(å«è€å¸«åŠéšŠé•·)
            <select class="form-control form-control-sm" style="font-size: 12px; ">
-               <option>µL</option>
-               <option>1¤H</option>
-               <option>2¤H</option>
-               <option>3¤H</option>
-               <option>4¤H</option>
-               <option>5¤H</option>
-               <option>6¤H</option>
-               <option>7¤H</option>
+               <option>ç„¡</option>
+               <option>1äºº</option>
+               <option>2äºº</option>
+               <option>3äºº</option>
+               <option>4äºº</option>
+               <option>5äºº</option>
+               <option>6äºº</option>
+               <option>7äºº</option>
            </select>
      </div>
      
    </div>
+     
+  
+  
 
-<p>
-<button type="submit" class="btn btn-outline-dark" >´£¥æ</button>
-<button type="reset" class="btn btn-outline-dark" >­«·s³]©w</button>
+<p align="right">
+<button type="submit" class="btn btn-outline-dark"  >æäº¤</button>
+<button type="reset" class="btn btn-outline-dark"  >é‡æ–°è¨­å®š</button>
 </p>
-</form> 
+
 
 
   <script> 
-    var countMin = 1;
+    var countMin = 3;
     var countMax = 6;
     var count = countMin
-    function addField() {
-        if (count == countMax)
-            alert("³Ì¦h" + countMax + "­ÓÄæ¦ì");
-        else
-            document.getElementById("fieldSpace").innerHTML = document.getElementById("fieldSpace").innerHTML
-                + "<div>²Ä" + (++count) + '­Ó¶¤­û¡G<input class="form-control form-control-sm" type="text" name="T' + count + '"></div>';
-    }
-    function delField() {
-        if (count > countMin) {
-            document.getElementById("fieldSpace").removeChild(document.getElementById("fieldSpace").lastChild);
-            count--;
+      function addField() {
+          if (count == countMax)
+              alert("æœ€å¤š" + countMax + "å€‹æ¬„ä½");
+          else
+              document.getElementById("fieldSpace").innerHTML = document.getElementById("fieldSpace").innerHTML
+                  + "<table><tr><td>ç¬¬" + (++count) + 'å€‹éšŠå“¡ï¼š<input type="text" style="font-size:px;width:148px" name="T' + count + '"></td><td><input type="radio" name="radiobutton"></td></tr></table>';
+      }
+      function delField() {
+          if (count > countMin) {
+              document.getElementById("fieldSpace").removeChild(document.getElementById("fieldSpace").lastChild);
+              count--;
+        
+       
         }
-    }
+    
+      }
+      
+      
+
+         
+            
+
+        
+    
 </script>
-
-
-
 </div>
 </asp:Content>
 
