@@ -13,6 +13,15 @@ namespace SignUpSystem {
     public partial class BackgroundDataManagement {
         
         /// <summary>
+        /// DropDownList1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        
+        /// <summary>
         /// GridView1 控制項。
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace SignUpSystem {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// MultiView1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.MultiView MultiView1;
         
         /// <summary>
         /// SqlDataSource1 控制項。
