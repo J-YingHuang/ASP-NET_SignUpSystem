@@ -14,7 +14,7 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-right">
-                <p id="p_UpdateTime">報名隊伍清單更新時間：2019/09/02 12:00:00</p>
+                <p id="p_UpdateTime" runat="server">報名隊伍清單更新時間：2019/09/02 12:00:00</p>
             </div>
         </div>
         <div class="row">
@@ -24,10 +24,6 @@
                     <hr style="margin-top: 0px;" color="dimGray" />
                     <asp:DropDownList class="form-control" ID="select_Area" runat="server" AutoPostBack="true" OnSelectedIndexChanged="select_Area_SelectedIndexChanged">
                         <asp:ListItem>All</asp:ListItem>
-                        <asp:ListItem>北區</asp:ListItem>
-                        <asp:ListItem>中區</asp:ListItem>
-                        <asp:ListItem>南區</asp:ListItem>
-                        <asp:ListItem>東區</asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>

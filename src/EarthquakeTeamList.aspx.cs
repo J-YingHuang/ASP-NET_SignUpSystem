@@ -18,6 +18,9 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
+                LoadInitArea();
+                LoadInitSchoolName();
+                LoadInitTeacherName();
                 LoadTeamListBySelected();
                 string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
                 SqlConnection conn = new SqlConnection(strConn);
@@ -32,8 +35,64 @@ namespace SignUpSystem
                 command.Cancel();
                 conn.Close();
             }
-        }
 
+            //每次頁面重新彙整都會重新更新隊伍資訊
+            p_UpdateTime.InnerText = $"報名隊伍清單更新時間：{DateTime.Now.ToString("yyyy-mm-dd tt hh:mm:ss")}";
+        }
+        public void LoadInitArea()
+        {
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("SELECT Area FROM School GROUP BY Area", conn);
+            SqlDataReader dr = command.ExecuteReader();
+
+            select_Area.Items.Clear();
+            select_Area.Items.Add("All");
+            while (dr.Read())
+                select_Area.Items.Add(dr["Area"].ToString());
+
+            dr.Close();
+            command.Cancel();
+            conn.Close();
+        }
+        public void LoadInitSchoolName()
+        {
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("SELECT Name FROM School GROUP BY Name", conn);
+            SqlDataReader dr = command.ExecuteReader();
+
+            select_School.Items.Clear();
+            select_School.Items.Add("All");
+            while (dr.Read())
+                select_School.Items.Add(dr["Name"].ToString());
+
+            dr.Close();
+            command.Cancel();
+            conn.Close();
+        }
+        public void LoadInitTeacherName()
+        {
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("SELECT Name FROM Account GROUP BY Name", conn);
+            SqlDataReader dr = command.ExecuteReader();
+
+            select_Teacher.Items.Clear();
+            select_Teacher.Items.Add("All");
+            while (dr.Read())
+                select_Teacher.Items.Add(dr["Name"].ToString());
+
+            dr.Close();
+            command.Cancel();
+            conn.Close();
+        }
         public void LoadTeamListBySelected()
         {
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
@@ -162,7 +221,6 @@ namespace SignUpSystem
             LoadTeacherSelectData();
             LoadTeamListBySelected();
         }
-
         protected void select_School_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadTeacherSelectData();
