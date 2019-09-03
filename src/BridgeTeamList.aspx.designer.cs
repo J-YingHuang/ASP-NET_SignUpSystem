@@ -10,60 +10,60 @@
 namespace SignUpSystem {
     
     
-    public partial class _Default {
+    public partial class BridgeTeamList {
         
         /// <summary>
-        /// p_Earthquake_Count 控制項。
+        /// p_UpdateTime 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_Earthquake_Count;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_UpdateTime;
         
         /// <summary>
-        /// p_Earthquake_SchoolCount 控制項。
+        /// select_Area 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_Earthquake_SchoolCount;
+        protected global::System.Web.UI.WebControls.DropDownList select_Area;
         
         /// <summary>
-        /// p_Bridge_Count 控制項。
+        /// select_School 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_Bridge_Count;
+        protected global::System.Web.UI.WebControls.DropDownList select_School;
         
         /// <summary>
-        /// p_Birdge_SchoolCount 控制項。
+        /// select_Teacher 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_Birdge_SchoolCount;
+        protected global::System.Web.UI.WebControls.DropDownList select_Teacher;
         
         /// <summary>
-        /// p_Film_Count 控制項。
+        /// lab_Count 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_Film_Count;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lab_Count;
         
         /// <summary>
-        /// p_Film_SchoolCount 控制項。
+        /// div_TeamCard 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl p_Film_SchoolCount;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_TeamCard;
     }
 }

@@ -10,37 +10,39 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h2>抗震大作戰</h2>
+            <h2>團隊來對震</h2>
             <br />
             <h5 style="text-align: left;">目前報名隊數：</h5>
-            <p style="text-align: right;">尚未開始報名</p>
+            <p style="text-align: right;" id="p_Earthquake_Count" runat="server">尚未開始報名</p>
             <h5 style="text-align: left;">參與學校數目：</h5>
-            <p style="text-align: right;">尚未開始報名</p>
+            <p style="text-align: right;" id="p_Earthquake_SchoolCount" runat="server">尚未開始報名</p>
             <h5 style="text-align: left;">報名資訊：</h5>
             <p style="text-align: right;">
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Read more &raquo;</a>
+                <a class="btn btn-default" href="EarthquakeTeamList.aspx">Read more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
             <h2>橋梁變變變</h2>
             <br />
-            <h5 style="text-align: left;">目前報名隊數：</h5>
-            <p style="text-align: right;">尚未開始報名</p>
+            <h5 style="text-align: left;" >目前報名隊數：</h5>
+            <p style="text-align: right;" id="p_Bridge_Count" runat="server">尚未開始報名</p>
             <h5 style="text-align: left;">參與學校數目：</h5>
-            <p style="text-align: right;">尚未開始報名</p>
+            <p style="text-align: right;" id="p_Birdge_SchoolCount" runat="server">尚未開始報名</p>
             <h5 style="text-align: left;">報名資訊：</h5>
             <p style="text-align: right;">
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Read more &raquo;</a>
+                <a class="btn btn-default" href="BridgeTeamList.aspx">Read more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
-            <h2>聯繫我們</h2>
+            <h2>影領創視界</h2>
             <br />
-            <p style="text-align: left;">
-                若報名上有任何問題歡迎透過下方連結聯繫我們。
-            </p>
+            <h5 style="text-align: left;">目前報名隊數：</h5>
+            <p style="text-align: right;" id="p_Film_Count" runat="server">尚未開始報名</p>
+            <h5 style="text-align: left;">參與學校數目：</h5>
+            <p style="text-align: right;" id="p_Film_SchoolCount" runat="server">尚未開始報名</p>
+            <h5 style="text-align: left;">報名資訊：</h5>
             <p style="text-align: right;">
-                <a class="btn btn-default" href="Contact">Contact us &raquo;</a>
+                <a class="btn btn-default" href="FilmTeamList.aspx">Read more &raquo;</a>
             </p>
         </div>
     </div>

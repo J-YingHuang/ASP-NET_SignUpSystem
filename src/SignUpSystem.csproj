@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BackgroundDataManagement.aspx" />
+    <Content Include="BridgeTeamList.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -111,7 +112,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EarthquakeTeamList.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FilmTeamList.aspx" />
     <Content Include="ForgetPassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="images\校徽無框.jpg" />
@@ -190,6 +193,13 @@
     <Compile Include="BackgroundDataManagement.aspx.designer.cs">
       <DependentUpon>BackgroundDataManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BridgeTeamList.aspx.cs">
+      <DependentUpon>BridgeTeamList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BridgeTeamList.aspx.designer.cs">
+      <DependentUpon>BridgeTeamList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -203,6 +213,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EarthquakeTeamList.aspx.cs">
+      <DependentUpon>EarthquakeTeamList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EarthquakeTeamList.aspx.designer.cs">
+      <DependentUpon>EarthquakeTeamList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FilmTeamList.aspx.cs">
+      <DependentUpon>FilmTeamList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilmTeamList.aspx.designer.cs">
+      <DependentUpon>FilmTeamList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgetPassword.aspx.cs">
       <DependentUpon>ForgetPassword.aspx</DependentUpon>
