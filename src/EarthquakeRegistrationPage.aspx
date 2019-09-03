@@ -17,43 +17,6 @@
   </div>
 
 
-     
-  <div class="form-group row" style="font-size:20px">
-     <div class="col">
-        一,指導老師資訊
-     </div>
-  </div>
-
-
-  <div class="form-group row" style="font-size:18px">
-     <div class="col">
-       1.指導老師姓名：
-         <input list="姓名" placeholder="姓名" class="form-control form-control-sm" style="font-size: 12px; " />
-         <datalist id="姓名" >
-           <option value="" />
-            <option value="" />
-            <option value="" />
-           
-        </datalist>
-        
-     </div>
-     <div class="col">
-        2.指導老師Email：
-        <input placeholder="email" class="form-control form-control-sm" style="font-size: 12px; " />
-           
-       
-     </div>
-   </div>
-
-
-
-  <div class="form-group row " style="font-size: 18px; ">
-     <div class="col  ">
-        3.指導老師電話：
-        <input placeholder="電話" class="form-control form-control-sm" style="font-size: 12px; " />
-     </div>
-      </div>
-
     <div class="form-group row" style="font-size:20px">
      <div class="col">
         二,隊伍資訊
