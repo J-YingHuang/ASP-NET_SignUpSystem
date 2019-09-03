@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BackgroundDataManagement.aspx.cs" Inherits="SignUpSystem.BackgroundDataManagement" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BackgroundDataManagement.aspx.cs" Inherits="SignUpSystem.BackgroundDataManagement" EnableEventValidation = "false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
@@ -29,7 +29,9 @@
                             <asp:CommandField ShowEditButton="True" />
                             <asp:CommandField ShowDeleteButton="True" />
                         </Columns>
+                        
                     </asp:GridView>
+                    <asp:Button type="button" ID="btn_Export" runat="server" class="float-right btn btn-outline-info"  onclick="btn_Export_Click" Text="匯出Excel" />
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:CTCSignUpConnectionString %>" SelectCommand="SELECT [Count], [Name], [Vegetarian], [LeaderName], [PlayerName1], [PlayerName2], [PlayerName3], [PlayerName4], [PlayerName5], [AccountID] FROM [EarthquakeTeam]"></asp:SqlDataSource>
 
                 </asp:View>
@@ -52,8 +54,11 @@
                             <asp:BoundField DataField="PlayerID2" HeaderText="PlayerID2" SortExpression="PlayerID2" />
                             <asp:CommandField ShowEditButton="True" />
                             <asp:CommandField ShowDeleteButton="True" />
+                            <%--<asp:LinkButton ID="lbInsert" runat="server" Width="70px"  onclick="lbInsert_Click">新增</asp:LinkButton>--%>
                         </Columns>
+                       
                     </asp:GridView>
+                     <asp:Button type="button" ID="Button1" runat="server" class="float-right btn btn-outline-info"  onclick="btn1_Export_Click" Text="匯出Excel" /> 
                     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:CTCSignUpConnectionString %>" SelectCommand="SELECT [Name], [Count], [Vegetarian], [LeaderName], [PlayerName1], [PlayerID1], [PlayerName2], [AccountID], [LeaderID], [PlayerID4], [PlayerID3], [PlayerName4], [PlayerName3], [PlayerID2] FROM [BridgeTeam]"></asp:SqlDataSource>
 
                 </asp:View>
@@ -69,8 +74,9 @@
                             <asp:CommandField ShowEditButton="True" />
                             <asp:CommandField ShowDeleteButton="True" />
                         </Columns>
-
+                       
                     </asp:GridView>
+                     <asp:Button type="button" ID="Button2" runat="server" class="float-right btn btn-outline-info"  onclick="btn2_Export_Click" Text="匯出Excel" />   
                     <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:CTCSignUpConnectionString %>" SelectCommand="SELECT [Name], [DesignConcept], [Outline], [FileLink], [AccountID] FROM [FilmInfo]"></asp:SqlDataSource>
                 </asp:View>
             </asp:MultiView>
@@ -79,7 +85,7 @@
 
 
 
-    <asp:Button type="button" ID="btn_Export" runat="server" class="float-right btn btn-outline-info" Text="匯出Excel" />
+    
 
 
 

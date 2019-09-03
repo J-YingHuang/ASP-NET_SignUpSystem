@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -70,48 +64,104 @@ namespace SignUpSystem
         //    {
 
         //    }
-
-    }
-
+        //input data to gridview
 
 
+        protected void btn_Export_Click(object sender, EventArgs e)
+        {
 
+            string filename = "SampleExcelFile";
+            string strfileext = ".xls";
+            StringWriter tw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(tw);
+            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+            HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + strfileext);
+            HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
 
+            //先把分頁關掉
+            GridView2.AllowPaging = false;
+            GridView2.DataBind();
 
+            //Get the HTML for the control.
+            GridView2.RenderControl(hw);
+            HttpContext.Current.Response.Write(tw.ToString());
+            HttpContext.Current.Response.End();
 
+            GridView2.AllowPaging = true;
+            GridView2.DataBind();
+        }
+        //必須覆寫 Page.VerifyRenderingInServerForm　
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+        }
+        protected void btn1_Export_Click(object sender, EventArgs e)
+        {
 
+            string filename = "SampleExcelFile";
+            string strfileext = ".xls";
+            StringWriter tw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(tw);
+            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+            HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + strfileext);
+            HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
 
+            //先把分頁關掉
+            GridView3.AllowPaging = false;
+            GridView3.DataBind();
 
+            //Get the HTML for the control.
+            GridView3.RenderControl(hw);
+            HttpContext.Current.Response.Write(tw.ToString());
+            HttpContext.Current.Response.End();
 
+            GridView3.AllowPaging = true;
+            GridView3.DataBind();
+        }
+        protected void btn2_Export_Click(object sender, EventArgs e)
+        {
 
+            string filename = "SampleExcelFile";
+            string strfileext = ".xls";
+            StringWriter tw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(tw);
+            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+            HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + strfileext);
+            HttpContext.Current.Response.Write("<meta http-equiv=Content-Type content=text/html;charset=utf-8>");
 
+            //先把分頁關掉
+            GridView4.AllowPaging = false;
+            GridView4.DataBind();
 
-            //input data to gridview
+            //Get the HTML for the control.
+            GridView4.RenderControl(hw);
+            HttpContext.Current.Response.Write(tw.ToString());
+            HttpContext.Current.Response.End();
 
-
-            //    protected void btn_Export_Click(object sender, EventArgs e)
-            //    {
-            //        Response.Clear();
-            //        Response.Buffer = true;
-            //        Response.Charset = "BIG5";
-            //        string Excel_ShortTime = DateTime.Now.ToShortTimeString();
-            //        Response.AppendHeader("Content-Disposion", "attent;file name=test_file_"
-            //            + Excel_ShortTime + ".xls");
-
-            //        Response.ContentEncoding = Encoding.GetEncoding("BIG5");
-            //        Response.ContentType = "application/ms-excel";
-
-            //        //GridView1.EnableViewState = false;
-            //        //GridView1.AllowPaging = false;
-            //        //StringWriter objStringWriter = new StringWriter();
-            //        //HtmlTextWriter.objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
-
-
-
+            GridView4.AllowPaging = true;
+            GridView4.DataBind();
         }
 
+    }
+}
 
 
-       
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
