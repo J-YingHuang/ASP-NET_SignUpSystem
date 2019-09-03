@@ -18,15 +18,13 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-                LoadInitArea();
-                LoadInitSchoolName();
-                LoadInitTeacherName();
+                LoadInitSelect();
                 LoadTeamListBySelected();
                 string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
                 SqlConnection conn = new SqlConnection(strConn);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT COUNT(*) AS Count FROM EarthquakeTeam", conn);
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) AS Count FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31'", conn);
                 SqlDataReader dr = command.ExecuteReader();
                 while(dr.Read())
                     lab_Count.InnerText = dr["Count"].ToString() + "隊";
@@ -39,58 +37,48 @@ namespace SignUpSystem
             //每次頁面重新彙整都會重新更新隊伍資訊
             p_UpdateTime.InnerText = $"報名隊伍清單更新時間：{DateTime.Now.ToString("yyyy-mm-dd tt hh:mm:ss")}";
         }
-        public void LoadInitArea()
+        public void LoadInitSelect()
         {
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT Area FROM School GROUP BY Area", conn);
+            //取得今年的已報名隊伍的帳號ID
+            SqlCommand command = new SqlCommand("SELECT AccountId FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31' GROUP BY AccountID", conn);
             SqlDataReader dr = command.ExecuteReader();
-
-            select_Area.Items.Clear();
-            select_Area.Items.Add("All");
+            List<string> Ids = new List<string>();
             while (dr.Read())
-                select_Area.Items.Add(dr["Area"].ToString());
-
+                Ids.Add(dr["AccountId"].ToString());
             dr.Close();
             command.Cancel();
-            conn.Close();
-        }
-        public void LoadInitSchoolName()
-        {
-            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
-            SqlConnection conn = new SqlConnection(strConn);
-            conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT Name FROM School GROUP BY Name", conn);
-            SqlDataReader dr = command.ExecuteReader();
+            //取得學校名稱跟區域
+            List<string> SchoolName = new List<string>();
+            List<string> Areas = new List<string>();
+            foreach(string id in Ids)
+            {
+                command = new SqlCommand($"SELECT Account.Name AS Name, School.Name AS SchoolName, School.Area AS Area  FROM Account LEFT JOIN School ON Account.SchoolID = School.Id WHERE Account.Id = '{id}';", conn);
+                dr = command.ExecuteReader();
+                while(dr.Read())
+                {
+                    //Add teacher Name
+                    select_Teacher.Items.Add(dr["Name"].ToString());
+                    //取得學校名稱跟區域, 不同的才儲存
+                    if (!SchoolName.Contains(dr["SchoolName"].ToString()))
+                    {
+                        SchoolName.Add(dr["SchoolName"].ToString());
+                        select_School.Items.Add(dr["SchoolName"].ToString());
+                    }
+                    if (!Areas.Contains(dr["Area"].ToString()))
+                    {
+                        Areas.Add(dr["Area"].ToString());
+                        select_Area.Items.Add(dr["Area"].ToString());
+                    }
+                }
+                dr.Close();
+                command.Cancel();
+            }
 
-            select_School.Items.Clear();
-            select_School.Items.Add("All");
-            while (dr.Read())
-                select_School.Items.Add(dr["Name"].ToString());
-
-            dr.Close();
-            command.Cancel();
-            conn.Close();
-        }
-        public void LoadInitTeacherName()
-        {
-            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
-            SqlConnection conn = new SqlConnection(strConn);
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT Name FROM Account GROUP BY Name", conn);
-            SqlDataReader dr = command.ExecuteReader();
-
-            select_Teacher.Items.Clear();
-            select_Teacher.Items.Add("All");
-            while (dr.Read())
-                select_Teacher.Items.Add(dr["Name"].ToString());
-
-            dr.Close();
-            command.Cancel();
             conn.Close();
         }
         public void LoadTeamListBySelected()
@@ -104,11 +92,6 @@ namespace SignUpSystem
 
             //確認符合的老師帳號
             string queryCommand = $"SELECT Account.Id AS AccountId, Account.Name AS TeacherName, School.Name AS SchoolName FROM Account LEFT JOIN School on Account.SchoolID = School.Id ";
-
-            //if (select_School.Items[select_School.SelectedIndex].Text != "All")
-            //    whereCommand += $" School.Name = {select_School.Items[select_School.SelectedIndex].Text}";
-            //if (select_Area.Items[select_Area.SelectedIndex].Text != "All")
-            //    whereCommand += $", School.Area = {select_Area.Items[select_Area.SelectedIndex].Text}";
             if (select_Teacher.Items[select_Teacher.SelectedIndex].Text != "All")
                 queryCommand += $"WHERE Account.Name = '{select_Teacher.Items[select_Teacher.SelectedIndex].Text}'";
 
@@ -133,7 +116,7 @@ namespace SignUpSystem
             //讀隊伍, 然後把隊伍加進去Card
             foreach (string teacherId in TeacherIdToName.Keys)
             {
-                command = new SqlCommand($"SELECT Name, Count, Vegetarian FROM EarthquakeTeam WHERE AccountID = {teacherId};", conn);
+                command = new SqlCommand($"SELECT Name, Count, Vegetarian FROM EarthquakeTeam WHERE AccountID = {teacherId} AND CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())
                 {
@@ -159,71 +142,135 @@ namespace SignUpSystem
 
             conn.Close();
         }
-        public void LoadSchoolSelectData()
+        public void LoadSchoolSelectData(string focusArea)
         {
-            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
-            SqlConnection conn = new SqlConnection(strConn);
-            conn.Open();
-
-            SqlCommand command;
-            SqlDataReader dr;
-
-            //確認區域來取得相應的校名
-            if (select_Area.Items[select_Area.SelectedIndex].Text == "All")
-                command = new SqlCommand($"SELECT Name FROM School", conn);
-            else
-                command = new SqlCommand($"SELECT Name FROM School WHERE Area = '{select_Area.Items[select_Area.SelectedIndex].Text}';", conn);
-            dr = command.ExecuteReader();
-
             select_School.Items.Clear();
             select_School.Items.Add("All");
-            while (dr.Read())
-            {
-                select_School.Items.Add(dr["Name"].ToString());
-            }
-            select_School.SelectedIndex = 0;
-
-            dr.Close();
-            command.Cancel();
-            conn.Close();
-        }
-        public void LoadTeacherSelectData()
-        {
-            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
-            SqlConnection conn = new SqlConnection(strConn);
-            conn.Open();
-
-            SqlCommand command;
-            SqlDataReader dr;
-
             select_Teacher.Items.Clear();
             select_Teacher.Items.Add("All");
 
-            //確認校名來取得老師
-            for(int i= 1; i < select_School.Items.Count; i++)
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            //取得今年的已報名隊伍的帳號ID
+            SqlCommand command = new SqlCommand("SELECT AccountId FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31' GROUP BY AccountID", conn);
+            SqlDataReader dr = command.ExecuteReader();
+            List<string> Ids = new List<string>();
+            while (dr.Read())
+                Ids.Add(dr["AccountId"].ToString());
+            dr.Close();
+            command.Cancel();
+
+            //取得學校名稱跟區域
+            if (focusArea == "All")
             {
-                command = new SqlCommand("SELECT Account.Name AS Name FROM Account LEFT JOIN School on Account.SchoolID = School.Id WHERE School.Name ='"
-                    + select_School.Items[select_School.SelectedIndex].Text + "';", conn);
-                dr = command.ExecuteReader();
+                List<string> SchoolName = new List<string>();
+                foreach (string id in Ids)
+                {
+                    command = new SqlCommand($"SELECT Account.Name AS Name, School.Name AS SchoolName, School.Area AS Area  " +
+                        $"FROM Account LEFT JOIN School ON Account.SchoolID = School.Id WHERE Account.Id = '{id}';", conn);
+                    dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        //Add teacher Name
+                        select_Teacher.Items.Add(dr["Name"].ToString());
+                        //取得學校名稱跟區域, 不同的才儲存
+                        if (!SchoolName.Contains(dr["SchoolName"].ToString()))
+                        {
+                            SchoolName.Add(dr["SchoolName"].ToString());
+                            select_School.Items.Add(dr["SchoolName"].ToString());
+                        }
+                    }
+                    dr.Close();
+                    command.Cancel();
+                }
+            }
+            else
+            {
+                List<string> SchoolName = new List<string>();
+                foreach (string id in Ids)
+                {
+                    command = new SqlCommand($"SELECT Account.Name AS Name, School.Name AS SchoolName, School.Area AS Area  " +
+                        $"FROM Account LEFT JOIN School ON Account.SchoolID = School.Id WHERE Account.Id = '{id}' AND School.Area = '{focusArea}';", conn);
+                    dr = command.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            //Add teacher Name
+                            select_Teacher.Items.Add(dr["Name"].ToString());
+                            //取得學校名稱跟區域, 不同的才儲存
+                            if (!SchoolName.Contains(dr["SchoolName"].ToString()))
+                            {
+                                SchoolName.Add(dr["SchoolName"].ToString());
+                                select_School.Items.Add(dr["SchoolName"].ToString());
+                            }
+                        }
+                    }
 
-                while(dr.Read())
-                    select_Teacher.Items.Add(dr["Name"].ToString());
+                    dr.Close();
+                    command.Cancel();
+                }
+            }
 
-                dr.Close();
-                command.Cancel();
+            conn.Close();
+        }
+        public void LoadTeacherSelectData(string focusArea,string facusSchool)
+        {
+            select_Teacher.Items.Clear();
+            select_Teacher.Items.Add("All");
+
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            //取得今年的已報名隊伍的帳號ID
+            SqlCommand command = new SqlCommand("SELECT AccountId FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31' GROUP BY AccountID", conn);
+            SqlDataReader dr = command.ExecuteReader();
+            List<string> Ids = new List<string>();
+            while (dr.Read())
+                Ids.Add(dr["AccountId"].ToString());
+            dr.Close();
+            command.Cancel();
+
+            //取得學校名稱跟區域
+            if (facusSchool == "All")
+            {
+                LoadSchoolSelectData(focusArea);
+            }
+            else
+            {
+                List<string> SchoolName = new List<string>();
+                foreach (string id in Ids)
+                {
+                    command = new SqlCommand($"SELECT Account.Name AS Name, School.Name AS SchoolName, School.Area AS Area  " +
+                        $"FROM Account LEFT JOIN School ON Account.SchoolID = School.Id WHERE Account.Id = '{id}' AND School.Name = '{facusSchool}';", conn);
+                    dr = command.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            //Add teacher Name
+                            select_Teacher.Items.Add(dr["Name"].ToString());
+                        }
+                    }
+
+                    dr.Close();
+                    command.Cancel();
+                }
             }
 
             conn.Close();
         }
         protected void select_Area_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadSchoolSelectData();
-            LoadTeacherSelectData();
+            LoadSchoolSelectData(select_Area.Items[select_Area.SelectedIndex].Text);
             LoadTeamListBySelected();
         }
         protected void select_School_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadTeacherSelectData();
+            LoadTeacherSelectData(select_Area.Items[select_Area.SelectedIndex].Text, select_School.Items[select_School.SelectedIndex].Text);
             LoadTeamListBySelected();
         }
 
