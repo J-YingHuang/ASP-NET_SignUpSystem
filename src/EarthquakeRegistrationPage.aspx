@@ -16,10 +16,9 @@
     </div>
   </div>
 
-
     <div class="form-group row" style="font-size:20px">
      <div class="col">
-        二,隊伍資訊
+        一,隊伍資訊
         </div>
     </div>
       <div class="form-group row" style="font-size:18px">
@@ -27,10 +26,26 @@
         1.隊伍名稱：
           <input class="form-control form-control-sm" type="text" placeholder="不得超過10個字"style="font-size:8px;"maxlength="10">
      </div>
-          
+          <div class="col  ">
+        2.吃素人數：(含老師及隊長)
+           <select class="form-control form-control-sm" style="font-size: 12px; ">
+               <option>無</option>
+               <option>1人</option>
+               <option>2人</option>
+               <option>3人</option>
+               <option>4人</option>
+               <option>5人</option>
+               <option>6人</option>
+               <option>7人</option>
+           </select>
+     </div>
+     
               
-      <div class="col">
-   2.隊員資訊：
+      
+          </div>
+<div class="form-group row " style="font-size: 18px; ">
+    <div class="col">
+   3.隊員資訊：
           <div>
 <table>
 　<tr>
@@ -49,33 +64,20 @@
     <td>第3個隊員：<input type="text" style="font-size:8px" name="T3" /></td>
 　<td><input type="radio" name="radiobutton" /></td>
     </tr>
+    
+   
      
 </table>
-
+<span id="fieldSpace"></span>
    
               
-<span id="fieldSpace"></span> 
+ 
 <p></p>
 <button type="button" class="btn btn-outline-dark" onclick="addField()">+</button>
 <button type="button" class="btn btn-outline-dark" onclick="delField()">-</button>
               </div>
 
           </div>
-          </div>
-<div class="form-group row " style="font-size: 18px; ">
-     <div class="col  ">
-        3.吃素人數：(含老師及隊長)
-           <select class="form-control form-control-sm" style="font-size: 12px; ">
-               <option>無</option>
-               <option>1人</option>
-               <option>2人</option>
-               <option>3人</option>
-               <option>4人</option>
-               <option>5人</option>
-               <option>6人</option>
-               <option>7人</option>
-           </select>
-     </div>
      
    </div>
      
@@ -98,7 +100,7 @@
               alert("最多" + countMax + "個欄位");
           else
               document.getElementById("fieldSpace").innerHTML = document.getElementById("fieldSpace").innerHTML
-                  + "<table><tr><td>第" + (++count) + '個隊員：<input type="text" style="font-size:px;width:148px" name="T' + count + '"></td><td><input type="radio" name="radiobutton"></td></tr></table>';
+                  + "<table><tr><td>第" + (++count) + '個隊員：<input type="text" style="font-size:8px;" name="T' + count + '"></td><td><input type="radio" name="radiobutton"></td></tr></table>';
       }
       function delField() {
           if (count > countMin) {
