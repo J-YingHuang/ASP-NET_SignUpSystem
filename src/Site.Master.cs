@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 
 namespace SignUpSystem
 {
@@ -25,5 +28,7 @@ namespace SignUpSystem
             Session["LoginId"] = null;
             Response.Redirect("Default.aspx");
         }
+
+
     }
 }
