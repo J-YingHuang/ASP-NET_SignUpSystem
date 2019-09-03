@@ -97,7 +97,7 @@
                         隊員1：
                     </div>
                     <div class="col-2" style="margin-left: 0px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" name="N1" />
+                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" name="N1"  />
                     </div>
                     <div class="col-2" style="margin-left: 25px;">
                         <input class="form-control" type="text" style="font-size: 8px; width: 150px;" name="T1" placeholder=" A123456789" maxlength="10" />
@@ -112,11 +112,11 @@
 
                 </div>
 
-                <span id="fieldSpace"></span>
+                <span id="fieldSpace" runat="server"></span>
                 <br />
-                <button id="btn_Add" type="button" class="btn btn-light" runat="server" onserverclick="btn_Add_ServerClick"　onclick="addField()">
+                <button id="btn_Add" type="button" class="btn btn-light" runat="server" onserverclick="btn_Add_ServerClick">
                     <img src="https://img.icons8.com/ios/50/000000/add.png" style="width: 30px;"></button>
-                <button id="btn_Delete" type="button" class="btn btn-light" runat="server" onserverclick="btn_Delete_ServerClick"  onclick="delField()">
+                <button id="btn_Delete" type="button" class="btn btn-light" runat="server" onserverclick="btn_Delete_ServerClick">
                     <img src="https://img.icons8.com/ios/50/000000/minus.png" style="width: 30px"></button>
             </div>
 
@@ -125,60 +125,8 @@
 
 
         <p align="right">
-            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark">提交</button>
-            <button type="reset" class="btn btn-outline-dark">重新設定</button>
+            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" Id="btn_Submit" runat="server" onserverclick="btn_Submit_ServerClick">送出</button>
         </p>
-
-
-
-        <script> 
-            var countMin = 1;
-            var countMax = 5;
-            var count = countMin
-            function addField() {
-                if (count == countMax)
-                    alert("最多" + countMax + "個欄位");
-                else
-                    //document.getElementById("fieldSpace").innerHTML = document.getElementById("fieldSpace").innerHTML
-                    //    + "<div class=\"form-group row \" style = \"font-size: 18px;\" >"
-                    //    + "<div class=\"col\"> 第" + (++count) + "個隊員：</div> "
-                    //    + "< div class=\"col\" ><input type=\"text\" style=\"font-size:px;width:148px\" name=\""
-                    //    + "N\"" + count + "\"></div>" 
-                    //    + "< div class=\"col\" ><input type=\"text\" style=\"font-size:px;width:148px\" name=\""
-                    //    + "T\"" + count + "\"></div>" 
-                    //    + "< div class=\"col\" ><input type=\"radio\" name=\"radiobutton\"><\div>";
-                    document.getElementById("fieldSpace").innerHTML +=
-                        "<div class=\"form-group row \" style=\"font-size:18px;\">"
-                        + "<div class=\"col\" style=\"margin-right:0px;\">\隊員" + (++count) + "："
-                        + "</div><div class=\"col\" style=\"margin-right:0px;\">"
-                        + "<input class=\"form - control\" type=\"text\"style=\"font-size:8px;\" name=\"N\"" + count + "/>"
-                        + "</div><div class=\"col\" style=\"margin-right:0px;\">"
-                        + "<input class=\"form - control\" type=\"text\"style=\"font-size:8px;\" name=\"T\"" + count + " placeholder=\"A123456789 \"maxlength=\"10\"/>"
-                        + "</div><div class=\"col\" style=\"margin-right:0px;\">"
-                        + "<input class=\"form - control\" type=\"text\"style=\"font-size:8px;\" name=\"H\"" + count + " placeholder=\"xxxx/xx/xx \"maxlength=\"10\"/>"
-                        + "</div><div class=\"col\" style=\"margin-right:0px;\">"
-                        + "<input class=\"form-check\" type=\"radio\" name=\"radiobutton\" />"
-                        + "</div></div>"
-
-            }
-            function delField() {
-                if (count > countMin) {
-                    document.getElementById("fieldSpace").removeChild(document.getElementById("fieldSpace").lastChild);
-                    count--;
-
-
-                }
-
-            }
-
-
-
-
-
-
-
-
-        </script>
     </div>
 
 
