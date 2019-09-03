@@ -109,10 +109,11 @@
                         <input class="form-check" type="radio" name="radiobutton" />
                     </div>
                     <div class="col-2" style="margin-right: 20px;"></div>
-
                 </div>
-
-                <span id="fieldSpace" runat="server"></span>
+                
+                <div>
+                    <asp:Panel ID="fieldSpace" runat="server"></asp:Panel>
+                </div>
                 <br />
                 <button id="btn_Add" type="button" class="btn btn-light" runat="server" onserverclick="btn_Add_ServerClick">
                     <img src="https://img.icons8.com/ios/50/000000/add.png" style="width: 30px;"></button>
