@@ -15,22 +15,30 @@
         <div class="form-group row" style="font-size: 16px">
             <div class="col">
                 <hr />
-                    <div class="card text-white bg-danger mb-3" style="max-width: 1000rem;">
-                    <div class="card-header"style="font-size: 20px"> 注意事項</div>
-                        <h5 class="card-title"></h5>
-                        <p class="card-text" align="left">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.吃素人數統計包含帶隊老師以及隊長。<br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.隊伍名稱不得超過10個中文字，同時報名完成後非特殊緣由不得更改，若必須更改請透過"聯繫我
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;們"提供之聯繫方式，詢問相關承辦人員。<br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.報名表填寫之身分證字號乃主辦單位辦理保險所用，並不會外流於其他人員或其他用途。
-                        </p>
-                    </div>
+                <div class="card text-white bg-light mb-3" style="max-width: 1300rem; background-color: transparent;">
+                    <font color="#FF3333	" />
+                    <div class="card-header" style="font-size: 20px">注意事項</div>
+                    <h5 class="card-title"></h5>
+                    <p class="card-text" align="left" style="margin-left:15px;">
+                        1. 吃素人數統計包含帶隊老師以及隊長。
+                     </p>
+                    <p class="card-text" align="left" style="margin-left:15px; margin-bottom:0px;">
+                        2. 隊伍名稱不得超過10個中文字，同時報名完成後非特殊緣由不得更改，若必須更改請透過"聯繫我們"提供之聯繫方
+                    </p>
+                    <p class="card-text" align="left" style="margin-left:30px;">
+                        式，詢問相關承辦人員。
+                    </p>
+                    <p class="card-text" align="left" style="margin-bottom: 20px; margin-left:15px;">
+                        3. 報名表填寫之身分證字號乃主辦單位辦理保險所用，並不會外流於其他人員或其他用途。
+                    </p>
                 </div>
-                                    
-                <hr />
+                </font>
             </div>
-        
-        <div class="form-group row"  style="font-size: 25px">
+
+            <hr />
+        </div>
+
+        <div class="form-group row" style="font-size: 25px">
             <div class="col">
                 隊伍資訊
             </div>
@@ -74,11 +82,11 @@
                     <div class="col" style="margin-right: 20px;">
                         身分證字號
                     </div>
-                    <div class="col"  style="margin-right: 20px;">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生日
+                    <div class="col" style="margin-right: 20px;">
+                        生日
                     </div>
                     <div class="col">
-                        &nbsp;&nbsp;&nbsp;&nbsp;隊長
+                        隊長
                     </div>
                 </div>
                 <div class="form-group row " style="font-size: 18px;">
@@ -92,7 +100,7 @@
                         <input type="text" style="font-size: 8px;" name="T1" placeholder=" A123456789" maxlength="10" />
                     </div>
                     <div class="col" style="margin-right: 0px;">
-                        <input type="text" style="font-size: 8px;" name="H1" placeholder=" xxxx/xx/xx"  maxlength="10" />
+                        <input type="text" style="font-size: 8px;" name="H1" placeholder=" xxxx/xx/xx" maxlength="10" />
                     </div>
                     <div class="col" style="margin-left: 0px;">
                         <input type="radio" name="radiobutton" />
@@ -101,8 +109,8 @@
 
                 <span id="fieldSpace"></span>
                 <br />
-                <button type="button" class="btn btn-outline-dark" onclick="addField()">+</button>
-                <button type="button" class="btn btn-outline-dark" onclick="delField()">-</button>
+                <button type="button" class="btn btn-light" onclick="addField()"> <img src="https://img.icons8.com/ios/50/000000/add.png" style="width:30px;" ></button>
+                <button type="button" class="btn btn-light" onclick="delField()"><img src="https://img.icons8.com/ios/50/000000/minus.png" style="width:30px"></button>
             </div>
 
 
