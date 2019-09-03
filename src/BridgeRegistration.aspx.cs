@@ -67,7 +67,7 @@ namespace SignUpSystem
             HtmlInputText btn = new HtmlInputText("radio");
             btn.Attributes.Add("class", "form-check");
             btn.Attributes.Add("runat", "server");
-            btn.ID = "input_Leader" + count;
+            btn.ID = "radioBtn_" + count;
             HtmlGenericControl col_Final = CreateDiv("col-2", "margin-right: 20px;");
 
             colName.Controls.Add(inputName);
@@ -107,9 +107,40 @@ namespace SignUpSystem
 
         protected void btn_Submit_ServerClick(object sender, EventArgs e)
         {
-            HtmlGenericControl control = fieldSpace.Controls[0] as HtmlGenericControl;
+            int teamCount = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList().Count;
+            List<teamPeople> teamMembers = new List<teamPeople>();
+            teamPeople leader = new teamPeople();
+            if(radioBtn_1.Checked)
+            {
+                //第一個隊員是隊長
+                leader.Name = input_Name1.Value;
+                leader.Id = input_Id1.Value;
+                leader.BirthDate = input_BirthDate1.Value;
 
-            HtmlInputText name1 = control.Controls[1].Controls[0] as HtmlInputText;
+                //其他都隊員, 不需要再判斷
+            }
+            else
+            {
+                teamPeople member = new teamPeople();
+                member.Name = input_Name1.Value;
+                member.Id = input_Id1.Value;
+                member.BirthDate = input_BirthDate1.Value;
+                teamMembers.Add(member);
+
+                //其他有可能有隊長, 每個都需要判斷 0-0
+            }
         }
+
+        //確認資料後允許報名
+        public bool CheckRegistrationData()
+        {
+
+        }
+    }
+    class teamPeople
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public string BirthDate { get; set; }
     }
 }

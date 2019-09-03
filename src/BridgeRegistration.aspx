@@ -97,16 +97,16 @@
                         隊員1：
                     </div>
                     <div class="col-2" style="margin-left: 0px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" name="N1"  />
+                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Name1" runat="server"  />
                     </div>
                     <div class="col-2" style="margin-left: 25px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" name="T1" placeholder=" A123456789" maxlength="10" />
+                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Id1" runat="server" placeholder=" A123456789" maxlength="10" />
                     </div>
                     <div class="col-2" style="margin-left: 25px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" name="H1" placeholder=" xxxx/xx/xx" maxlength="10" />
+                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_BirthDate1" runat="server" placeholder=" xxxx/xx/xx" maxlength="10" />
                     </div>
                     <div class="col-2" style="margin-left: 85px; margin-top: 7px;">
-                        <input class="form-check" type="radio" name="radiobutton" />
+                        <input class="form-check" type="radio" id="radioBtn_1" runat="server" />
                     </div>
                     <div class="col-2" style="margin-right: 20px;"></div>
                 </div>
