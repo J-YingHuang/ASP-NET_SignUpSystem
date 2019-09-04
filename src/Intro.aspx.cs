@@ -295,9 +295,14 @@ namespace SignUpSystem
         public void ViewEarthquakeInfo(SqlDataReader dr)
         {
             lab_TeamName.InnerText = dr["Name"].ToString();
-            lab_Veg.InnerText = dr["Vegetarian"].ToString() + "  人";
+            MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">素食人數：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
+                $"<div class=\"col-sm-2\"></div>" +
+                $"</div>";
 
-            MemberInfo.InnerHtml = $"<div class=\"form-group row \">" +
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">隊長姓名：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["LeaderName"].ToString()}</label>" +
@@ -317,7 +322,12 @@ namespace SignUpSystem
         public void ViewBridgeInfo(SqlDataReader dr)
         {
             lab_TeamName.InnerText = dr["Name"].ToString();
-            lab_Veg.InnerText = dr["Vegetarian"].ToString() + "  人";
+            MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">素食人數：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
+                $"<div class=\"col-sm-2\"></div>" +
+                $"</div>";
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
@@ -357,7 +367,40 @@ namespace SignUpSystem
         public void ViewFilmInfo(SqlDataReader dr)
         {
             lab_TeamName.InnerText = dr["Name"].ToString();
-            lab_Veg.InnerText = dr["Vegetarian"].ToString() + "  人";
+
+            MemberInfo.InnerHtml = $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">設計理念：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["DesignConcept"].ToString()}</label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>";
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">故事大綱：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["Outline"].ToString()}</label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>";
+
+            if(dr["FileLink"].ToString() != "")
+            {
+                MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                    $"<div class=\"col-2\"></div>" +
+                    $"<label class=\"col-sm-4 col-form-label\">作品連結：</label>" +
+                    $"<label class=\"col-sm-4 col-form-label\">" +
+                    $"<a href=\"{dr["FileLink"].ToString()}\">{dr["FileLink"].ToString()}</a>" +
+                    $"</label>" +
+                    $"<div class=\"col-2\"></div>" +
+                    $"</div>";
+            }
+            else
+            {
+                MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                    $"<div class=\"col-2\"></div>" +
+                    $"<label class=\"col-sm-4 col-form-label\">作品連結：</label>" +
+                    $"<label class=\"col-sm-4 col-form-label\">尚未繳交</label>" +
+                    $"<div class=\"col-2\"></div>" +
+                    $"</div>";
+            }
         }
         protected void Unnamed_ServerClick(object sender, EventArgs e)
         {

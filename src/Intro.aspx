@@ -165,13 +165,6 @@
                         <div class="col-sm-2"></div>
 
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2"></div>
-                        <label class="col-sm-4 col-form-label">素食人數：</label>
-                        <label class="col-sm-4 col-form-label" id="lab_Veg" runat="server"></label>
-                        <div class="col-sm-2"></div>
-
-                    </div>
                     <div id="MemberInfo" runat="server"></div>
                 </div>
                 <div class="modal-footer">

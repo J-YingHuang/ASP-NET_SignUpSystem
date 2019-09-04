@@ -92,25 +92,6 @@
                     <div class="col-2" style="margin-right: 20px;"></div>
 
                 </div>
-                <%--                <div class="form-group row " style="font-size: 18px;">
-                    <div class="col-2" style="margin-right: 0px;">
-                        隊員1：
-                    </div>
-                    <div class="col-2" style="margin-left: 0px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Name1" runat="server" />
-                    </div>
-                    <div class="col-2" style="margin-left: 25px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Id1" runat="server" placeholder=" A123456789" maxlength="10" />
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="col-2" style="margin-left: 25px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_BirthDate1" runat="server" placeholder=" yyyy-mm-dd" maxlength="10" />
-                    </div>
-                    <div class="col-2" style="margin-left: 85px; margin-top: 7px;">
-                        <input class="form-check" type="radio" id="radioBtn_1" runat="server" />
-                    </div>
-                    <div class="col-2" style="margin-right: 20px;"></div>
-                </div>--%>
 
                 <div>
                     <asp:Panel ID="fieldSpace" runat="server"></asp:Panel>

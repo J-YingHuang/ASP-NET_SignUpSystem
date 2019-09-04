@@ -18,7 +18,7 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-                if (Session["LogIn"] == null || Session["LogIn"] != "Y")
+                if (Session["LogIn"] == null || Session["LogIn"].ToString() != "Y")
                     Response.Redirect("Login.aspx");
                 AddTeamCount(1);
             }
