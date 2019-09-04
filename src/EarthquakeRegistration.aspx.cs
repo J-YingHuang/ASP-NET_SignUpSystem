@@ -16,8 +16,8 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-                //if (Session["LogIn"] == null || Session["LogIn"].ToString() != "Y")
-                //    Response.Redirect("Login.aspx");
+                if (Session["LogIn"] == null || Session["LogIn"].ToString() != "Y")
+                    Response.Redirect("Login.aspx");
                 AddTeamCount(1);
                 AddTeamCount(2);
                 AddTeamCount(3);
@@ -218,7 +218,40 @@ namespace SignUpSystem
 
             //確認有沒有隊長
             if (!hasLeader)
+            {
                 errMes += $"<p>{mainCount}. 請選擇一位隊長!</p>";
+                mainCount++;
+            }
+
+            //確認素食人數沒有大於隊伍人數
+            int vegCount = 0;
+            switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
+            {
+                case "無":
+                    vegCount = 0;
+                    break;
+                case "1人":
+                    vegCount = 1;
+                    break;
+
+                case "2人":
+                    vegCount = 2;
+                    break;
+
+                case "3人":
+                    vegCount = 3;
+                    break;
+
+                case "4人":
+                    vegCount = 4;
+                    break;
+
+                case "5人":
+                    vegCount = 5;
+                    break;
+            }
+            if(vegCount > count)
+                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";
 
             if (errMes == "")
                 return true;

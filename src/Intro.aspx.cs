@@ -79,7 +79,10 @@ namespace SignUpSystem
                     IDataRecord record = (IDataRecord)dataReader;
                     string teamName = record["Name"].ToString();
                     string teamId = record["Id"].ToString();
-                    addTeamCard(type, teamName, teamId, div_TeamInfo);
+                    if (type == TeamType.Film)
+                        AddFilmTeamCard(teamName, teamId, div_TeamInfo);
+                    else
+                        AddTeamCard(type, teamName, teamId, div_TeamInfo);
                 }
             }
             else
@@ -94,9 +97,10 @@ namespace SignUpSystem
             }
             conn.Close();
         }
-        private void addTeamCard(TeamType type, string teamName, string teamId, HtmlGenericControl parentControl)
+        private void AddTeamCard(TeamType type, string teamName, string teamId, HtmlGenericControl parentControl)
         {
             HtmlGenericControl cardDiv = NewDiv("card");
+            cardDiv.Attributes.Add("style", "margin-bottom: 10px;");
             HtmlGenericControl cardBodyDiv = NewDiv("card-body");
             cardBodyDiv.Attributes.Add("style", "text-align: left;");
             HtmlGenericControl rowDiv = NewDiv("row");
@@ -148,6 +152,78 @@ namespace SignUpSystem
 
             parentControl.Controls.Add(cardDiv);
         }
+        private void AddFilmTeamCard(string teamName, string teamId, HtmlGenericControl parentControl)
+        {
+            HtmlGenericControl cardDiv = NewDiv("card");
+            cardDiv.Attributes.Add("style", "margin-bottom: 10px;");
+            HtmlGenericControl cardBodyDiv = NewDiv("card-body");
+            cardBodyDiv.Attributes.Add("style", "text-align: left;");
+            HtmlGenericControl rowDiv = NewDiv("row");
+            HtmlGenericControl rolEditDiv = NewDiv("col-7");
+            HtmlGenericControl editName = new HtmlGenericControl("H6");
+            editName.Attributes.Add("style", "margin-top: 5px;");
+            editName.InnerText = teamName;
+            HtmlGenericControl ColFiveDiv = NewDiv("col-5");
+            HtmlAnchor editBtnA = new HtmlAnchor();
+            editBtnA.ID = "Film|Edit|" + teamId;
+            editBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+            editBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; width: 70px;");
+            editBtnA.Attributes.Add("runat", "server");
+            editBtnA.Attributes.Add("onClick", "return true;");
+            editBtnA.Attributes.Add("onserverclick", "TeamEdit");
+            editBtnA.ServerClick += new EventHandler(TeamEdit);
+            HtmlGenericControl editImg = new HtmlGenericControl("IMG");
+            editImg.Attributes.Add("width", "15px");
+            editImg.Attributes.Add("style", "margin-bottom: 4px;");
+            editImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/64/000000/edit.png");
+            HtmlGenericControl editSpan = new HtmlGenericControl("SPAN");
+            editSpan.InnerText = "Edit";
+            HtmlAnchor viewBtnA = new HtmlAnchor();
+            viewBtnA.ID = "Film|View|" + teamId;
+            viewBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+            viewBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; margin-right: 5px; width: 70px;");
+            viewBtnA.Attributes.Add("runat", "server");
+            viewBtnA.Attributes.Add("onClick", "return true;");
+            viewBtnA.Attributes.Add("onserverclick", "TeamView");
+            viewBtnA.ServerClick += new EventHandler(TeamView);
+            HtmlGenericControl viewImg = new HtmlGenericControl("IMG");
+            viewImg.Attributes.Add("width", "15px");
+            viewImg.Attributes.Add("style", "margin-bottom: 4px;");
+            viewImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/24/000000/visible.png");
+            HtmlGenericControl viewSpan = new HtmlGenericControl("SPAN");
+            viewSpan.InnerText = "View";
+            HtmlAnchor linkBtnA = new HtmlAnchor();
+            linkBtnA.ID = "Film|Link|" + teamId;
+            linkBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+            linkBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; margin-left: 5px; width: 90px;");
+            linkBtnA.Attributes.Add("runat", "server");
+            linkBtnA.Attributes.Add("onClick", "return true;");
+            linkBtnA.Attributes.Add("onserverclick", "TeamLink");
+            linkBtnA.ServerClick += new EventHandler(TeamView);
+            HtmlGenericControl linkImg = new HtmlGenericControl("IMG");
+            linkImg.Attributes.Add("width", "15px");
+            linkImg.Attributes.Add("style", "margin-bottom: 4px;");
+            linkImg.Attributes.Add("src", "https://img.icons8.com/windows/32/000000/link.png");
+            HtmlGenericControl linkSpan = new HtmlGenericControl("SPAN");
+            linkSpan.InnerText = "繳交作品";
+
+            cardDiv.Controls.Add(cardBodyDiv);
+            cardBodyDiv.Controls.Add(rowDiv);
+            rowDiv.Controls.Add(rolEditDiv);
+            rolEditDiv.Controls.Add(editName);
+            rowDiv.Controls.Add(ColFiveDiv);
+            ColFiveDiv.Controls.Add(linkBtnA);
+            linkBtnA.Controls.Add(linkImg);
+            linkBtnA.Controls.Add(linkSpan);
+            ColFiveDiv.Controls.Add(editBtnA);
+            editBtnA.Controls.Add(editImg);
+            editBtnA.Controls.Add(editSpan);
+            ColFiveDiv.Controls.Add(viewBtnA);
+            viewBtnA.Controls.Add(viewImg);
+            viewBtnA.Controls.Add(viewSpan);
+
+            parentControl.Controls.Add(cardDiv);
+        }
         public HtmlGenericControl NewDiv(string classString)
         {
             HtmlGenericControl divEle = new HtmlGenericControl("DIV");
@@ -165,7 +241,40 @@ namespace SignUpSystem
         {
             if (a_Earthquake.Attributes["class"].Contains("active"))
             {
-                //去填抗震盃報名資料
+                //確認是否可以新增隊伍
+                //抗震是一校六隊
+                string accountSchoolId = "";
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand($"SELECT SchoolID FROM Account WHERE Id = '{Session["LoginId"]}';", conn);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                    accountSchoolId = dr["SchoolID"].ToString();
+
+                dr.Close();
+                command.Cancel();
+
+                command = new SqlCommand($"SELECT Count(*) AS Count FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id" +
+                    $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    if(Convert.ToInt32(dr["Count"]) == 6)
+                    {
+                        //有隊伍就不能新增
+                        MsgBox_Data.InnerHtml = "<p>帳號所屬學校已報名六隊團隊來對震隊伍，不得再進行本賽程報名！</p>";
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#MsgBox').modal('show');", true);
+                        LoadTeamByAccount(TeamType.Bridge);
+                    }
+                    else
+                    {
+                        //去填抗震盃報名資料
+                        Response.Redirect("EarthquakeRegistration.aspx");
+                    }
+                }
+
             }
             else if (a_Bridge.Attributes["class"].Contains("active"))
             {
