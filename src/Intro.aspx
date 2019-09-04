@@ -131,11 +131,48 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="MsgBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="MsgBox" tabindex="-1" role="dialog" aria-labelledby="MsgBoxTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MsgBoxTitle">隊伍組數已滿</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body" id="MsgBox_Data" runat="server">
-                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="TeamViewer" tabindex="-1" role="dialog" aria-labelledby="BridgeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  modal-lg" role="document"  id="MsgBoxDia" runat="server">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="BridgeTitle">隊伍資訊</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-2"></div>
+                        <label class="col-sm-4 col-form-label">隊伍名稱：</label>
+                        <label class="col-sm-4 col-form-label" id="lab_TeamName" runat="server"></label>
+                        <div class="col-sm-2"></div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2"></div>
+                        <label class="col-sm-4 col-form-label">素食人數：</label>
+                        <label class="col-sm-4 col-form-label" id="lab_Veg" runat="server"></label>
+                        <div class="col-sm-2"></div>
+
+                    </div>
+                    <div id="MemberInfo" runat="server"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

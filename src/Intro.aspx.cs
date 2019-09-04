@@ -22,10 +22,13 @@ namespace SignUpSystem
                     LoadAccountInfo();
                 else
                     Response.Redirect("Login.aspx");
-
             }
             if (a_Earthquake.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Earthquake);
+            if (a_Bridge.Attributes["class"].Contains("active"))
+                LoadTeamByAccount(TeamType.Bridge);
+            if (a_Film.Attributes["class"].Contains("active"))
+                LoadTeamByAccount(TeamType.Film);
         }
         protected void a_Earthquake_Click(object sender, EventArgs e)
         {
@@ -76,22 +79,6 @@ namespace SignUpSystem
                     IDataRecord record = (IDataRecord)dataReader;
                     string teamName = record["Name"].ToString();
                     string teamId = record["Id"].ToString();
-                    //舊寫法
-                    //innerHtmlStr += "<div class=\"card\">"
-                    //    + "<div class=\"card-body\" style=\"text-align: left; \">"
-                    //    + "<div class=\"row\">"
-                    //    + "<div class=\"col-7\">"
-                    //    + "<h6 style=\"margin-top: 5px;\">" + teamName + "</h6>"
-                    //    + "</div><div class=\"col-5 \">"
-                    //    + "<a id=\"" + teamId + "\" class=\"btn btn-outline-secondary float-right\" style=\"height: 32px; font-size: 12px; width: 70px;\" runat=\"server\" onserverclick=\"teamEdit\">"
-                    //    + "<img width=\"15px\" style=\"margin-bottom: 4px;\" src=\"https://img.icons8.com/ios-glyphs/64/000000/edit.png \">"
-                    //    + "<span>Edit</span>"
-                    //    + "</a>"
-                    //    + "<a id=\"view_team1\" class=\"btn btn-outline-secondary float-right\" style=\"height: 32px; font-size: 12px; margin-right: 5px; width: 70px;\" runat=\"server\" onserverclick=\"teamView\">"
-                    //    + "<img width=\"15px\" style=\"margin-bottom: 4px;\" src=\"https://img.icons8.com/ios-glyphs/24/000000/visible.png \">"
-                    //    + "<span>View</span>"
-                    //    + "</a>"
-                    //    + "</div></div></div></div>";
                     addTeamCard(type, teamName, teamId, div_TeamInfo);
                 }
             }
@@ -265,10 +252,113 @@ namespace SignUpSystem
         protected void TeamView(object sender, EventArgs e)
         {
             //去查看隊伍資訊的頁面
-            //HtmlAnchor control = (HtmlAnchor)sender;
-            //String sendInfo = control.ID;
-        }
+            HtmlAnchor control = (HtmlAnchor)sender;
+            string[] sendInfo = (control.ID).Split('|');
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            conn.Open();
+            SqlCommand command;
+            SqlDataReader dr;
+            switch (sendInfo[0])
+            {
+                case "Earthquake":
+                    command = new SqlCommand($"SELECT * FROM EarthquakeTeam WHERE Id = {sendInfo[2]}", conn);
+                    dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        ViewEarthquakeInfo(dr);
+                    }
+                    dr.Close();
+                    command.Cancel();
+                    break;
+                case "Bridge":
+                    command = new SqlCommand($"SELECT * FROM BridgeTeam WHERE Id = {sendInfo[2]}", conn);
+                    dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        ViewBridgeInfo(dr);
+                    }
+                    break;
+                default:
+                    command = new SqlCommand($"SELECT * FROM FilmInfo WHERE Id = {sendInfo[2]}", conn);
+                    dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        ViewFilmInfo(dr);
+                    }
+                    break;
+            }
 
+            conn.Close();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#TeamViewer').modal('show');", true);
+
+        }
+        public void ViewEarthquakeInfo(SqlDataReader dr)
+        {
+            lab_TeamName.InnerText = dr["Name"].ToString();
+            lab_Veg.InnerText = dr["Vegetarian"].ToString() + "  人";
+
+            MemberInfo.InnerHtml = $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊長姓名：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["LeaderName"].ToString()}</label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>";
+
+            for (int i = 1; i < Convert.ToInt32(dr["Count"]); i++)
+            {
+                MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊員{i}姓名：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr[$"PlayerName{i}"].ToString()}</label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>";
+            }
+        }
+        public void ViewBridgeInfo(SqlDataReader dr)
+        {
+            lab_TeamName.InnerText = dr["Name"].ToString();
+            lab_Veg.InnerText = dr["Vegetarian"].ToString() + "  人";
+
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<div class=\"col-8\"><hr /></div>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>";
+
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-4\"></div>" +
+                $"<label class=\"col-sm-2 col-form-label\">隊員名字</label>" +
+                $"<label class=\"col-sm-2 col-form-label\">身分證字號</label>" +
+                $"<label class=\"col-sm-2 col-form-label\">生日</label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>";
+
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                    $"<div class=\"col-2\"></div>" +
+                    $"<label class=\"col-sm-2 col-form-label\">隊長</label>" +
+                    $"<label class=\"col-sm-2 col-form-label\">{dr[$"LeaderName"].ToString()}</label>" +
+                    $"<label class=\"col-sm-2 col-form-label\">{dr[$"LeaderID"].ToString()}</label>" +
+                    $"<label class=\"col-sm-2 col-form-label\">{dr[$"LeaderBirthday"].ToString().Replace(" 上午 12:00:00","")}</label>" +
+                    $"<div class=\"col-2\" style=\"margin-right: 20px;\"></div>" +
+                    $"</div>";
+
+            for (int i = 1; i < Convert.ToInt32(dr["Count"]); i++)
+            {
+                MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                    $"<div class=\"col-2\"></div>" +
+                    $"<label class=\"col-sm-2 col-form-label\">隊員{i}</label>" +
+                    $"<label class=\"col-sm-2 col-form-label\">{dr[$"PlayerName{i}"].ToString()}</label>" +
+                    $"<label class=\"col-sm-2 col-form-label\">{dr[$"PlayerID{i}"].ToString()}</label>" +
+                    $"<label class=\"col-sm-2 col-form-label\">{dr[$"PlayerBirthday{i}"].ToString().Replace(" 上午 12:00:00", "")}</label>" +
+                    $"<div class=\"col-2\" style=\"margin-right: 20px;\"></div>" +
+                    $"</div>";
+            }
+        }
+        public void ViewFilmInfo(SqlDataReader dr)
+        {
+            lab_TeamName.InnerText = dr["Name"].ToString();
+            lab_Veg.InnerText = dr["Vegetarian"].ToString() + "  人";
+        }
         protected void Unnamed_ServerClick(object sender, EventArgs e)
         {
             //登出

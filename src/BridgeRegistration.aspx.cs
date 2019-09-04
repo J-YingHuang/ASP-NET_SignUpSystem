@@ -159,7 +159,7 @@ namespace SignUpSystem
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}, PlayerID{i}, PlayerBirthday{i}";
 
-            commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {count}";
+            commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
