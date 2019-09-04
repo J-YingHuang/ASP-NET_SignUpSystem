@@ -51,14 +51,14 @@
                 <p align="left">
                     1. 隊伍名稱：
                 </p>
-                <input class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10">
+                <input id="input_TeamName" class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
 
             <div class="col">
                 <p align="left">
                     2. 吃素人數：(不含老師)
                 </p>
-                <select class="form-control form-control-sm" style="font-size: 12px;">
+                <select class="form-control form-control-sm" style="font-size: 12px;" id="select_Veg" runat="server">
                     <option>無</option>
                     <option>1人</option>
                     <option>2人</option>
@@ -76,7 +76,7 @@
                     3.隊員資訊：
                 </p>
                 <div class="form-group row " style="font-size: 18px;">
-                    <div class="col-2" style="margin-right: 20px;"></div>
+                    <div class="col-2" style="margin-right: 20px; "></div>
                     <div class="col-2" style="margin-right: 20px;">
                         隊員名字
                     </div>
@@ -92,25 +92,26 @@
                     <div class="col-2" style="margin-right: 20px;"></div>
 
                 </div>
-                <div class="form-group row " style="font-size: 18px;">
+                <%--                <div class="form-group row " style="font-size: 18px;">
                     <div class="col-2" style="margin-right: 0px;">
                         隊員1：
                     </div>
                     <div class="col-2" style="margin-left: 0px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Name1" runat="server"  />
+                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Name1" runat="server" />
                     </div>
                     <div class="col-2" style="margin-left: 25px;">
                         <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_Id1" runat="server" placeholder=" A123456789" maxlength="10" />
+                        <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-2" style="margin-left: 25px;">
-                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_BirthDate1" runat="server" placeholder=" xxxx/xx/xx" maxlength="10" />
+                        <input class="form-control" type="text" style="font-size: 8px; width: 150px;" id="input_BirthDate1" runat="server" placeholder=" yyyy-mm-dd" maxlength="10" />
                     </div>
                     <div class="col-2" style="margin-left: 85px; margin-top: 7px;">
                         <input class="form-check" type="radio" id="radioBtn_1" runat="server" />
                     </div>
                     <div class="col-2" style="margin-right: 20px;"></div>
-                </div>
-                
+                </div>--%>
+
                 <div>
                     <asp:Panel ID="fieldSpace" runat="server"></asp:Panel>
                 </div>
@@ -120,15 +121,30 @@
                 <button id="btn_Delete" type="button" class="btn btn-light" runat="server" onserverclick="btn_Delete_ServerClick">
                     <img src="https://img.icons8.com/ios/50/000000/minus.png" style="width: 30px"></button>
             </div>
-
-
         </div>
 
-
         <p align="right">
-            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" Id="btn_Submit" runat="server" onserverclick="btn_Submit_ServerClick">送出</button>
+            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Submit" runat="server" onserverclick="btn_Submit_ServerClick">送出</button>
         </p>
+
     </div>
-
-
+    <!-- Modal -->
+    <div class="modal fade" id="Modal_ErrMsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">報名表填寫錯誤</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="Modal_Body" runat="server">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
