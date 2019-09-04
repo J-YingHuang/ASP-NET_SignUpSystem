@@ -17,7 +17,7 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body>
-    <form style="padding: 0px;" runat="server">
+    <form id="TheForm" style="padding: 0px;" runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>

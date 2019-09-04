@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BackgroundDataManagement.aspx" />
+    <Content Include="BridgeRegistration.aspx" />
     <Content Include="BridgeTeamList.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -192,6 +193,13 @@
     </Compile>
     <Compile Include="BackgroundDataManagement.aspx.designer.cs">
       <DependentUpon>BackgroundDataManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BridgeRegistration.aspx.cs">
+      <DependentUpon>BridgeRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BridgeRegistration.aspx.designer.cs">
+      <DependentUpon>BridgeRegistration.aspx</DependentUpon>
     </Compile>
     <Compile Include="BridgeTeamList.aspx.cs">
       <DependentUpon>BridgeTeamList.aspx</DependentUpon>

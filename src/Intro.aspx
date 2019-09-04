@@ -9,7 +9,7 @@
             <br />
         </div>
         <div class="row">
-            <div class="col-md-3" style="text-align:left;">
+            <div class="col-md-3" style="text-align: left;">
                 <h4>帳戶資訊</h4>
                 <hr />
                 <p>姓名：</p>
@@ -20,10 +20,10 @@
                 <p id="user_Phone" style="color: darkgray" runat="server"></p>
                 <p>聯絡信箱：</p>
                 <p id="user_Email" style="color: darkgray" runat="server"></p>
-                <button type="button" class="btn btn-outline-secondary" style="width:100%" data-toggle="modal" data-target="#UpdateModal"> 
+                <button type="button" class="btn btn-outline-secondary" style="width: 100%" data-toggle="modal" data-target="#UpdateModal">
                     更改帳戶資訊
                 </button>
-                <button type="button" class="btn btn-outline-secondary" style="width:100%; margin-top: 10px;" runat="server" onserverclick="Unnamed_ServerClick"> 
+                <button type="button" class="btn btn-outline-secondary" style="width: 100%; margin-top: 10px;" runat="server" onserverclick="Unnamed_ServerClick">
                     登出
                 </button>
                 <%--                <p style="text-align: right;" id="earthquakeStute" runat="server">123</p>
@@ -125,7 +125,20 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-info" data-dismiss="modal" id="btn_updateAccount" runat="server"  onserverclick="Btn_updateAccount_ServerClick">儲存變更</button>
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal" id="btn_updateAccount" runat="server" onserverclick="Btn_updateAccount_ServerClick">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="MsgBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="MsgBox_Data" runat="server">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

@@ -22,9 +22,9 @@ namespace SignUpSystem
                     LoadAccountInfo();
                 else
                     Response.Redirect("Login.aspx");
-                
+
             }
-            if(a_Earthquake.Attributes["class"].Contains("active"))
+            if (a_Earthquake.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Earthquake);
         }
         protected void a_Earthquake_Click(object sender, EventArgs e)
@@ -48,9 +48,9 @@ namespace SignUpSystem
         private void LoadTeamByAccount(TeamType type)
         {
             div_TeamInfo.InnerHtml = "";
-           //Loading Team Function
-           //Connect to SQL DB
-           SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            //Loading Team Function
+            //Connect to SQL DB
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
             SqlCommand command = new SqlCommand();
 
@@ -107,7 +107,7 @@ namespace SignUpSystem
             }
             conn.Close();
         }
-        private void addTeamCard(TeamType type,string teamName, string teamId, HtmlGenericControl parentControl)
+        private void addTeamCard(TeamType type, string teamName, string teamId, HtmlGenericControl parentControl)
         {
             HtmlGenericControl cardDiv = NewDiv("card");
             HtmlGenericControl cardBodyDiv = NewDiv("card-body");
@@ -182,7 +182,36 @@ namespace SignUpSystem
             }
             else if (a_Bridge.Attributes["class"].Contains("active"))
             {
-                //去填橋梁變變變資料
+                //確認是否可以新增隊伍
+                //橋樑每個學校只能一隊
+                string accountSchoolId = "";
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand($"SELECT SchoolID FROM Account WHERE Id = '{Session["LoginId"]}';", conn);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                    accountSchoolId = dr["SchoolID"].ToString();
+
+                dr.Close();
+                command.Cancel();
+
+                command = new SqlCommand($"SELECT Account.Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id" +
+                    $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                dr = command.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    //有隊伍就不能新增
+                    MsgBox_Data.InnerHtml = "<p>帳號所屬學校已報名一隊橋梁變變變隊伍，不得再進行本賽程報名！</p>";
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#MsgBox').modal('show');", true);
+                    LoadTeamByAccount(TeamType.Bridge);
+                }
+                else
+                {
+                    //去填橋梁變變變資料
+                    Response.Redirect("BridgeRegistration.aspx");
+                }
             }
             else
             {
