@@ -312,6 +312,54 @@ namespace SignUpSystem
             else
             {
                 //去填微電影資料
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                conn.Open();
+
+                List<string> earList = new List<string>();
+                List<string> briList = new List<string>();
+
+                //先抓抗震的
+                SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
+                    $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                    earList.Add(dr["Name"].ToString());
+                dr.Close();
+                command.Cancel();
+
+                //抓橋梁的
+                command = new SqlCommand($"SELECT Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
+                    $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                dr = command.ExecuteReader();
+                while (dr.Read())
+                    briList.Add(dr["Name"].ToString());
+                dr.Close();
+                command.Cancel();
+
+                //確認微電影報了沒有
+                command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE AccountID = {Session["LoginId"].ToString()}" +
+                    $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr["TeamType"].ToString() == "Eqrthquake")
+                        earList.Remove(dr["Name"].ToString());
+                    else
+                        briList.Remove(dr["Name"].ToString());
+                }
+                dr.Close();
+                command.Cancel();
+
+                if(earList.Count == 0 && briList.Count == 0)
+                {
+                    MsgBox_Data.InnerHtml = "<p>帳號中團隊來對震與橋梁變變變皆已參加影領創視界賽程！</p>";
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#MsgBox').modal('show');", true);
+                    LoadTeamByAccount(TeamType.Bridge);
+                }
+                else
+                {
+                    Response.Redirect("FilmRegistration.aspx");
+                }
             }
         }
         private void LoadAccountInfo()
