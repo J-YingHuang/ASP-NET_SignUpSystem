@@ -118,6 +118,7 @@
     <Content Include="Default.aspx" />
     <Content Include="EarthquakeTeamList.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FilmRegistration.aspx" />
     <Content Include="FilmTeamList.aspx" />
     <Content Include="ForgetPassword.aspx" />
     <Content Include="Global.asax" />
@@ -239,6 +240,13 @@
     </Compile>
     <Compile Include="EarthquakeTeamList.aspx.designer.cs">
       <DependentUpon>EarthquakeTeamList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FilmRegistration.aspx.cs">
+      <DependentUpon>FilmRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilmRegistration.aspx.designer.cs">
+      <DependentUpon>FilmRegistration.aspx</DependentUpon>
     </Compile>
     <Compile Include="FilmTeamList.aspx.cs">
       <DependentUpon>FilmTeamList.aspx</DependentUpon>
