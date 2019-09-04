@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +14,7 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack) ;
         }
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
@@ -141,8 +144,74 @@ namespace SignUpSystem
             GridView4.DataBind();
         }
 
+        protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+
+                string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+                SqlConnection conn = new SqlConnection(strConn);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("DELETE From EarthquakeTeam WHERE AccountID=@AccountID AND Name=@Name", conn);
+                cmd.Parameters.Add("@AccountID", SqlDbType.Int).Value = e.CommandArgument;
+                cmd.ExecuteNonQuery();
+                cmd.Cancel();
+                cmd.Dispose();
+                conn.Close();
+
+
+
+
+
+            }
+        }
+        protected void LinkButton_Click(object sender, EventArgs e)
+        {
+            Response.Write("DetailsView1");
+
+        }
+        protected void BackGridview_Click(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            GridView2.DataSourceID = "SqlDataSource1";
+        }
+        private void SetLightStick(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                int iIndex = e.Row.RowIndex;
+
+            }
+        }
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            this.SetLightStick(sender, e);
+        }
+        protected void GridView1_Rowdeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            
+        }
+        protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            this.GridView2.EditIndex = e.NewEditIndex;
+            this.GridView2.DataBind();
+        }
+        protected void GridView2_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+        }
+
+
+
+
     }
-}
+    }
+
 
 
 
