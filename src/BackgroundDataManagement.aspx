@@ -64,7 +64,7 @@
                                     </InsertItemTemplate>
                                     <ItemTemplate>
                                         <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="New" Text="新增"></asp:LinkButton>
-                                        <asp:Button ID="Button3" runat="server" OnClick="BackGridview_Click" Text="Button" />
+                                        
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />

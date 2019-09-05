@@ -146,23 +146,44 @@ namespace SignUpSystem
 
         protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Delete")
+           if(e.CommandName=="GridInsert")
             {
-
+                GridView2.DataSourceID = "";
+            }
+            if (e.CommandName=="Delete")
+            {
+                LinkButton btn = (LinkButton)e.CommandSource;
+                GridViewRow row = (GridViewRow)btn.NamingContainer;
+                string id = row.Cells[9].Text;
+                string name = row.Cells[1].Text;
                 string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
                 SqlConnection conn = new SqlConnection(strConn);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("DELETE From EarthquakeTeam WHERE AccountID=@AccountID AND Name=@Name", conn);
-                cmd.Parameters.Add("@AccountID", SqlDbType.Int).Value = e.CommandArgument;
+                SqlCommand cmd = new SqlCommand("DELETE From EarthquakeTeam WHERE AccountID=@AccountID AND Name=@Name AND CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+                cmd.Parameters.Add("@AccountID", SqlDbType.Int).Value = Convert.ToInt32(id);
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = name;
                 cmd.ExecuteNonQuery();
                 cmd.Cancel();
                 cmd.Dispose();
                 conn.Close();
-
-
-
-
-
+            }
+            if (e.CommandName == "Update")
+            {
+                int rowIndex = ((GridViewRow)((LinkButton)e.CommandSource).NamingContainer).RowIndex;
+                int pid = Convert.ToInt32(e.CommandArgument);
+                string name = ((TextBox)GridView2.Rows[rowIndex].FindControl("name")).Text.ToString();
+                string cont = ((TextBox)GridView2.Rows[rowIndex].FindControl("Cont")).Text;
+                string vegetarian = ((TextBox)GridView2.Rows[rowIndex].FindControl("Vegetarian")).Text;
+                string leadername = ((TextBox)GridView2.Rows[rowIndex].FindControl("LeaderName")).Text;
+                string playername1 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName1")).Text;
+                string playername2 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName2")).Text;
+                string playername3 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName3")).Text;
+                string playername4 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName4")).Text;
+                string playername5 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName5")).Text;
+                GridView2.UpdateRow(name, cont, vegetarian, leadername, playername1, playername2, playername3, playername4, playername5, pid);
+                GridView2.EditIndex = -1;
+                GridView2.DataSource = GridView2.GetPatient();
+                GridView2.DataBind();
             }
         }
         protected void LinkButton_Click(object sender, EventArgs e)
@@ -170,41 +191,17 @@ namespace SignUpSystem
             Response.Write("DetailsView1");
 
         }
-        protected void BackGridview_Click(object sender, EventArgs e)
-        {
-
-
-
-        }
+       
 
         protected void Button4_Click(object sender, EventArgs e)
         {
             GridView2.DataSourceID = "SqlDataSource1";
         }
-        private void SetLightStick(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                int iIndex = e.Row.RowIndex;
-
-            }
-        }
-        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            this.SetLightStick(sender, e);
-        }
-        protected void GridView1_Rowdeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            
-        }
-        protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            this.GridView2.EditIndex = e.NewEditIndex;
-            this.GridView2.DataBind();
-        }
-        protected void GridView2_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-        }
+       
+      
+       
+       
+        
 
 
 
