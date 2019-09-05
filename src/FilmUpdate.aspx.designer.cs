@@ -10,52 +10,43 @@
 namespace SignUpSystem {
     
     
-    public partial class BridgeUpdate {
+    public partial class FilmUpdate {
         
         /// <summary>
-        /// input_TeamName 控制項。
+        /// select_Team 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText input_TeamName;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect select_Team;
         
         /// <summary>
-        /// select_Veg 控制項。
+        /// text_Design 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect select_Veg;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea text_Design;
         
         /// <summary>
-        /// fieldSpace 控制項。
+        /// text_Outline 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel fieldSpace;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea text_Outline;
         
         /// <summary>
-        /// btn_Add 控制項。
+        /// input_Link 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_Add;
-        
-        /// <summary>
-        /// btn_Delete 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_Delete;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText input_Link;
         
         /// <summary>
         /// btn_Submit 控制項。
@@ -67,13 +58,13 @@ namespace SignUpSystem {
         protected global::System.Web.UI.HtmlControls.HtmlButton btn_Submit;
         
         /// <summary>
-        /// btn_Close 控制項。
+        /// btn_Cancel 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_Close;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btn_Cancel;
         
         /// <summary>
         /// Modal_Body 控制項。

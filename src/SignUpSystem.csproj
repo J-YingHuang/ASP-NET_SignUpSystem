@@ -117,9 +117,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="EarthquakeTeamList.aspx" />
+    <Content Include="EarthquakeUpdate.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="FilmRegistration.aspx" />
     <Content Include="FilmTeamList.aspx" />
+    <Content Include="FilmUpdate.aspx" />
     <Content Include="ForgetPassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="images\校徽無框.jpg" />
@@ -241,6 +243,13 @@
     <Compile Include="EarthquakeTeamList.aspx.designer.cs">
       <DependentUpon>EarthquakeTeamList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EarthquakeUpdate.aspx.cs">
+      <DependentUpon>EarthquakeUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EarthquakeUpdate.aspx.designer.cs">
+      <DependentUpon>EarthquakeUpdate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FilmRegistration.aspx.cs">
       <DependentUpon>FilmRegistration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -254,6 +263,13 @@
     </Compile>
     <Compile Include="FilmTeamList.aspx.designer.cs">
       <DependentUpon>FilmTeamList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FilmUpdate.aspx.cs">
+      <DependentUpon>FilmUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilmUpdate.aspx.designer.cs">
+      <DependentUpon>FilmUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgetPassword.aspx.cs">
       <DependentUpon>ForgetPassword.aspx</DependentUpon>

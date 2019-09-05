@@ -417,8 +417,22 @@ namespace SignUpSystem
         protected void TeamEdit(object sender, EventArgs e)
         {
             //去隊伍編輯的頁面
-            //HtmlAnchor control = (HtmlAnchor)sender;
-            //String sendInfo = control.ID;
+            HtmlAnchor control = (HtmlAnchor)sender;
+            string[] sendInfo = control.ID.Split('|');
+
+            Session["UpdateId"] = sendInfo[2];
+            switch (sendInfo[0].ToString())
+            {
+                case "Earthquake":
+                    Response.Redirect("EarthquakeUpdate.aspx");
+                    break;
+                case "Bridge":
+                    Response.Redirect("BridgeUpdate.aspx");
+                    break;
+                default:
+                    Response.Redirect("FilmUpdate.aspx");
+                    break;
+            }
         }
         protected void TeamView(object sender, EventArgs e)
         {

@@ -106,13 +106,13 @@
 
 
         <p align="right">
-            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark"  id="Submit" runat="server" onserverclick="btn_Submit_ServerClick">提交</button>
+            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="Submit" runat="server" onserverclick="btn_Submit_ServerClick">提交</button>
         </p>
 
 
 
     </div>
-        <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="Modal_ErrMsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -123,7 +123,6 @@
                     </button>
                 </div>
                 <div class="modal-body" id="Modal_Body" runat="server">
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

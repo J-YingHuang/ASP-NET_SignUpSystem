@@ -10,7 +10,7 @@
 namespace SignUpSystem {
     
     
-    public partial class BridgeUpdate {
+    public partial class EarthquakeUpdate {
         
         /// <summary>
         /// input_TeamName 控制項。
@@ -37,7 +37,7 @@ namespace SignUpSystem {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel fieldSpace;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fieldSpace;
         
         /// <summary>
         /// btn_Add 控制項。
@@ -58,13 +58,13 @@ namespace SignUpSystem {
         protected global::System.Web.UI.HtmlControls.HtmlButton btn_Delete;
         
         /// <summary>
-        /// btn_Submit 控制項。
+        /// Submit 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_Submit;
+        protected global::System.Web.UI.HtmlControls.HtmlButton Submit;
         
         /// <summary>
         /// btn_Close 控制項。
