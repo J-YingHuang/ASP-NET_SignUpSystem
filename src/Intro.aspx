@@ -149,7 +149,7 @@
         </div>
     </div>
     <div class="modal fade" id="TeamViewer" tabindex="-1" role="dialog" aria-labelledby="BridgeTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered  modal-lg" role="document"  id="MsgBoxDia" runat="server">
+        <div class="modal-dialog modal-dialog-centered  modal-lg" role="document" id="MsgBoxDia" runat="server">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="BridgeTitle">隊伍資訊</h5>
@@ -169,6 +169,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Msg_AddLink" tabindex="-1" role="dialog" aria-labelledby="AddLinkTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddLinkTitle" runat="server">作品繳交</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="FilmLink">雲端作品連結</label>
+                        <input type="text" class="form-control" id="FilmLink" style="min-width: 100%;" placeholder="輸入作品雲端連結網址..." runat="server">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn_AddFilmLink" runat="server" onserverclick="btn_AddFilmLink_ServerClick">繳交</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>

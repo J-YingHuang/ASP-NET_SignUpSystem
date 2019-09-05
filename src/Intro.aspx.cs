@@ -66,7 +66,7 @@ namespace SignUpSystem
                     command = new SqlCommand($"SELECT Id, Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"]} AND (CreateDate BETWEEN '2019-01-01 00:00:00.000' AND '2019-12-31 00:00:00.000')", conn);
                     break;
                 case TeamType.Film:
-                    command = new SqlCommand($"SELECT Id, Name FROM FilmInfo WHERE AccountID = {Session["LoginId"]} AND (CreateDate BETWEEN '2019-01-01 00:00:00.000' AND '2019-12-31 00:00:00.000')", conn);
+                    command = new SqlCommand($"SELECT Id, Name, FileLink FROM FilmInfo WHERE AccountID = {Session["LoginId"]} AND (CreateDate BETWEEN '2019-01-01 00:00:00.000' AND '2019-12-31 00:00:00.000')", conn);
                     break;
             }
 
@@ -80,7 +80,12 @@ namespace SignUpSystem
                     string teamName = record["Name"].ToString();
                     string teamId = record["Id"].ToString();
                     if (type == TeamType.Film)
-                        AddFilmTeamCard(teamName, teamId, div_TeamInfo);
+                    {
+                        if(record["FileLink"].ToString() == "")
+                            AddFilmTeamCard(teamName, teamId, div_TeamInfo,false);
+                        else
+                            AddFilmTeamCard(teamName, teamId, div_TeamInfo, true);
+                    }
                     else
                         AddTeamCard(type, teamName, teamId, div_TeamInfo);
                 }
@@ -152,7 +157,7 @@ namespace SignUpSystem
 
             parentControl.Controls.Add(cardDiv);
         }
-        private void AddFilmTeamCard(string teamName, string teamId, HtmlGenericControl parentControl)
+        private void AddFilmTeamCard(string teamName, string teamId, HtmlGenericControl parentControl, bool hasLink)
         {
             HtmlGenericControl cardDiv = NewDiv("card");
             cardDiv.Attributes.Add("style", "margin-bottom: 10px;");
@@ -199,13 +204,22 @@ namespace SignUpSystem
             linkBtnA.Attributes.Add("runat", "server");
             linkBtnA.Attributes.Add("onClick", "return true;");
             linkBtnA.Attributes.Add("onserverclick", "TeamLink");
-            linkBtnA.ServerClick += new EventHandler(TeamView);
+            linkBtnA.ServerClick += new EventHandler(TeamLink);
             HtmlGenericControl linkImg = new HtmlGenericControl("IMG");
             linkImg.Attributes.Add("width", "15px");
             linkImg.Attributes.Add("style", "margin-bottom: 4px;");
             linkImg.Attributes.Add("src", "https://img.icons8.com/windows/32/000000/link.png");
             HtmlGenericControl linkSpan = new HtmlGenericControl("SPAN");
-            linkSpan.InnerText = "繳交作品";
+            if (!hasLink)
+            {
+                linkSpan.InnerText = "繳交作品";
+                AddLinkTitle.InnerText = "繳交作品";
+            }
+            else
+            {
+                linkSpan.InnerText = "更新作品";
+                AddLinkTitle.InnerText = "更新作品";
+            }
 
             cardDiv.Controls.Add(cardBodyDiv);
             cardBodyDiv.Controls.Add(rowDiv);
@@ -449,6 +463,15 @@ namespace SignUpSystem
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#TeamViewer').modal('show');", true);
 
         }
+
+        protected void TeamLink(object  sender, EventArgs e)
+        {
+            //去查看隊伍資訊的頁面
+            HtmlAnchor control = (HtmlAnchor)sender;
+            string[] sendInfo = (control.ID).Split('|');
+            Session["AddLink"] = sendInfo[2];
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Msg_AddLink').modal('show');", true);
+        }
         public void ViewEarthquakeInfo(SqlDataReader dr)
         {
             lab_TeamName.InnerText = dr["Name"].ToString();
@@ -565,6 +588,28 @@ namespace SignUpSystem
             Session["Login"] = "N";
             Session["LoginId"] = "Null";
             Response.Redirect("Default.aspx");
+        }
+
+        protected void btn_AddFilmLink_ServerClick(object sender, EventArgs e)
+        {
+            //空的連結就不處理了 -.-
+            if (FilmLink.Value == "")
+                return;
+
+            //有連結就更新資料
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            conn.Open();
+            SqlCommand command = new SqlCommand($"UPDATE FilmInfo SET FileLink = '{FilmLink.Value}' WHERE Id = '{Session["AddLink"].ToString()}'" +
+                $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
+            command.ExecuteNonQuery();
+            command.Cancel();
+            conn.Close();
+
+            //Init something
+            FilmLink.Value = "";
+            Session["AddLink"] = null;
+
+            LoadTeamByAccount(TeamType.Film);
         }
     }
     enum TeamType
