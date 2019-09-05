@@ -14,7 +14,7 @@
     <div>
         <asp:MultiView ID="MultiView1" ActiveViewIndex="0" runat="server">
             <asp:View ID="View1" runat="server">
-                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" DataKeyNames="AccountID" OnRowCommand="GridView2_RowCommand">
+                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" DataKeyNames="AccountID" OnRowCommand="GridView2_RowCommand" OnRowCancelingEdit="GridView2_RowCancelingEdit" OnRowEditing="GridView2_RowEditing" OnRowUpdating="GridView2_RowUpdating">
                     <Columns>
                        
                         <asp:BoundField DataField="Count" HeaderText="Count" SortExpression="Count" />

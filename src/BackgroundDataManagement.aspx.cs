@@ -167,24 +167,8 @@ namespace SignUpSystem
                 cmd.Dispose();
                 conn.Close();
             }
-            if (e.CommandName == "Update")
-            {
-                int rowIndex = ((GridViewRow)((LinkButton)e.CommandSource).NamingContainer).RowIndex;
-                int pid = Convert.ToInt32(e.CommandArgument);
-                string name = ((TextBox)GridView2.Rows[rowIndex].FindControl("name")).Text.ToString();
-                string cont = ((TextBox)GridView2.Rows[rowIndex].FindControl("Cont")).Text;
-                string vegetarian = ((TextBox)GridView2.Rows[rowIndex].FindControl("Vegetarian")).Text;
-                string leadername = ((TextBox)GridView2.Rows[rowIndex].FindControl("LeaderName")).Text;
-                string playername1 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName1")).Text;
-                string playername2 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName2")).Text;
-                string playername3 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName3")).Text;
-                string playername4 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName4")).Text;
-                string playername5 = ((TextBox)GridView2.Rows[rowIndex].FindControl("PlayerName5")).Text;
-                GridView2.UpdateRow(name, cont, vegetarian, leadername, playername1, playername2, playername3, playername4, playername5, pid);
-                GridView2.EditIndex = -1;
-                GridView2.DataSource = GridView2.GetPatient();
-                GridView2.DataBind();
-            }
+        
+            
         }
         protected void LinkButton_Click(object sender, EventArgs e)
         {
@@ -197,11 +181,27 @@ namespace SignUpSystem
         {
             GridView2.DataSourceID = "SqlDataSource1";
         }
-       
-      
-       
-       
-        
+        protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            GridView2.EditIndex = e.NewEditIndex;
+            GridView2.DataBind();
+
+        }
+
+        protected void GridView2_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView2.EditIndex = -1;
+            GridView2.DataBind();
+        }
+        protected void GridView2_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            SqlDataSource1.Update();
+        }
+
+
+
+
+
 
 
 
