@@ -107,6 +107,8 @@
 
         <p align="right">
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="Submit" runat="server" onserverclick="btn_Submit_ServerClick">提交</button>
+            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Cancel" runat="server" onserverclick="btn_Cancel_ServerClick">取消</button>
+
         </p>
 
 

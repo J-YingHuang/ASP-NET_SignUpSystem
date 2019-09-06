@@ -189,6 +189,36 @@ namespace SignUpSystem
                 errMes += $"<p>{mainCount}. 請填寫隊名</p>";
                 mainCount++;
             }
+            else
+            {
+                //有填要確定有沒有重複的隊名
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                conn.Open();
+                SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
+                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
+                SqlDataReader dr = command.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
+                    mainCount++;
+                }
+                else
+                {
+                    dr.Close();
+                    command.Cancel();
+                    command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
+                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
+                    dr = command.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
+                        mainCount++;
+                    }
+                }
+                dr.Close();
+                command.Cancel();
+                conn.Close();
+            }
 
             int count = (Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList()).Count;
             bool hasLeader = false;
@@ -261,6 +291,11 @@ namespace SignUpSystem
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
                 return false;
             }
+        }
+
+        protected void btn_Cancel_ServerClick(object sender, EventArgs e)
+        {
+            Response.Redirect("Intro.aspx");
         }
     }
 }

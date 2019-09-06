@@ -76,7 +76,7 @@
                     3.隊員資訊：
                 </p>
                 <div class="form-group row " style="font-size: 18px;">
-                    <div class="col-2" style="margin-right: 20px; "></div>
+                    <div class="col-2" style="margin-right: 20px;"></div>
                     <div class="col-2" style="margin-right: 20px;">
                         隊員名字
                     </div>
@@ -106,6 +106,8 @@
 
         <p align="right">
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Submit" runat="server" onserverclick="btn_Submit_ServerClick">送出</button>
+            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Cancel" runat="server" onserverclick="btn_Cancel_ServerClick">取消</button>
+
         </p>
 
     </div>
@@ -120,7 +122,6 @@
                     </button>
                 </div>
                 <div class="modal-body" id="Modal_Body" runat="server">
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
