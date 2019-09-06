@@ -7,7 +7,7 @@
             <div class="col">
                 <br />
                 <div class="row justify-content-center">
-                    高科大克震報名資訊 
+                    團隊來對震報名表 
                 </div>
             </div>
         </div>
