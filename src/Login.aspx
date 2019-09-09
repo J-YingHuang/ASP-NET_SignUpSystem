@@ -35,16 +35,20 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-12">
+			<div class="col-sm-1"></div>
+                        <div class="col-sm-10">
                             <asp:Button ID="btn_Login" runat="server" Text="Login" Width="100%" CssClass="btn btn-outline-secondary" OnClick="btn_Login_Click" />
                         </div>
+			<div class="col-sm-1"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm" style="font-size: 12px;">                                                   
+			<div class="col-sm-4"></div>
+                        <div class="col-sm-4 text-center" style="font-size: 12px;">                                                   
                             <a href="#" Id="btn_ForgetPassword" style="color: dimgray;" runat="server" onserverclick="btn_ForgetPassword_Click">
                                 忘記密碼
                             </a>
                         </div>
+			<div class="col-sm-4"></div>
                     </div>
                 </form>
             </div>
