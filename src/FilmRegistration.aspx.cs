@@ -140,5 +140,10 @@ namespace SignUpSystem
             else
                 return true;
         }
+
+        protected void btn_Cancel_ServerClick(object sender, EventArgs e)
+        {
+            Response.Redirect("Intro.aspx");
+        }
     }
 }

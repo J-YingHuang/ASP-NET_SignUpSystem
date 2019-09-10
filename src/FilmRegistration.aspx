@@ -33,6 +33,9 @@
                     <p class="card-text" align="left" style="margin-left: 15px; margin-bottom: 20px;">
                         2. ​故事大綱請濃縮至500字以內。
                     </p>
+                    <p class="card-text" align="left" style="margin-left: 15px; margin-bottom: 20px;">
+                        3. 作品連結為非必填選項，但參賽者須於2019/11/28 18:00前進行作品繳交動作，否則視同棄權。
+                    </p>
                 </div>
                 </font>
             </div>
@@ -69,18 +72,19 @@
                 </div>
             </div>
         </div>
-                <div class="form-group row" style="font-size: 18px">
+        <div class="form-group row" style="font-size: 18px">
             <div class="col-md-3" style="margin-left: 0px;">
                 4. 作品連結：
             </div>
             <div class="col">
                 <div class="form-group">
-                    <input class="form-control" id="input_Link" runat="server" style="margin-left: 5px; min-width:100%"  placeholder="報名時非必填" />
+                    <input class="form-control" id="input_Link" runat="server" style="margin-left: 5px; min-width: 100%" placeholder="報名時非必填" />
                 </div>
             </div>
         </div>
         <p align="right">
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Submit" runat="server" onserverclick="btn_Submit_ServerClick">提交</button>
+            <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Cancel" runat="server" onserverclick="btn_Cancel_ServerClick">取消</button>
         </p>
 
 
