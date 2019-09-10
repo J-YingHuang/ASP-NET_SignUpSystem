@@ -9,7 +9,7 @@
             <div class="col">
                 <br />
                 <div class="row justify-content-center">
-                    影領創視界報名表 
+                    影領創視界報名資訊
                 </div>
             </div>
         </div>
