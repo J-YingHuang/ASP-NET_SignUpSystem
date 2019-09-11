@@ -53,7 +53,7 @@ namespace SignUpSystem
             dr = command.ExecuteReader();
             while (dr.Read())
             {
-                if(dr["TeamType"].ToString() == "Eqrthquake")
+                if(dr["TeamType"].ToString() == "Earthquake")
                     earList.Remove(dr["Name"].ToString());
                 else
                     briList.Remove(dr["Name"].ToString());
