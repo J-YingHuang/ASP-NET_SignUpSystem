@@ -124,7 +124,12 @@
     <Content Include="FilmUpdate.aspx" />
     <Content Include="ForgetPassword.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="images\attention.jpg" />
+    <Content Include="images\google map.jpg" />
+    <Content Include="images\square_add.png" />
+    <Content Include="images\square_delete.png" />
     <Content Include="images\校徽無框.jpg" />
+    <Content Include="images\聯絡我們_建工門口1.jpg" />
     <Content Include="Intro.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManagerLoginin.aspx" />
