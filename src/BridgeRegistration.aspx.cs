@@ -219,32 +219,32 @@ namespace SignUpSystem
             else
             {
                 //有填要確定有沒有重複的隊名
-                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-                conn.Open();
-                SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
-                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
-                SqlDataReader dr = command.ExecuteReader();
-                if (dr.HasRows)
+                SqlConnection connect = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                connect.Open();
+                SqlCommand comm = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
+                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", connect);
+                SqlDataReader theDr = comm.ExecuteReader();
+                if (theDr.HasRows)
                 {
                     errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
                     mainCount++;
                 }
                 else
                 {
-                    dr.Close();
-                    command.Cancel();
-                    command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
-                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
-                    dr = command.ExecuteReader();
-                    if (dr.HasRows)
+                    theDr.Close();
+                    comm.Cancel();
+                    comm = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
+                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", connect);
+                    theDr = comm.ExecuteReader();
+                    if (theDr.HasRows)
                     {
                         errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
                         mainCount++;
                     }
                 }
-                dr.Close();
-                command.Cancel();
-                conn.Close();
+                theDr.Close();
+                comm.Cancel();
+                connect.Close();
             }
 
             int count = (Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList()).Count;
@@ -319,6 +319,33 @@ namespace SignUpSystem
             }
             if (vegCount > count)
                 errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";
+
+
+            //確認是否可以新增隊伍
+            //橋樑每個學校只能一隊
+            string accountSchoolId = "";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            conn.Open();
+
+            SqlCommand command = new SqlCommand($"SELECT SchoolID FROM Account WHERE Id = '{Session["LoginId"]}';", conn);
+            SqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
+                accountSchoolId = dr["SchoolID"].ToString();
+
+            dr.Close();
+            command.Cancel();
+
+            command = new SqlCommand($"SELECT Account.Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id" +
+                $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+            dr = command.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //有隊伍就不能新增
+                errMes = "不好意思，本帳號所屬學校已報名一隊橋梁變變變隊伍，不得再進行本賽程報名！";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
+                Response.Redirect("Intro.aspx");
+            }
 
             if (errMes == "")
                 return true;

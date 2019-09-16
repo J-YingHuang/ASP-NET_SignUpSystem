@@ -131,7 +131,27 @@ namespace SignUpSystem
                 mainCount++;
             }
 
-            if(errMes != "")
+            //確認選取的隊伍是不是被搶報了
+            string[] teamInfo = select_Team.Items[select_Team.SelectedIndex].Text.Split('|');
+            string teamName = "";
+            string teamType = teamInfo[0];
+            for (int i = 1; i < teamInfo.Count(); i++)
+                teamName += teamInfo[i];
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            conn.Open();
+            SqlCommand command = new SqlCommand($"SELECT Name FROM FilmInfo WHERE " +
+                $"Name = {teamName} AND CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+            SqlDataReader dr = command.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //該隊伍已經報名了
+                errMes = "不好意思，該隊伍已報名微電影賽程！";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
+                Response.Redirect("Intro.aspx");
+            }
+
+            if (errMes != "")
             {
                 Modal_Body.InnerHtml = errMes;
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);

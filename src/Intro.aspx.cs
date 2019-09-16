@@ -22,6 +22,12 @@ namespace SignUpSystem
                     LoadAccountInfo();
                 else
                     Response.Redirect("Login.aspx");
+
+                DateTime startTime = new DateTime(2019, 09, 30, 18, 00, 00);
+                DateTime endTime = new DateTime(2019, 10, 14, 18, 00, 00);
+                if (!(DateTime.Now >= startTime && DateTime.Now <= endTime))
+                    btn_NewTeam.Enabled = false;
+
             }
             if (a_Earthquake.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Earthquake);
