@@ -60,6 +60,10 @@ namespace SignUpSystem
         {
             Response.Redirect("~/ForgetPassword.aspx");
         }
+        protected void btn_manager_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/ManagerLoginin.aspx");
+        }
     }
     }
 

@@ -15,7 +15,16 @@ namespace SignUpSystem
         }
         protected void btn_MangerLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/BackgroundDataManagement.aspx");
+            string UserName = account_name.Value.Trim();
+            string PW = Text1.Value.Trim();
+            if ((UserName == "civilkuas@gmail.com") && (PW == "manager"))
+            {
+                Response.Redirect("BackgroundDataManagement.aspx");
+            }
+            else
+            {
+                loginSession.InnerText = "Login Error!";
+            }
         }
     }
 }

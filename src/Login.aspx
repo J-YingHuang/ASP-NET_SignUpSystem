@@ -47,6 +47,10 @@
                             <a href="#" Id="btn_ForgetPassword" style="color: dimgray;" runat="server" onserverclick="btn_ForgetPassword_Click">
                                 忘記密碼
                             </a>
+                            <br/>
+                             <a href="#" Id="A1" style="color: dimgray;" runat="server" onserverclick="btn_manager_Click">
+                               管理者登入
+                            </a>
                         </div>
 			<div class="col-sm-4"></div>
                     </div>

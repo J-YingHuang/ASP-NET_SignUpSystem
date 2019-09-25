@@ -16,11 +16,14 @@
                     <div class="form-group">
                         <label class="col-2" for="inputemail">password: </label>
 
-                        <input type="text" class="form-control-label" id="Text1" placeholder="password" runat="server">
+                        <input type="password" class="form-control-label" id="Text1" placeholder="password" runat="server">
                         <label id="serch_email" class="form-text text-muted smail" runat="server"></label>
                     </div>
 
-                    <asp:Button id="btn_MangerLogin" type="button" class="btn btn-primary" runat="server" OnClick="btn_MangerLogin_Click" Text="Loginn" />
+                    <asp:Button id="btn_MangerLogin" type="button" class="btn btn-primary" runat="server" OnClick="btn_MangerLogin_Click" Text="Login" />
+                    <div class="row">
+            <div class="col-md-12">
+                <label id="loginSession" runat="server"></label>
                      
                     <form>
     </br>

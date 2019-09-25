@@ -103,7 +103,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccountAddin.aspx" />
+    <Content Include="AccountDelete.aspx" />
+    <Content Include="AccountModify.aspx" />
     <Content Include="BackgroundDataManagement.aspx" />
+    <Content Include="BridgeDelete.aspx" />
+    <Content Include="BridgeModify.aspx" />
     <Content Include="BridgeRegistration.aspx" />
     <Content Include="BridgeTeamList.aspx" />
     <Content Include="BridgeUpdate.aspx" />
@@ -118,7 +123,11 @@
     <Content Include="Default.aspx" />
     <Content Include="EarthquakeTeamList.aspx" />
     <Content Include="EarthquakeUpdate.aspx" />
+    <Content Include="EearthquakeDelete.aspx" />
+    <Content Include="EearthquakeModify.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FilmDelete.aspx" />
+    <Content Include="FilmModify.aspx" />
     <Content Include="FilmRegistration.aspx" />
     <Content Include="FilmTeamList.aspx" />
     <Content Include="FilmUpdate.aspx" />
@@ -197,6 +206,27 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountAddin.aspx.cs">
+      <DependentUpon>AccountAddin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountAddin.aspx.designer.cs">
+      <DependentUpon>AccountAddin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccountDelete.aspx.cs">
+      <DependentUpon>AccountDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountDelete.aspx.designer.cs">
+      <DependentUpon>AccountDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccountModify.aspx.cs">
+      <DependentUpon>AccountModify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountModify.aspx.designer.cs">
+      <DependentUpon>AccountModify.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="BackgroundDataManagement.aspx.cs">
       <DependentUpon>BackgroundDataManagement.aspx</DependentUpon>
@@ -204,6 +234,20 @@
     </Compile>
     <Compile Include="BackgroundDataManagement.aspx.designer.cs">
       <DependentUpon>BackgroundDataManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BridgeDelete.aspx.cs">
+      <DependentUpon>BridgeDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BridgeDelete.aspx.designer.cs">
+      <DependentUpon>BridgeDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BridgeModify.aspx.cs">
+      <DependentUpon>BridgeModify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BridgeModify.aspx.designer.cs">
+      <DependentUpon>BridgeModify.aspx</DependentUpon>
     </Compile>
     <Compile Include="BridgeRegistration.aspx.cs">
       <DependentUpon>BridgeRegistration.aspx</DependentUpon>
@@ -254,6 +298,34 @@
     </Compile>
     <Compile Include="EarthquakeUpdate.aspx.designer.cs">
       <DependentUpon>EarthquakeUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EearthquakeDelete.aspx.cs">
+      <DependentUpon>EearthquakeDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EearthquakeDelete.aspx.designer.cs">
+      <DependentUpon>EearthquakeDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EearthquakeModify.aspx.cs">
+      <DependentUpon>EearthquakeModify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EearthquakeModify.aspx.designer.cs">
+      <DependentUpon>EearthquakeModify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FilmDelete.aspx.cs">
+      <DependentUpon>FilmDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilmDelete.aspx.designer.cs">
+      <DependentUpon>FilmDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FilmModify.aspx.cs">
+      <DependentUpon>FilmModify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilmModify.aspx.designer.cs">
+      <DependentUpon>FilmModify.aspx</DependentUpon>
     </Compile>
     <Compile Include="FilmRegistration.aspx.cs">
       <DependentUpon>FilmRegistration.aspx</DependentUpon>
