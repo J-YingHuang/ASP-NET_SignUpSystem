@@ -139,9 +139,10 @@ namespace SignUpSystem
 
                     div_TeamCard.InnerHtml += innerHtmltext;
                 }
+                dr.Close();
+                command.Cancel();
             }
-            dr.Close();
-            command.Cancel();
+
 
             conn.Close();
         }
