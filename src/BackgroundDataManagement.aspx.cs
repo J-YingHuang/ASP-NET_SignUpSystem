@@ -14,8 +14,14 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) ;
+            if (!IsPostBack)
+            {
+                GridView2.DataBind();
+            }
         }
+       
+        
+        
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             this.MultiView1.ActiveViewIndex = 0;
@@ -146,11 +152,11 @@ namespace SignUpSystem
 
         protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-           if(e.CommandName=="GridInsert")
+            if (e.CommandName == "GridInsert")
             {
                 GridView2.DataSourceID = "";
             }
-            if (e.CommandName=="Delete")
+            if (e.CommandName == "Delete")
             {
                 LinkButton btn = (LinkButton)e.CommandSource;
                 GridViewRow row = (GridViewRow)btn.NamingContainer;
@@ -167,15 +173,16 @@ namespace SignUpSystem
                 cmd.Dispose();
                 conn.Close();
             }
-        
             
+
+
         }
         protected void LinkButton_Click(object sender, EventArgs e)
         {
             Response.Write("DetailsView1");
 
         }
-       
+
 
         protected void Button4_Click(object sender, EventArgs e)
         {
@@ -188,6 +195,9 @@ namespace SignUpSystem
 
         }
 
+
+
+
         protected void GridView2_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             GridView2.EditIndex = -1;
@@ -195,8 +205,12 @@ namespace SignUpSystem
         }
         protected void GridView2_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            SqlDataSource1.Update();
+            TextBox AccountID = (TextBox)GridView2.Rows[e.RowIndex].Cells[9].Controls[0];  
+            
         }
+      
+
+        
 
 
 
@@ -207,7 +221,7 @@ namespace SignUpSystem
 
 
     }
-    }
+    } 
 
 
 

@@ -14,8 +14,10 @@
     <div>
         <asp:MultiView ID="MultiView1" ActiveViewIndex="0" runat="server">
             <asp:View ID="View1" runat="server">
-                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" DataKeyNames="AccountID" OnRowCommand="GridView2_RowCommand" OnRowCancelingEdit="GridView2_RowCancelingEdit" OnRowEditing="GridView2_RowEditing" OnRowUpdating="GridView2_RowUpdating">
+                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" DataKeyNames="AccountID" OnRowCommand="GridView2_RowCommand" OnRowCancelingEdit="GridView2_RowCancelingEdit"  OnRowUpdating="GridView2_RowUpdating" OnRowEditing="GridView2_RowEditing" OnSelectedIndexChanged="GridView2_SelectedIndexChanged" >
                     <Columns>
+                       
+                       
                        
                         <asp:BoundField DataField="Count" HeaderText="Count" SortExpression="Count" />
                         <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
@@ -30,7 +32,7 @@
                         <asp:ButtonField CommandName="GridInsert" Text="新增" />
                          <asp:TemplateField ShowHeader="False">
                              <EditItemTemplate>
-                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="更新"></asp:LinkButton>
+                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Update" Text="更新"></asp:LinkButton>
                                  &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="取消"></asp:LinkButton>
                              </EditItemTemplate>
                              
@@ -46,6 +48,7 @@
                         <asp:LinkButton ID="Button4" runat="server" OnClick="Button4_Click" Text="回上一頁"></asp:LinkButton>
                         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DataKeyNames="Id" DataSourceID="SqlDataSource1" DefaultMode="Insert" Height="50px" Width="125px">
                             <Fields>
+                                 <asp:CommandField ShowDeleteButton="True" ShowEditButton="True"  />
                                 <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
                                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                                 <asp:BoundField DataField="Count" HeaderText="Count" SortExpression="Count" />
@@ -67,13 +70,15 @@
                                         
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                               
                             </Fields>
                         </asp:DetailsView>
                     </EmptyDataTemplate>
-
-
-                </asp:GridView>
+                                    </asp:GridView>
+                <br/>
+                <asp:label ID="lb1SuccessMessage" Text="" runat="server" ForeColor="Green"/>
+                <br/>
+                <asp:label ID="lb1ErrorMessage" Text="" runat="server" ForeColor="Red"/>
 
                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:CTCSignUpConnectionString %>" ></asp:SqlDataSource>
                 <asp:Button type="button" ID="btn_Export" runat="server" class="float-right btn btn-outline-info" OnClick="btn_Export_Click" Text="匯出Excel" />
