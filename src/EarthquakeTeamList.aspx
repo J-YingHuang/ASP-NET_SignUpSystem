@@ -6,7 +6,7 @@
             <div class="col-12 text-left">
                 <br />
                 <br />
-                <h3>團隊來對震報名資訊</h3>
+                <h3 id="lab_Title" runat="server">團隊來對震報名資訊</h3>
                 <br />
             </div>
         </div>

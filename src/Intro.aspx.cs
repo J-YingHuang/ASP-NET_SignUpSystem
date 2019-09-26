@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -23,10 +24,19 @@ namespace SignUpSystem
                 else
                     Response.Redirect("Login.aspx");
 
-                DateTime startTime = new DateTime(2019, 09, 30, 18, 00, 00);
-                DateTime endTime = new DateTime(2019, 10, 14, 18, 00, 00);
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
+                DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
+                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
                 if (!(DateTime.Now >= startTime && DateTime.Now <= endTime))
                     btn_NewTeam.Enabled = false;
+
+                a_Earthquake.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
+                a_Bridge.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
+                a_Film.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
+
+
 
             }
             if (a_Earthquake.Attributes["class"].Contains("active"))
@@ -56,6 +66,9 @@ namespace SignUpSystem
         }
         private void LoadTeamByAccount(TeamType type)
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             div_TeamInfo.InnerHtml = "";
             //Loading Team Function
             //Connect to SQL DB
@@ -66,13 +79,17 @@ namespace SignUpSystem
             switch (type)
             {
                 case TeamType.Earthquake:
-                    command = new SqlCommand($"SELECT Id, Name FROM EarthquakeTeam WHERE AccountID = {Session["LoginId"]} AND (CreateDate BETWEEN '2019-01-01 00:00:00.000' AND '2019-12-31 00:00:00.000')", conn);
+                    command = new SqlCommand($"SELECT Id, Name FROM EarthquakeTeam WHERE AccountID = {Session["LoginId"]} AND (CreateDate " +
+                        appPro.GetBetweenSignUpTime() + ")", conn);
                     break;
                 case TeamType.Bridge:
-                    command = new SqlCommand($"SELECT Id, Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"]} AND (CreateDate BETWEEN '2019-01-01 00:00:00.000' AND '2019-12-31 00:00:00.000')", conn);
+                    command = new SqlCommand($"SELECT Id, Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"]} AND (CreateDate " +
+                        appPro.GetBetweenSignUpTime() + ")", conn);
                     break;
                 case TeamType.Film:
-                    command = new SqlCommand($"SELECT Id, Name, FileLink FROM FilmInfo WHERE AccountID = {Session["LoginId"]} AND (CreateDate BETWEEN '2019-01-01 00:00:00.000' AND '2019-12-31 00:00:00.000')", conn);
+                    command = new SqlCommand($"SELECT Id, Name, FileLink FROM FilmInfo WHERE AccountID = {Session["LoginId"]} AND (CreateDate " +
+                        appPro.GetBetweenSignUpTime() +
+                        $")", conn);
                     break;
             }
 
@@ -85,15 +102,17 @@ namespace SignUpSystem
                     IDataRecord record = (IDataRecord)dataReader;
                     string teamName = record["Name"].ToString();
                     string teamId = record["Id"].ToString();
+                    bool hasUpdate = DateTime.Now <= Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndUpdateInfo));
+                    bool hasUpdateLink = DateTime.Now <= Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndFilmUpdate));
                     if (type == TeamType.Film)
                     {
-                        if(record["FileLink"].ToString() == "")
-                            AddFilmTeamCard(teamName, teamId, div_TeamInfo,false);
+                        if (record["FileLink"].ToString() == "")
+                            AddFilmTeamCard(teamName, teamId, div_TeamInfo, false, hasUpdate, hasUpdateLink);
                         else
-                            AddFilmTeamCard(teamName, teamId, div_TeamInfo, true);
+                            AddFilmTeamCard(teamName, teamId, div_TeamInfo, true, hasUpdate, hasUpdateLink);
                     }
                     else
-                        AddTeamCard(type, teamName, teamId, div_TeamInfo);
+                        AddTeamCard(type, teamName, teamId, div_TeamInfo, hasUpdate);
                 }
             }
             else
@@ -108,7 +127,7 @@ namespace SignUpSystem
             }
             conn.Close();
         }
-        private void AddTeamCard(TeamType type, string teamName, string teamId, HtmlGenericControl parentControl)
+        private void AddTeamCard(TeamType type, string teamName, string teamId, HtmlGenericControl parentControl, bool hasUpdate)
         {
             HtmlGenericControl cardDiv = NewDiv("card");
             cardDiv.Attributes.Add("style", "margin-bottom: 10px;");
@@ -120,20 +139,6 @@ namespace SignUpSystem
             editName.Attributes.Add("style", "margin-top: 5px;");
             editName.InnerText = teamName;
             HtmlGenericControl ColFiveDiv = NewDiv("col-5");
-            HtmlAnchor editBtnA = new HtmlAnchor();
-            editBtnA.ID = type.ToString() + "|Edit|" + teamId;
-            editBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
-            editBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; width: 70px;");
-            editBtnA.Attributes.Add("runat", "server");
-            editBtnA.Attributes.Add("onClick", "return true;");
-            editBtnA.Attributes.Add("onserverclick", "TeamEdit");
-            editBtnA.ServerClick += new EventHandler(TeamEdit);
-            HtmlGenericControl editImg = new HtmlGenericControl("IMG");
-            editImg.Attributes.Add("width", "15px");
-            editImg.Attributes.Add("style", "margin-bottom: 4px;");
-            editImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/64/000000/edit.png");
-            HtmlGenericControl editSpan = new HtmlGenericControl("SPAN");
-            editSpan.InnerText = "Edit";
             HtmlAnchor viewBtnA = new HtmlAnchor();
             viewBtnA.ID = type.ToString() + "|View|" + teamId;
             viewBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
@@ -149,21 +154,40 @@ namespace SignUpSystem
             HtmlGenericControl viewSpan = new HtmlGenericControl("SPAN");
             viewSpan.InnerText = "View";
 
+            if (hasUpdate)
+            {
+                HtmlAnchor editBtnA = new HtmlAnchor();
+                editBtnA.ID = type.ToString() + "|Edit|" + teamId;
+                editBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+                editBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; width: 70px;");
+                editBtnA.Attributes.Add("runat", "server");
+                editBtnA.Attributes.Add("onClick", "return true;");
+                editBtnA.Attributes.Add("onserverclick", "TeamEdit");
+                editBtnA.ServerClick += new EventHandler(TeamEdit);
+                HtmlGenericControl editImg = new HtmlGenericControl("IMG");
+                editImg.Attributes.Add("width", "15px");
+                editImg.Attributes.Add("style", "margin-bottom: 4px;");
+                editImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/64/000000/edit.png");
+                HtmlGenericControl editSpan = new HtmlGenericControl("SPAN");
+                editSpan.InnerText = "Edit";
+
+                ColFiveDiv.Controls.Add(editBtnA);
+                editBtnA.Controls.Add(editImg);
+                editBtnA.Controls.Add(editSpan);
+            }
+
             cardDiv.Controls.Add(cardBodyDiv);
             cardBodyDiv.Controls.Add(rowDiv);
             rowDiv.Controls.Add(rolEditDiv);
             rolEditDiv.Controls.Add(editName);
             rowDiv.Controls.Add(ColFiveDiv);
-            ColFiveDiv.Controls.Add(editBtnA);
-            editBtnA.Controls.Add(editImg);
-            editBtnA.Controls.Add(editSpan);
             ColFiveDiv.Controls.Add(viewBtnA);
             viewBtnA.Controls.Add(viewImg);
             viewBtnA.Controls.Add(viewSpan);
 
             parentControl.Controls.Add(cardDiv);
         }
-        private void AddFilmTeamCard(string teamName, string teamId, HtmlGenericControl parentControl, bool hasLink)
+        private void AddFilmTeamCard(string teamName, string teamId, HtmlGenericControl parentControl, bool hasLink, bool hasUpdate, bool hasUpdateLink)
         {
             HtmlGenericControl cardDiv = NewDiv("card");
             cardDiv.Attributes.Add("style", "margin-bottom: 10px;");
@@ -175,20 +199,6 @@ namespace SignUpSystem
             editName.Attributes.Add("style", "margin-top: 5px;");
             editName.InnerText = teamName;
             HtmlGenericControl ColFiveDiv = NewDiv("col-5");
-            HtmlAnchor editBtnA = new HtmlAnchor();
-            editBtnA.ID = "Film|Edit|" + teamId;
-            editBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
-            editBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; width: 70px;");
-            editBtnA.Attributes.Add("runat", "server");
-            editBtnA.Attributes.Add("onClick", "return true;");
-            editBtnA.Attributes.Add("onserverclick", "TeamEdit");
-            editBtnA.ServerClick += new EventHandler(TeamEdit);
-            HtmlGenericControl editImg = new HtmlGenericControl("IMG");
-            editImg.Attributes.Add("width", "15px");
-            editImg.Attributes.Add("style", "margin-bottom: 4px;");
-            editImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/64/000000/edit.png");
-            HtmlGenericControl editSpan = new HtmlGenericControl("SPAN");
-            editSpan.InnerText = "Edit";
             HtmlAnchor viewBtnA = new HtmlAnchor();
             viewBtnA.ID = "Film|View|" + teamId;
             viewBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
@@ -203,41 +213,64 @@ namespace SignUpSystem
             viewImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/24/000000/visible.png");
             HtmlGenericControl viewSpan = new HtmlGenericControl("SPAN");
             viewSpan.InnerText = "View";
-            HtmlAnchor linkBtnA = new HtmlAnchor();
-            linkBtnA.ID = "Film|Link|" + teamId;
-            linkBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
-            linkBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; margin-left: 5px; width: 90px;");
-            linkBtnA.Attributes.Add("runat", "server");
-            linkBtnA.Attributes.Add("onClick", "return true;");
-            linkBtnA.Attributes.Add("onserverclick", "TeamLink");
-            linkBtnA.ServerClick += new EventHandler(TeamLink);
-            HtmlGenericControl linkImg = new HtmlGenericControl("IMG");
-            linkImg.Attributes.Add("width", "15px");
-            linkImg.Attributes.Add("style", "margin-bottom: 4px;");
-            linkImg.Attributes.Add("src", "https://img.icons8.com/windows/32/000000/link.png");
-            HtmlGenericControl linkSpan = new HtmlGenericControl("SPAN");
-            if (!hasLink)
+
+            if (hasUpdateLink)
             {
-                linkSpan.InnerText = "繳交作品";
-                AddLinkTitle.InnerText = "繳交作品";
-            }
-            else
-            {
-                linkSpan.InnerText = "更新作品";
-                AddLinkTitle.InnerText = "更新作品";
+                HtmlAnchor linkBtnA = new HtmlAnchor();
+                linkBtnA.ID = "Film|Link|" + teamId;
+                linkBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+                linkBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; margin-left: 5px; width: 90px;");
+                linkBtnA.Attributes.Add("runat", "server");
+                linkBtnA.Attributes.Add("onClick", "return true;");
+                linkBtnA.Attributes.Add("onserverclick", "TeamLink");
+                linkBtnA.ServerClick += new EventHandler(TeamLink);
+                HtmlGenericControl linkImg = new HtmlGenericControl("IMG");
+                linkImg.Attributes.Add("width", "15px");
+                linkImg.Attributes.Add("style", "margin-bottom: 4px;");
+                linkImg.Attributes.Add("src", "https://img.icons8.com/windows/32/000000/link.png");
+                HtmlGenericControl linkSpan = new HtmlGenericControl("SPAN");
+                if (!hasLink)
+                {
+                    linkSpan.InnerText = "繳交作品";
+                    AddLinkTitle.InnerText = "繳交作品";
+                }
+                else
+                {
+                    linkSpan.InnerText = "更新作品";
+                    AddLinkTitle.InnerText = "更新作品";
+                }
+
+                ColFiveDiv.Controls.Add(linkBtnA);
+                linkBtnA.Controls.Add(linkImg);
+                linkBtnA.Controls.Add(linkSpan);
             }
 
+            if (hasUpdate)
+            {
+                HtmlAnchor editBtnA = new HtmlAnchor();
+                editBtnA.ID = "Film|Edit|" + teamId;
+                editBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+                editBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; width: 70px;");
+                editBtnA.Attributes.Add("runat", "server");
+                editBtnA.Attributes.Add("onClick", "return true;");
+                editBtnA.Attributes.Add("onserverclick", "TeamEdit");
+                editBtnA.ServerClick += new EventHandler(TeamEdit);
+                HtmlGenericControl editImg = new HtmlGenericControl("IMG");
+                editImg.Attributes.Add("width", "15px");
+                editImg.Attributes.Add("style", "margin-bottom: 4px;");
+                editImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/64/000000/edit.png");
+                HtmlGenericControl editSpan = new HtmlGenericControl("SPAN");
+                editSpan.InnerText = "Edit";
+
+                ColFiveDiv.Controls.Add(editBtnA);
+                editBtnA.Controls.Add(editImg);
+                editBtnA.Controls.Add(editSpan);
+            }
             cardDiv.Controls.Add(cardBodyDiv);
             cardBodyDiv.Controls.Add(rowDiv);
             rowDiv.Controls.Add(rolEditDiv);
             rolEditDiv.Controls.Add(editName);
             rowDiv.Controls.Add(ColFiveDiv);
-            ColFiveDiv.Controls.Add(linkBtnA);
-            linkBtnA.Controls.Add(linkImg);
-            linkBtnA.Controls.Add(linkSpan);
-            ColFiveDiv.Controls.Add(editBtnA);
-            editBtnA.Controls.Add(editImg);
-            editBtnA.Controls.Add(editSpan);
             ColFiveDiv.Controls.Add(viewBtnA);
             viewBtnA.Controls.Add(viewImg);
             viewBtnA.Controls.Add(viewSpan);
@@ -259,6 +292,9 @@ namespace SignUpSystem
         }
         protected void btn_NewTeam_Click(object sender, EventArgs e)
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             if (a_Earthquake.Attributes["class"].Contains("active"))
             {
                 //確認是否可以新增隊伍
@@ -284,7 +320,9 @@ namespace SignUpSystem
                     if(Convert.ToInt32(dr["Count"]) == 6)
                     {
                         //有隊伍就不能新增
-                        MsgBox_Data.InnerHtml = "<p>帳號所屬學校已報名六隊團隊來對震隊伍，不得再進行本賽程報名！</p>";
+                        MsgBox_Data.InnerHtml = $"<p>帳號所屬學校已報名六隊" +
+                            appPro.GetApplicationString(BaseInfo.EarthquakeName) +
+                            $"隊伍，不得再進行本賽程報名！</p>";
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#MsgBox').modal('show');", true);
                         LoadTeamByAccount(TeamType.Bridge);
                     }
@@ -319,7 +357,9 @@ namespace SignUpSystem
                 if (dr.HasRows)
                 {
                     //有隊伍就不能新增
-                    MsgBox_Data.InnerHtml = "<p>帳號所屬學校已報名一隊橋梁變變變隊伍，不得再進行本賽程報名！</p>";
+                    MsgBox_Data.InnerHtml = $"<p>帳號所屬學校已報名一隊" +
+                        appPro.GetApplicationString(BaseInfo.BridgeName) +
+                        $"隊伍，不得再進行本賽程報名！</p>";
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#MsgBox').modal('show');", true);
                     LoadTeamByAccount(TeamType.Bridge);
                 }
@@ -340,7 +380,8 @@ namespace SignUpSystem
 
                 //先抓抗震的
                 SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
-                    $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                    $" AND CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                     earList.Add(dr["Name"].ToString());
@@ -349,7 +390,8 @@ namespace SignUpSystem
 
                 //抓橋梁的
                 command = new SqlCommand($"SELECT Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
-                    $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                    $" AND CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())
                     briList.Add(dr["Name"].ToString());
@@ -358,7 +400,8 @@ namespace SignUpSystem
 
                 //確認微電影報了沒有
                 command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE AccountID = {Session["LoginId"].ToString()}" +
-                    $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                    $" AND CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())
                 {
@@ -372,7 +415,13 @@ namespace SignUpSystem
 
                 if(earList.Count == 0 && briList.Count == 0)
                 {
-                    MsgBox_Data.InnerHtml = "<p>帳號中團隊來對震與橋梁變變變皆已參加影領創視界賽程！</p>";
+                    MsgBox_Data.InnerHtml = $"<p>帳號中" +
+                        appPro.GetApplicationString(BaseInfo.EarthquakeName) +
+                        $"與" +
+                        appPro.GetApplicationString(BaseInfo.BridgeName) +
+                        $"皆已參加" +
+                        appPro.GetApplicationString(BaseInfo.FilmName) +
+                        $"賽程！</p>";
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#MsgBox').modal('show');", true);
                     LoadTeamByAccount(TeamType.Bridge);
                 }
@@ -616,11 +665,15 @@ namespace SignUpSystem
             if (FilmLink.Value == "")
                 return;
 
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             //有連結就更新資料
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
             SqlCommand command = new SqlCommand($"UPDATE FilmInfo SET FileLink = '{FilmLink.Value}' WHERE Id = '{Session["AddLink"].ToString()}'" +
-                $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
+                $" AND CreateDate " +
+                appPro.GetBetweenSignUpTime(), conn);
             command.ExecuteNonQuery();
             command.Cancel();
             conn.Close();

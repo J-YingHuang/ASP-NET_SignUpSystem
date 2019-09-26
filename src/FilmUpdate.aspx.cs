@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -19,6 +20,11 @@ namespace SignUpSystem
                     InitLoad();
                 else
                     Response.Redirect("Login.aspx");
+
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.FilmName) + "報名資訊";
+
             }
         }
         public void InitLoad()
@@ -46,6 +52,9 @@ namespace SignUpSystem
         }
         public void LoadInitTeam()
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
 
@@ -54,7 +63,8 @@ namespace SignUpSystem
 
             //先抓抗震的
             SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
-                $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                $" AND CreateDate " +
+                appPro.GetBetweenSignUpTime(), conn);
             SqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
                 earList.Add(dr["Name"].ToString());
@@ -63,7 +73,8 @@ namespace SignUpSystem
 
             //抓橋梁的
             command = new SqlCommand($"SELECT Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
-                $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                $" AND CreateDate " +
+                appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             while (dr.Read())
                 briList.Add(dr["Name"].ToString());
@@ -72,7 +83,8 @@ namespace SignUpSystem
 
             //確認微電影報了沒有
             command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE AccountID = {Session["LoginId"].ToString()}" +
-                $" AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31'", conn);
+                $" AND CreateDate " +
+                appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             while (dr.Read())
             {
@@ -85,9 +97,11 @@ namespace SignUpSystem
             command.Cancel();
 
             foreach (string team in earList)
-                select_Team.Items.Add($"團隊來對震|{team}");
+                select_Team.Items.Add(appPro.GetApplicationString(BaseInfo.EarthquakeName) +
+                    $"|{team}");
             foreach (string team in briList)
-                select_Team.Items.Add($"橋梁變變變|{team}");
+                select_Team.Items.Add(appPro.GetApplicationString(BaseInfo.BridgeName) +
+                    $"|{team}");
         }
         protected void btn_Submit_ServerClick(object sender, EventArgs e)
         {

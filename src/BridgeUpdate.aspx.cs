@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Text.RegularExpressions;
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -23,6 +24,10 @@ namespace SignUpSystem
                     InitLoad();
                 else
                     Response.Redirect("Login.aspx");
+
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName) + "報名資訊";
             }
 
             List<string> keys = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList();
@@ -345,7 +350,8 @@ namespace SignUpSystem
 
         protected void btn_Close_ServerClick(object sender, EventArgs e)
         {
-
+            Session["UpdateId"] = null;
+            Response.Redirect("Intro.aspx");
         }
     }
 
