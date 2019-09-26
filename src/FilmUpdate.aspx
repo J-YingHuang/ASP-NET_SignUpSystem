@@ -8,7 +8,7 @@
         <div class="form-group row" style="font-size: 30px">
             <div class="col">
                 <br />
-                <div class="row justify-content-center">
+                <div id="lab_Title" runat="server" class="row justify-content-center">
                     影領創視界報名資訊
                 </div>
             </div>

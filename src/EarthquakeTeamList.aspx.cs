@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Web.UI.HtmlControls;
-
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -18,13 +18,18 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName) + "報名表";
+
                 LoadInitSelect();
                 LoadTeamListBySelected();
                 string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
                 SqlConnection conn = new SqlConnection(strConn);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT COUNT(*) AS Count FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31'", conn);
+                SqlCommand command = new SqlCommand($"SELECT COUNT(*) AS Count FROM EarthquakeTeam WHERE CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
                 SqlDataReader dr = command.ExecuteReader();
                 while(dr.Read())
                     lab_Count.InnerText = dr["Count"].ToString() + "隊";
@@ -39,12 +44,17 @@ namespace SignUpSystem
         }
         public void LoadInitSelect()
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
             //取得今年的已報名隊伍的帳號ID
-            SqlCommand command = new SqlCommand("SELECT AccountId FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31' GROUP BY AccountID", conn);
+            SqlCommand command = new SqlCommand($"SELECT AccountId FROM EarthquakeTeam WHERE CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $" GROUP BY AccountID", conn);
             SqlDataReader dr = command.ExecuteReader();
             List<string> Ids = new List<string>();
             while (dr.Read())
@@ -83,6 +93,9 @@ namespace SignUpSystem
         }
         public void LoadTeamListBySelected()
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
@@ -116,7 +129,9 @@ namespace SignUpSystem
             //讀隊伍, 然後把隊伍加進去Card
             foreach (string teacherId in TeacherIdToName.Keys)
             {
-                command = new SqlCommand($"SELECT Name, Count, Vegetarian FROM EarthquakeTeam WHERE AccountID = {teacherId} AND CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+                command = new SqlCommand($"SELECT Name, Count, Vegetarian FROM EarthquakeTeam WHERE AccountID = {teacherId} AND CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
+                    $";", conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())
                 {
@@ -136,9 +151,10 @@ namespace SignUpSystem
 
                     div_TeamCard.InnerHtml += innerHtmltext;
                 }
+                dr.Close();
+                command.Cancel();
+
             }
-            dr.Close();
-            command.Cancel();
 
             conn.Close();
         }
@@ -149,12 +165,17 @@ namespace SignUpSystem
             select_Teacher.Items.Clear();
             select_Teacher.Items.Add("All");
 
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
             //取得今年的已報名隊伍的帳號ID
-            SqlCommand command = new SqlCommand("SELECT AccountId FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31' GROUP BY AccountID", conn);
+            SqlCommand command = new SqlCommand($"SELECT AccountId FROM EarthquakeTeam WHERE CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $" GROUP BY AccountID", conn);
             SqlDataReader dr = command.ExecuteReader();
             List<string> Ids = new List<string>();
             while (dr.Read())
@@ -221,12 +242,17 @@ namespace SignUpSystem
             select_Teacher.Items.Clear();
             select_Teacher.Items.Add("All");
 
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
             //取得今年的已報名隊伍的帳號ID
-            SqlCommand command = new SqlCommand("SELECT AccountId FROM EarthquakeTeam WHERE CreateDate Between '2019-01-01' AND '2019-12-31' GROUP BY AccountID", conn);
+            SqlCommand command = new SqlCommand($"SELECT AccountId FROM EarthquakeTeam WHERE CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $" GROUP BY AccountID", conn);
             SqlDataReader dr = command.ExecuteReader();
             List<string> Ids = new List<string>();
             while (dr.Read())

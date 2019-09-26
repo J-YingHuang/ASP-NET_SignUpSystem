@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -18,6 +19,11 @@ namespace SignUpSystem
             {
                 if (Session["LogIn"] == null || Session["LogIn"].ToString() != "Y")
                     Response.Redirect("Login.aspx");
+
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName) + "報名表";
+
                 AddTeamCount(1);
                 AddTeamCount(2);
                 AddTeamCount(3);
@@ -183,6 +189,8 @@ namespace SignUpSystem
         {
             string errMes = "";
             int mainCount = 1;
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
 
             //隊名要填
             if (input_TeamName.Value == "")
@@ -196,7 +204,9 @@ namespace SignUpSystem
                 SqlConnection connect = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
                 connect.Open();
                 SqlCommand comm = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
-                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", connect);
+                    $"AND CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
+                    $";", connect);
                 SqlDataReader theDr = comm.ExecuteReader();
                 if (theDr.HasRows)
                 {
@@ -208,7 +218,9 @@ namespace SignUpSystem
                     theDr.Close();
                     comm.Cancel();
                     comm = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Name = '{input_TeamName.Value}' " +
-                    $"AND CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", connect);
+                    $"AND CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
+                    $";", connect);
                     theDr = comm.ExecuteReader();
                     if (theDr.HasRows)
                     {
@@ -299,7 +311,8 @@ namespace SignUpSystem
             command.Cancel();
 
             command = new SqlCommand($"SELECT Count(*) AS Count FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id" +
-                $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                $" WHERE Account.SchoolID = {accountSchoolId}" +
+                $"AND EarthquakeTeam.CreateDate " + appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
 
             while (dr.Read())
@@ -307,9 +320,10 @@ namespace SignUpSystem
                 if (Convert.ToInt32(dr["Count"]) == 6)
                 {
                     //有隊伍就不能新增
-                    errMes = "不好意思，本帳號所屬學校已報名六隊團隊來對震隊伍，不得再進行本賽程報名！";
+                    errMes = $"不好意思，本帳號所屬學校已報名六隊" +
+                        appPro.GetApplicationString(BaseInfo.EarthquakeName) +
+                        $"隊伍，不得再進行本賽程報名！";
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                    Response.Redirect("Intro.aspx");
                 }
             }
 
