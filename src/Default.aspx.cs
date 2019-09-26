@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
-
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -15,13 +15,34 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DateTime startTime = new DateTime(2019, 09, 30);
-            DateTime endTime = new DateTime(2019, 10, 14);
-            if(DateTime.Now > startTime && DateTime.Now < endTime)
-                LoadInfoAboutTeam();
+            if (!IsPostBack)
+            {
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
+                DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
+                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
+                if (DateTime.Now > startTime && DateTime.Now < endTime)
+                    LoadInfoAboutTeam();
+
+                //加入每屆的資料
+                lab_TitleName.InnerText = $"國立高雄科技大學 {appPro.GetApplicationString(BaseInfo.GameNumber)} 抗震大作戰";
+                lab_TitleGameList.InnerText = $"{appPro.GetApplicationString(BaseInfo.EarthquakeName)}X" +
+                    $"{appPro.GetApplicationString(BaseInfo.BridgeName)}X" +
+                    $"{appPro.GetApplicationString(BaseInfo.FilmName)}";
+                lab_SignTime.InnerText = $"報名開放時間：" +
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy/MM/dd")}";
+                lab_Game1Name.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
+                lab_Game2Name.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
+                lab_Game3Name.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
+            }
         }
         public void LoadInfoAboutTeam()
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
@@ -31,7 +52,8 @@ namespace SignUpSystem
 
             //Earthquake 
             command = new SqlCommand($"SELECT School.Name AS SchoolName, EarthquakeTeam.Name AS Name FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id " +
-                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate " +
+                appPro.GetBetweenSignUpTime() + ";", conn);
             dr = command.ExecuteReader();
             int count = 0;
             List<string> school = new List<string>();
@@ -48,7 +70,9 @@ namespace SignUpSystem
 
             //Bridge 
             command = new SqlCommand($"SELECT School.Name AS SchoolName, BridgeTeam.Name AS Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
-                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
+                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $";", conn);
             dr = command.ExecuteReader();
             count = 0;
             school = new List<string>();
@@ -64,7 +88,9 @@ namespace SignUpSystem
             command.Cancel();
 
             //Film
-            command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE FilmInfo.CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+            command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE FilmInfo.CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $";", conn);
             dr = command.ExecuteReader();
             count = 0;
             List<string> earthquakeTeam = new List<string>();
@@ -83,7 +109,8 @@ namespace SignUpSystem
             foreach(string ear in earthquakeTeam)
             {
                 command = new SqlCommand($"SELECT School.Name AS SchoolName FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id " +
-                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate Between '2019-01-01' AND '2019-12-31'" +
+                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
                     $" AND EarthquakeTeam.Name = '{ear}';", conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())
@@ -96,7 +123,8 @@ namespace SignUpSystem
             foreach (string bri in bridgeTeam)
             {
                 command = new SqlCommand($"SELECT School.Name AS SchoolName FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
-                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate Between '2019-01-01' AND '2019-12-31'" +
+                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
                     $" AND BridgeTeam.Name = '{bri}';", conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -20,6 +21,11 @@ namespace SignUpSystem
                     InitLoad();
                 else
                     Response.Redirect("Login.aspx");
+
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName) + "報名資訊";
+
             }
 
             List<string> keys = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList();
