@@ -142,6 +142,7 @@
     <Content Include="Intro.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManagerLoginin.aspx" />
+    <Content Include="SchoolAddin.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -386,6 +387,13 @@
     </Compile>
     <Compile Include="EarthquakeRegistration.aspx.designer.cs">
       <DependentUpon>EarthquakeRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolAddin.aspx.cs">
+      <DependentUpon>SchoolAddin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SchoolAddin.aspx.designer.cs">
+      <DependentUpon>SchoolAddin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
