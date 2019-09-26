@@ -31,8 +31,8 @@ namespace SignUpSystem
                     $"{appPro.GetApplicationString(BaseInfo.BridgeName)}X" +
                     $"{appPro.GetApplicationString(BaseInfo.FilmName)}";
                 lab_SignTime.InnerText = $"報名開放時間：" +
-                    $"{appPro.dateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
-                    $"{appPro.dateFormat(BaseInfo.EndSignUp, "yyyy/MM/dd")}";
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy/MM/dd")}";
                 lab_Game1Name.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
                 lab_Game2Name.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
                 lab_Game3Name.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
@@ -40,6 +40,9 @@ namespace SignUpSystem
         }
         public void LoadInfoAboutTeam()
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
@@ -49,7 +52,8 @@ namespace SignUpSystem
 
             //Earthquake 
             command = new SqlCommand($"SELECT School.Name AS SchoolName, EarthquakeTeam.Name AS Name FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id " +
-                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate " +
+                appPro.GetBetweenSignUpTime() + ";", conn);
             dr = command.ExecuteReader();
             int count = 0;
             List<string> school = new List<string>();
@@ -66,7 +70,9 @@ namespace SignUpSystem
 
             //Bridge 
             command = new SqlCommand($"SELECT School.Name AS SchoolName, BridgeTeam.Name AS Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
-                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate BETWEEN '2019-01-01' AND '2019-12-31';", conn);
+                $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $";", conn);
             dr = command.ExecuteReader();
             count = 0;
             school = new List<string>();
@@ -82,7 +88,9 @@ namespace SignUpSystem
             command.Cancel();
 
             //Film
-            command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE FilmInfo.CreateDate Between '2019-01-01' AND '2019-12-31';", conn);
+            command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE FilmInfo.CreateDate " +
+                appPro.GetBetweenSignUpTime() +
+                $";", conn);
             dr = command.ExecuteReader();
             count = 0;
             List<string> earthquakeTeam = new List<string>();
@@ -101,7 +109,8 @@ namespace SignUpSystem
             foreach(string ear in earthquakeTeam)
             {
                 command = new SqlCommand($"SELECT School.Name AS SchoolName FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id " +
-                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate Between '2019-01-01' AND '2019-12-31'" +
+                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE EarthquakeTeam.CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
                     $" AND EarthquakeTeam.Name = '{ear}';", conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())
@@ -114,7 +123,8 @@ namespace SignUpSystem
             foreach (string bri in bridgeTeam)
             {
                 command = new SqlCommand($"SELECT School.Name AS SchoolName FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
-                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate Between '2019-01-01' AND '2019-12-31'" +
+                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE BridgeTeam.CreateDate " +
+                    appPro.GetBetweenSignUpTime() +
                     $" AND BridgeTeam.Name = '{bri}';", conn);
                 dr = command.ExecuteReader();
                 while (dr.Read())

@@ -6,7 +6,7 @@
         <div class="form-group row" style="font-size: 30px">
             <div class="col">
                 <br />
-                <div class="row justify-content-center">
+                <div id="lab_Title" runat="server" class="row justify-content-center">
                     團隊來對震報名表 
                 </div>
             </div>

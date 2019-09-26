@@ -43,10 +43,17 @@ namespace DataProcessing
         {
             return HttpContext.Current.Application.Get(Enum.GetName(typeof(BaseInfo), infoType)).ToString();
         }
-        public string dateFormat(BaseInfo infoType,string format)
+        public string GetDateFormat(BaseInfo infoType,string format)
         {
             string data = GetApplicationString(infoType);
             return Convert.ToDateTime(data).ToString(format);
+        }
+        public string GetBetweenSignUpTime()
+        {
+            string startSiguUp = GetDateFormat(BaseInfo.StartSignUp, "yyyy-MM-dd HH:mm:ss");
+            string endSignUp = GetDateFormat(BaseInfo.EndSignUp, "yyyy-MM-dd HH:mm:ss");
+
+            return $"BETWEEN '{startSiguUp}' AND '{endSignUp}'";
         }
     }
 }

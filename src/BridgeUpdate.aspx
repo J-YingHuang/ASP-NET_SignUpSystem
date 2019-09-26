@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BridgeUpdate.aspx.cs" Inherits="SignUpSystem.BridgeUpdate" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container" style="width: 80%; margin-left: 10%; margin-right: 10%;">
 
         <div class="form-group row" style="font-size: 30px">
             <div class="col">
                 <br />
-                <div class="row justify-content-center">
+                <div id="lab_Title" runat="server" class="row justify-content-center">
                     橋梁變變變報名資訊
                 </div>
             </div>
@@ -75,7 +76,7 @@
                     3.隊員資訊：
                 </p>
                 <div class="form-group row " style="font-size: 18px;">
-                    <div class="col-2" style="margin-right: 20px; "></div>
+                    <div class="col-2" style="margin-right: 20px;"></div>
                     <div class="col-2" style="margin-right: 20px;">
                         隊員名字
                     </div>
@@ -120,7 +121,6 @@
                     </button>
                 </div>
                 <div class="modal-body" id="Modal_Body" runat="server">
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

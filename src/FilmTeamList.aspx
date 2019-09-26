@@ -6,7 +6,7 @@
             <div class="col-12 text-left">
                 <br />
                 <br />
-                <h3>影領創視界報名資訊</h3>
+                <h3 id="lab_Title" runat="server">影領創視界報名資訊</h3>
                 <br />
             </div>
         </div>
