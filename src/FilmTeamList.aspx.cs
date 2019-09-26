@@ -39,7 +39,7 @@ namespace SignUpSystem
             }
 
             //每次頁面重新彙整都會重新更新隊伍資訊
-            p_UpdateTime.InnerText = $"報名隊伍清單更新時間：{DateTime.Now.ToString("yyyy-mm-dd tt hh:mm:ss")}";
+            p_UpdateTime.InnerText = $"報名隊伍清單更新時間：{DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss")}";
         }
         public void LoadInitSelect()
         {

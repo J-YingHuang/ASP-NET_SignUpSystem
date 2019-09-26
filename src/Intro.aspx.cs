@@ -312,7 +312,8 @@ namespace SignUpSystem
                 command.Cancel();
 
                 command = new SqlCommand($"SELECT Count(*) AS Count FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id" +
-                    $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                    $" WHERE Account.SchoolID = {accountSchoolId}" +
+                    $"AND EarthquakeTeam.CreateDate {appPro.GetBetweenSignUpTime()}", conn);
                 dr = command.ExecuteReader();
 
                 while (dr.Read())
@@ -351,7 +352,8 @@ namespace SignUpSystem
                 command.Cancel();
 
                 command = new SqlCommand($"SELECT Account.Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id" +
-                    $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                    $" WHERE Account.SchoolID = {accountSchoolId}" +
+                    $"AND BridgeTeam.CreateDate {appPro.GetBetweenSignUpTime()}", conn);
                 dr = command.ExecuteReader();
 
                 if (dr.HasRows)

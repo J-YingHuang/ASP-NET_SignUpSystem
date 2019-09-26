@@ -311,7 +311,8 @@ namespace SignUpSystem
             command.Cancel();
 
             command = new SqlCommand($"SELECT Count(*) AS Count FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id" +
-                $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                $" WHERE Account.SchoolID = {accountSchoolId}" +
+                $"AND EarthquakeTeam.CreateDate " + appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
 
             while (dr.Read())
@@ -323,7 +324,6 @@ namespace SignUpSystem
                         appPro.GetApplicationString(BaseInfo.EarthquakeName) +
                         $"隊伍，不得再進行本賽程報名！";
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                    Response.Redirect("Intro.aspx");
                 }
             }
 

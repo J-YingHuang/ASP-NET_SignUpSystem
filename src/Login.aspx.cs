@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Mail;
 using System.IO;
 using System.Text;
+using DataProcessing;
 
 namespace SignUpSystem
 {
@@ -18,7 +19,13 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                lab_LoginTitle.InnerText = Convert.ToDateTime(DateTime.Now).ToString("yyyy") + $" " +
+                    appPro.GetApplicationString(BaseInfo.GameNumber) + $"抗震盃報名系統";
+            }
         }
 
         protected void btn_Login_Click(object sender, EventArgs e)
@@ -62,7 +69,7 @@ namespace SignUpSystem
         }
         protected void btn_manager_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/ManagerLoginin.aspx");
+            Response.Redirect("~/ManagerLogin.aspx");
         }
     }
     }

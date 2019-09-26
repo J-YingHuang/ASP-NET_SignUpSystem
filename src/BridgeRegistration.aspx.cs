@@ -349,7 +349,8 @@ namespace SignUpSystem
             command.Cancel();
 
             command = new SqlCommand($"SELECT Account.Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id" +
-                $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                $" WHERE Account.SchoolID = {accountSchoolId}" +
+                $"AND BridgeTeam.CreateDate " + appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
 
             if (dr.HasRows)
@@ -359,7 +360,6 @@ namespace SignUpSystem
                     appPro.GetApplicationString(BaseInfo.BridgeName) +
                     $"隊伍，不得再進行本賽程報名！";
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                Response.Redirect("Intro.aspx");
             }
 
             if (errMes == "")
