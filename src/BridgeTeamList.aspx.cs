@@ -39,7 +39,7 @@ namespace SignUpSystem
             }
 
             //每次頁面重新彙整都會重新更新隊伍資訊
-            p_UpdateTime.InnerText = $"報名隊伍清單更新時間：{DateTime.Now.ToString("yyyy-mm-dd tt hh:mm:ss")}";
+            p_UpdateTime.InnerText = $"報名隊伍清單更新時間：{DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss")}";
         }
         public void LoadInitSelect()
         {
@@ -138,15 +138,14 @@ namespace SignUpSystem
                     string name = data["Name"].ToString();
                     string count = data["Count"].ToString();
                     string vegat = data["Vegetarian"].ToString();
-                    string innerHtmltext = "<div class=\"col - 4 text - left \">"
-                        + "<div class=\"card w-100\" style=\"width: 18rem; margin-bottom: 15px; \">"
+                    string innerHtmltext = "<div class=\"card\" style=\"margin-bottom: 2%; display: inline-block;\">"
                         + "<div class=\"card-body text-left\">"
                         + "<h5 class=\"card-title\">" + name + "</h5>"
                         + "<h6 class=\"card-subtitle mb-2 text-muted\">" + TeacherIdToSchool[teacherId] + "</h6>"
                         + "<p class=\"card-subtitle mb-2 text-muted\">指導老師：" + TeacherIdToName[teacherId] + "</p>"
                         + "<a href=\"#\" class=\"card-link\">隊伍人數：" + count + "人</a>"
                         + "<a href=\"#\" class=\"card-link\">吃素人數：" + vegat + "人</a>"
-                        + "</div></div></div>";
+                        + "</div></div>";
 
                     div_TeamCard.InnerHtml += innerHtmltext;
                 }

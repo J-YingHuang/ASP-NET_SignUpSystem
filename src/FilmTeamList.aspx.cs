@@ -138,8 +138,7 @@ namespace SignUpSystem
                     IDataRecord data = (IDataRecord)dr;
                     string name = data["Name"].ToString();
                     string teamType = data["TeamType"].ToString();
-                    string innerHtmltext = "<div class=\"col - 4 text - left \">"
-                        + "<div class=\"card w-100\" style=\"width: 18rem; margin-bottom: 15px; \">"
+                    string innerHtmltext = "<div class=\"card\" style=\"margin-bottom: 2%; display: inline-block;\">"
                         + "<div class=\"card-body text-left\">"
                         + "<h5 class=\"card-title\">" + name + "</h5>"
                         + "<h6 class=\"card-subtitle mb-2 text-muted\">" + TeacherIdToSchool[teacherId] + "</h6>"
@@ -151,7 +150,7 @@ namespace SignUpSystem
                     else
                         innerHtmltext += appPro.GetApplicationString(BaseInfo.BridgeName);
 
-                    innerHtmltext += "</a></div></div></div>";
+                    innerHtmltext += "</a></div></div>";
 
                     div_TeamCard.InnerHtml += innerHtmltext;
                 }
