@@ -40,43 +40,40 @@
             <hr />
         </div>
 
-        <div class="form-group row" style="font-size: 25px">
-            <div class="col">
-                <p align="center">
-                    隊伍資訊
-                </p>
-            </div>
-        </div>
         <div class="form-group row" style="font-size: 18px">
-            <div class="col">
+            <div class="col-4">
                 <p align="left">
-                    1.隊伍名稱：
+                    1. 隊伍名稱：
                 </p>
-                <input class="form-control" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" id="input_TeamName" runat="server" />
+                <input id="input_TeamName" class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
 
-
-            <div class="col">
+            <div class="col-4">
                 <p align="left">
-                    2.吃素人數：(不含老師)
+                    2. 吃素人數：(不含老師)
                 </p>
-                <select class="form-control" style="font-size: 12px;" id="select_Veg" runat="server">
+                <select class="form-control form-control-sm" style="font-size: 12px;" id="select_Veg" runat="server">
                     <option>無</option>
                     <option>1人</option>
                     <option>2人</option>
                     <option>3人</option>
                     <option>4人</option>
                     <option>5人</option>
-                    <option>6人</option>
                 </select>
 
+            </div>
+            <div class="col-4">
+                <p align="left">
+                    3. 共同指導老師(選填)：
+                </p>
+                <input id="input_SecondTeacher" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
         </div>
 
         <div class="form-group row" style="font-size: 18px;">
             <div class="col ">
                 <p align="left">
-                    3.隊員資訊：
+                    4.隊員資訊：
                 </p>
                 <div class="form-group row " style="font-size: 18px;">
                     <div class="col-4"></div>

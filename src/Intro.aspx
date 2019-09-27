@@ -26,15 +26,6 @@
                 <button type="button" class="btn btn-outline-secondary" style="width: 100%; margin-top: 10px;" runat="server" onserverclick="Unnamed_ServerClick">
                     登出
                 </button>
-                <%--                <p style="text-align: right;" id="earthquakeStute" runat="server">123</p>
-                <% if (Session["Login"].ToString() == "Y")
-                    {%>
-                <p>前往報名</p>
-                <a class="btn btn-default" href=""><img /></a>
-                <%  }
-                    else {%>
-
-                <%  }%>--%>
             </div>
             <div class="col-md-9">
                 <h4>參賽隊伍
@@ -63,26 +54,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div id="div_TeamInfo" runat="server"></div>
-                                <%--      Cardtemplate            <div class="card">
-                                    <div class="card-body" style="text-align: left;">
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <h6 style="margin-top: 5px;">隊伍名稱</h6>
-                                            </div>
-                                            <div class="col-5 ">
-
-                                                <a id="edit_team1" class="btn btn-outline-secondary float-right" style="height: 32px; font-size: 12px; width: 70px;">
-                                                    <img width="15px" style="margin-bottom: 4px;" src="https://img.icons8.com/ios-glyphs/64/000000/edit.png">
-                                                    <span>Edit</span>
-                                                </a>
-                                                <a id="view_team1" class="btn btn-outline-secondary float-right" style="height: 32px; font-size: 12px; margin-right: 5px; width: 70px;">
-                                                    <img width="15px" style="margin-bottom: 4px;" src="https://img.icons8.com/ios-glyphs/24/000000/visible.png">
-                                                    <span>View</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>--%>
                             </div>
                         </div>
                     </div>

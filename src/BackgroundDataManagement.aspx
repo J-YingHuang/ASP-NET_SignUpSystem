@@ -27,6 +27,9 @@
     <p class="text-info">微電影</p>
     <asp:Button ID="btn_FilmModify" runat="server" Text="修改" class=" float btn btn-outline-info" OnClick="btn_FilmModify_Click" />
     <asp:Button ID="btn_FilmDelete" runat="server" Text="刪除" class=" float btn btn-outline-info" OnClick="btn_FilmDelete_Click" />
+    <div p class="text-info">-------------------------------------------------------</div>
+    <p class="text-info">報名資訊匯出</p>
+    <asp:Button ID="btn_ExportExcel" runat="server" Text="匯出Excel" class=" float btn btn-outline-info" OnClick="btn_ExportExcel_Click" />
     <br />
     <br />
 
@@ -152,7 +155,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn_UpdateToNextYear" runat="server" onserverclick="btn_UpdateToNextYear_ServerClick" >更換資訊</button>
+                    <button type="button" class="btn btn-primary" id="btn_UpdateToNextYear" runat="server" onserverclick="btn_UpdateToNextYear_ServerClick">更換資訊</button>
                 </div>
             </div>
         </div>

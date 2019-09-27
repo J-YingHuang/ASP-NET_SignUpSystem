@@ -26,9 +26,7 @@ namespace SignUpSystem
             da.Fill(ds);
             this.DropDownList1.DataSource = ds;
             this.DropDownList1.DataTextField = "name";
-            
             this.DropDownList1.DataBind();
-
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)

@@ -47,14 +47,14 @@
             </div>
         </div>
         <div class="form-group row" style="font-size: 18px">
-            <div class="col">
+            <div class="col-4">
                 <p align="left">
                     1. 隊伍名稱：
                 </p>
-                <input id="input_TeamName" class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" runat="server" disabled>
+                <input id="input_TeamName" class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
 
-            <div class="col">
+            <div class="col-4">
                 <p align="left">
                     2. 吃素人數：(不含老師)
                 </p>
@@ -68,28 +68,34 @@
                 </select>
 
             </div>
+            <div class="col-4">
+                <p align="left">
+                    3. 共同指導老師(選填)：
+                </p>
+                <input id="input_SecondTeacher" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server">
+            </div>
         </div>
 
         <div class="form-group row " style="font-size: 18px;">
             <div class="col">
                 <p align="left">
-                    3.隊員資訊：
+                    4.隊員資訊：
                 </p>
                 <div class="form-group row " style="font-size: 18px;">
                     <div class="col-2" style="margin-right: 20px;"></div>
-                    <div class="col-2" style="margin-right: 20px;">
+                    <div class="col-2 text-center" style="margin-right: 20px;">
                         隊員名字
                     </div>
-                    <div class="col-2" style="margin-right: 20px;">
+                    <div class="col-2 text-center" style="margin-right: 20px;">
                         身分證字號
                     </div>
-                    <div class="col-2" style="margin-right: 20px;">
+                    <div class="col-2 text-center" style="margin-right: 20px;">
                         生日
                     </div>
-                    <div class="col-2">
+                    <div class="col-2 text-center">
                         隊長
                     </div>
-                    <div class="col-2" style="margin-right: 20px;"></div>
+                    <div class="col-2 text-center" style="margin-right: 20px;"></div>
 
                 </div>
 
@@ -97,13 +103,14 @@
                     <asp:Panel ID="fieldSpace" runat="server"></asp:Panel>
                 </div>
                 <br />
-                <button id="btn_Add" type="button" class="btn btn-light" runat="server" onserverclick="btn_Add_ServerClick">
-                    <img src="https://img.icons8.com/ios/50/000000/add.png" style="width: 30px;"></button>
-                <button id="btn_Delete" type="button" class="btn btn-light" runat="server" onserverclick="btn_Delete_ServerClick">
-                    <img src="https://img.icons8.com/ios/50/000000/minus.png" style="width: 30px"></button>
+                <p align="center">
+                    <button id="btn_Add" type="button" class="btn btn-light" runat="server" onserverclick="btn_Add_ServerClick">
+                        <img src="https://img.icons8.com/ios/50/000000/add.png" style="width: 30px;"></button>
+                    <button id="btn_Delete" type="button" class="btn btn-light" runat="server" onserverclick="btn_Delete_ServerClick">
+                        <img src="https://img.icons8.com/ios/50/000000/minus.png" style="width: 30px"></button>
+                </p>
             </div>
         </div>
-
         <p align="right">
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Submit" runat="server" onserverclick="btn_Submit_ServerClick">更新</button>
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Close" runat="server" onserverclick="btn_Close_ServerClick">取消</button>

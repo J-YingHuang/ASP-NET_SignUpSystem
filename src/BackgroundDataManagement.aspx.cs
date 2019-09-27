@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
+using Syncfusion.XlsIO;
 
 namespace SignUpSystem
 {
@@ -78,6 +79,28 @@ namespace SignUpSystem
             SqlCommand comm = new SqlCommand(commStr, conn);
             comm.ExecuteNonQuery();
             conn.Close();
+        }
+
+        protected void btn_ExportExcel_Click(object sender, EventArgs e)
+        {
+            //Create an instance of ExcelEngine
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                //Set the default application version as Excel 2016
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2016;
+
+                //Create a workbook with a worksheet
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                //Access first worksheet from the workbook instance
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                //Insert sample text into cell “A1”
+                worksheet.Range["A1"].Text = "Hello World";
+
+                //Save the workbook to disk in xlsx format
+                workbook.SaveAs("Output.xlsx", Response, ExcelDownloadType.Open, ExcelHttpContentType.Excel2016);
+            }
         }
     }
 

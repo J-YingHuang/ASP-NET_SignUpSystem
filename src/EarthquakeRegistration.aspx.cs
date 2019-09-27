@@ -134,10 +134,18 @@ namespace SignUpSystem
                 }
             }
 
+            //判斷有沒有第二位老師
+            bool hasSecondTeacher = false;
+            if (input_SecondTeacher.Value != "")
+                hasSecondTeacher = true;
+
             string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, Vegetarian, LeaderName";
 
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}";
+
+            if (hasSecondTeacher)
+                commandString += ", SecondTeacher";
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
@@ -171,6 +179,9 @@ namespace SignUpSystem
 
             foreach (string peo in teamMembers)
                 commandString += $", '{peo}'";
+
+            if (hasSecondTeacher)
+                commandString += $", '{input_SecondTeacher.Value}'";
 
             commandString += ");";
 

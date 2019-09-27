@@ -160,10 +160,18 @@ namespace SignUpSystem
                 }
             }
 
+            //判斷有沒有第二位老師
+            bool hasSecondTeacher = false;
+            if (input_SecondTeacher.Value != "")
+                hasSecondTeacher = true;
+
             string commandString = $"INSERT INTO BridgeTeam (AccountID ,Name, Count, Vegetarian, LeaderName, LeaderID, LeaderBirthday";
 
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}, PlayerID{i}, PlayerBirthday{i}";
+
+            if (hasSecondTeacher)
+                commandString += ", SecondTeacher";
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
@@ -193,10 +201,14 @@ namespace SignUpSystem
                     break;
             }
 
+
             commandString += $", '{leader.Name}', '{leader.Id}', '{leader.Birthday}'";
 
             foreach(teamPeople peo in teamMembers)
                 commandString += $", '{peo.Name}', '{peo.Id}', '{peo.Birthday}'";
+
+            if (hasSecondTeacher)
+                commandString += $", '{input_SecondTeacher.Value}'";
 
             commandString += ");";
 
@@ -237,7 +249,7 @@ namespace SignUpSystem
                 SqlDataReader theDr = comm.ExecuteReader();
                 if (theDr.HasRows)
                 {
-                    errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
+                    errMes += $"<p>{mainCount}. 本年度比賽已存在相同隊名之隊伍，請更換隊名!</p>";
                     mainCount++;
                 }
                 else
@@ -251,7 +263,7 @@ namespace SignUpSystem
                     theDr = comm.ExecuteReader();
                     if (theDr.HasRows)
                     {
-                        errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
+                        errMes += $"<p>{mainCount}. 本年度比賽已存在相同隊名之隊伍，請更換隊名!</p>";
                         mainCount++;
                     }
                 }

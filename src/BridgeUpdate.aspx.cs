@@ -49,6 +49,9 @@ namespace SignUpSystem
                 input_TeamName.Value = dr["Name"].ToString();
                 select_Veg.SelectedIndex = Convert.ToInt32(dr["Vegetarian"]);
 
+                if (dr["SecondTeacher"].ToString() != "")
+                    input_SecondTeacher.Value = dr["SecondTeacher"].ToString();
+
                 for (int i = 0; i < Convert.ToInt32(dr["Count"]); i++)
                     AddTeamCount(i + 1);
 
@@ -238,6 +241,11 @@ namespace SignUpSystem
                 commandString += $", PlayerName{i} = '{teamMembers[i - 1].Name}', PlayerID{i} = '{teamMembers[i - 1].Id}', " +
                     $"PlayerBirthday{i} = '{teamMembers[i - 1].Birthday}'";
             }
+
+            if (input_SecondTeacher.Value != "")
+                commandString += $", SecondTeacher = '{input_SecondTeacher.Value}'";
+            else
+                commandString += $", SecondTeacher = NULL";
 
             commandString += $" WHERE Id = {Session["UpdateId"]};";
 
