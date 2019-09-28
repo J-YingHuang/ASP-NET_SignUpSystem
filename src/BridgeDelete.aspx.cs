@@ -31,8 +31,9 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
             SqlCommand command = new SqlCommand();
-            command.CommandText = "DELETE  FROM Account WHERE Name=@name";
+            command.CommandText = "DELETE  FROM Bridge WHERE Name=@name";
             command.Parameters.AddWithValue("@name", conn).Value= int.Parse(GridView1.Rows[e.RowIndex].Cells[2].Text);
+            
             conn.Open();
             command.ExecuteNonQuery();
             conn.Close();
