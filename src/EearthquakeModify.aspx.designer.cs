@@ -112,31 +112,31 @@ namespace SignUpSystem {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor a_Earthquake;
         
         /// <summary>
-        /// btn_NewTeam 控制項。
+        /// Button1 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_NewTeam;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// div_TeamInfo 控制項。
+        /// div1 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_TeamInfo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
         
         /// <summary>
-        /// updateName 控制項。
+        /// Div2 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText updateName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Div2;
         
         /// <summary>
         /// updatecount 控制項。
@@ -218,6 +218,15 @@ namespace SignUpSystem {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText updatesecondteacher;
+        
+        /// <summary>
+        /// MemberInfo 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MemberInfo;
         
         /// <summary>
         /// btn_updateAccount 控制項。
