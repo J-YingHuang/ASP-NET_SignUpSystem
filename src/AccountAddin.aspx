@@ -15,10 +15,10 @@
     <label for="EmailInput">Email</label>
     <input  class="form-control" type="text" id="EmailInput" runat="server" >
     <div class="form-group">
-    <label for="DropDownList1">校名</label>
-  <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True"  OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" DataSourceID="SqlDataSource1">
+    <label for="DropDownList1" >校名</label>
+  <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True"  OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" >
         </asp:DropDownList>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+        
         <asp:Button id="AddSchool" type="button" class="  btn btn-secondary" runat="server" OnClick="btn_AddSchool_Click" Text="+" />      
      
    <div/>

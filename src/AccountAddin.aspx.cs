@@ -29,10 +29,13 @@ namespace SignUpSystem
             this.DropDownList1.DataBind();
         }
 
+
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
+
+       
 
         protected void btn_Save_Click(object sender, EventArgs e)
         {
@@ -41,7 +44,7 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
-            SqlCommand command = new SqlCommand("INSERT INTO Account * values (@Username,@Password,@Name,@Phone,@Email,@Vegetarian)", conn);
+            SqlCommand command = new SqlCommand("INSERT INTO Account * values (@Username,@Password,@Name,@Phone,@Email,@Vegetarian,@SchoolID)", conn);
             command.Parameters.AddWithValue(@"Username", UsernameInput.Value);
             command.Parameters.AddWithValue(@"Password", PasswordInput.Value);
             command.Parameters.AddWithValue(@"Name", NameInput.Value);
