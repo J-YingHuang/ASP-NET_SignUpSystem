@@ -208,7 +208,7 @@ namespace SignUpSystem
             else
                 commandString += $", SecondTeacher = NULL";
 
-            commandString += $" WHERE Id = {Session["UpdateId"]};";
+            commandString += $" WHERE Id = '{Session["UpdateId"]}';";
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
