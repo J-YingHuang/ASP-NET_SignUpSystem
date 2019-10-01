@@ -34,6 +34,10 @@
                     <p class="card-text" align="left" style="margin-bottom: 20px; margin-left: 25px;">
                         4. 報名表填寫之身分證字號乃主辦單位辦理保險所用，並不會外流於其他人員或其他用途。
                     </p>
+                    <p class="card-text" align="left" style="margin-bottom: 20px; margin-left: 25px;">
+                        5. 報名表中生日的格式為YYYY-MM-DD，請依循格式進行生日的填寫，例如：2003年8月7日請填為"2003-08-07"。
+                    </p>
+
                 </div>
                 </font>
             </div>

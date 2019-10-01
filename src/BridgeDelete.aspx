@@ -45,7 +45,6 @@
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:CTCSignUpConnectionString %>" SelectCommand="SELECT [Name], [Count], [Vegetarian], [LeaderName], [LeaderID], [LeaderBirthday], [PlayerName1], [PlayerID1], [PlayerBirthday1], [PlayerName2], [PlayerID2], [PlayerBirthday2], [PlayerName3], [PlayerID3], [PlayerBirthday3], [PlayerName4], [PlayerID4], [PlayerBirthday4], [SecondTeacher] FROM [BridgeTeam] "  
                     DeleteCommand="DELETE FROM[Bridge] WHERE  [Name]=@name AND [Count]=@count AND [Vegetarian]=@vegetarian AND [LeaderName]=@leadername AND [LeaderID]=@leaderid AND [LeaderBirthday]=@lb AND [PlayName1]=@pn1 AND [PlayerID1]=@pd1 AND [PlayerBirthday1]=@pb1 AND [PlayName2]=@pn2 AND [PlayerID2]=@pd2 AND [PlayerBirthday2]=@pb2 AND [PlayName3]=@pn3 AND [PlayerID3]=@pd3 AND [PlayerBirthday3]=@pb3 AND [PlayName4]=@pn4 AND [PlayerID4]=@pd4 AND [PlayerBirthday4]=@pb4 AND [SecondTeacher]=@st">
                     <DeleteParameters>
-                        <asp:Parmeter>
                     </DeleteParameters>
 
 
