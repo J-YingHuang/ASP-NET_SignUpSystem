@@ -16,58 +16,68 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            LoadTeamByAccount();
         }
-
-
-        private void LoadTeamByAccount(TeamType type)
+        private void LoadTeamByAccount()
         {
-            //讀取Application Data
-            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-
-
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT Id, Name FROM EarthquakeTeam WHERE AccountID =  AND (CreateDate " +
-                        appPro.GetBetweenSignUpTime() + ")", conn);
+            SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID=Account.Id"+$"SELECT Name FROM School LEFT JOIN School ON Account.SchoolID=School.Id", conn);
             SqlDataReader dataReader = command.ExecuteReader();
-            string innerHtmlStr = "";
             if (dataReader.HasRows)
             {
-
-
                 IDataRecord record = (IDataRecord)dataReader;
-                string teamName = record["Name"].ToString();
-                string teamId = record["Id"].ToString();
-                bool hasUpdate = DateTime.Now <= Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndUpdateInfo));
-                bool hasUpdateLink = DateTime.Now <= Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndFilmUpdate));
-
-
+                string teamName = record[2].ToString();
+                string teamId = record[24].ToString();
+                AddTeamCard( teamName, teamId, div1);
             }
-            else
-            {
-                innerHtmlStr += "<div class=\"card\">"
-                    + "<div class=\"card-body\" style=\"color: dimgray; text-align: center; \">"
-                    + "<div class=\"row\">"
-                    + "<div class=\"col-12\" style=\"margin-top: 5px; \">"
-                    + "<h6>尚未開始報名</h6>"
-                    + "</div></div></div></div>";
-                //div_TeamInfo.InnerHtml = innerHtmlStr;
-            }
-            conn.Close();
-        }
-        protected void Unnamed_ServerClick(object sender, EventArgs e)
-        {
-            //登出
-            Session["Login"] = "N";
-            Session["LoginId"] = "Null";
-            Response.Redirect("BackgroundDataManagement.aspx");
-        }
 
-        protected void btn_NewTeam_Click(object sender, EventArgs e)
-        {
 
         }
+            private void AddTeamCard( string teamName, string teamId, HtmlGenericControl div1)
+        {
+            HtmlGenericControl cardDiv = NewDiv("card");
+            cardDiv.Attributes.Add("style", "margin-bottom: 10px;");
+            HtmlGenericControl cardBodyDiv = NewDiv("card-body");
+            cardBodyDiv.Attributes.Add("style", "text-align: left;");
+            HtmlGenericControl rowDiv = NewDiv("row");
+            HtmlGenericControl rolEditDiv = NewDiv("col-7");
+            HtmlGenericControl editName = new HtmlGenericControl("H6");
+            editName.Attributes.Add("style", "margin-top: 5px;");
+            editName.InnerText = teamName;
+            HtmlGenericControl ColFiveDiv = NewDiv("col-5");
+            HtmlAnchor viewBtnA = new HtmlAnchor();
+            viewBtnA.ID = "Earthquake" + "|View|" + teamId;
+            viewBtnA.Attributes.Add("class", "btn btn-outline-secondary float-right");
+            viewBtnA.Attributes.Add("style", "height: 32px; font-size: 12px; margin-right: 5px; width: 70px;");
+            viewBtnA.Attributes.Add("runat", "server");
+            viewBtnA.Attributes.Add("onClick", "return true;");
+            viewBtnA.Attributes.Add("onserverclick", "TeamView");
+            viewBtnA.ServerClick += new EventHandler(TeamView);
+            HtmlGenericControl viewImg = new HtmlGenericControl("IMG");
+            viewImg.Attributes.Add("width", "15px");
+            viewImg.Attributes.Add("style", "margin-bottom: 4px;");
+            viewImg.Attributes.Add("src", "https://img.icons8.com/ios-glyphs/24/000000/visible.png");
+            HtmlGenericControl viewSpan = new HtmlGenericControl("SPAN");
+            viewSpan.InnerText = "View";
+
+            cardDiv.Controls.Add(cardBodyDiv);
+            cardBodyDiv.Controls.Add(rowDiv);
+            rowDiv.Controls.Add(rolEditDiv);
+            rolEditDiv.Controls.Add(editName);
+            rowDiv.Controls.Add(ColFiveDiv);
+            ColFiveDiv.Controls.Add(viewBtnA);
+            viewBtnA.Controls.Add(viewImg);
+            viewBtnA.Controls.Add(viewSpan);
+
+            div1.Controls.Add(cardDiv);
+        }
+
+        private void TeamView(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         protected void btn_updateAccount_ServerClick(object sender, EventArgs e)
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
@@ -116,6 +126,18 @@ namespace SignUpSystem
                 $"<div class=\"col-2\"></div>" +
                 $"</div>";
             }
+        }
+
+        protected void btn_ModifyTeam_Click(object sender, EventArgs e)
+        {
+
+        }
+        public HtmlGenericControl NewDiv(string classString)
+        {
+            HtmlGenericControl divEle = new HtmlGenericControl("DIV");
+            divEle.Attributes.Add("class", classString);
+
+            return divEle;
         }
     }
 }
