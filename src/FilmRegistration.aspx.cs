@@ -12,6 +12,8 @@ namespace SignUpSystem
 {
     public partial class FilmRegistration : System.Web.UI.Page
     {
+        bool IsFirstSubmit = true;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -88,6 +90,11 @@ namespace SignUpSystem
 
             if (!CheckRegistrationData())
                 return;
+            if (IsFirstSubmit)
+                IsFirstSubmit = false;
+            else
+                return;
+
             string commandString = "";
 
             string[] teamInfo = select_Team.Items[select_Team.SelectedIndex].Text.Split('|');

@@ -13,6 +13,7 @@ namespace SignUpSystem
 {
     public partial class EarthquakeRegistrationPage : System.Web.UI.Page
     {
+        bool IsFirstSubmit = true;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -108,6 +109,11 @@ namespace SignUpSystem
         protected void btn_Submit_ServerClick(object sender, EventArgs e)
         {
             if (!CheckRegistrationData())
+                return;
+
+            if (IsFirstSubmit)
+                IsFirstSubmit = false;
+            else
                 return;
 
             int teamCount = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList().Count;
