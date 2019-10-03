@@ -115,6 +115,7 @@
     <Content Include="AccountAddin.aspx" />
     <Content Include="AccountDelete.aspx" />
     <Content Include="AccountModify.aspx" />
+    <Content Include="AccountUpdate.aspx" />
     <Content Include="BackgroundDataManagement.aspx" />
     <Content Include="BridgeDelete.aspx" />
     <Content Include="BridgeModify.aspx" />
@@ -483,6 +484,13 @@
     </Compile>
     <Compile Include="AccountModify.aspx.designer.cs">
       <DependentUpon>AccountModify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccountUpdate.aspx.cs">
+      <DependentUpon>AccountUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountUpdate.aspx.designer.cs">
+      <DependentUpon>AccountUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="BackgroundDataManagement.aspx.cs">

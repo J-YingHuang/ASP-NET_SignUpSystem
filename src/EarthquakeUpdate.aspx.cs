@@ -19,6 +19,8 @@ namespace SignUpSystem
             {
                 if (Session["Login"] != null && Session["Login"].ToString() == "Y")
                     InitLoad();
+                else if (Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y")
+                    InitLoad();
                 else
                     Response.Redirect("Login.aspx");
 
@@ -219,7 +221,11 @@ namespace SignUpSystem
             conn.Close();
 
             Session["UpdateId"] = null;
-            Response.Redirect("Intro.aspx");
+
+            if (Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y")
+                Response.Redirect("~/EearthquakeModify.aspx");
+            else
+                Response.Redirect("Intro.aspx");
         }
         //確認資料後允許報名
         public bool CheckRegistrationData()

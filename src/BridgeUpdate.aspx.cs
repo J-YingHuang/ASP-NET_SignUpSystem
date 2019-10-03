@@ -22,6 +22,8 @@ namespace SignUpSystem
             {
                 if (Session["Login"] != null && Session["Login"].ToString() == "Y")
                     InitLoad();
+                else if (Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y")
+                    InitLoad();
                 else
                     Response.Redirect("Login.aspx");
 

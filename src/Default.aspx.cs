@@ -88,6 +88,7 @@ namespace SignUpSystem
             command.Cancel();
 
             //Film
+            school = new List<string>();
             command = new SqlCommand($"SELECT Name, TeamType FROM FilmInfo WHERE FilmInfo.CreateDate " +
                 appPro.GetBetweenSignUpTime() +
                 $";", conn);
@@ -95,6 +96,7 @@ namespace SignUpSystem
             count = 0;
             List<string> earthquakeTeam = new List<string>();
             List<string> bridgeTeam = new List<string>();
+
             while (dr.Read())
             {
                 count++;

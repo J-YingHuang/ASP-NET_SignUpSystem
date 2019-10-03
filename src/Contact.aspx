@@ -45,6 +45,7 @@
   <div class="row">
     <div class="col">  
        國立高雄科技大學土木工程系    蔡宛蓁    小姐<br />
+       聯絡時間：9:00 AM ~ 5:00 PM 
        Email：civilkuas@gmail.com<br />
        Phone：07-381-4526 #15203<br />
        Address：高雄市三民區建工路415號<br />       
