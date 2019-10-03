@@ -19,7 +19,7 @@ namespace SignUpSystem
             {
                 //讀取Application Data
                 ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.FilmName) + "報名表";
+                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.FilmName) + "報名名單";
 
                 LoadInitSelect();
                 LoadTeamListBySelected();
