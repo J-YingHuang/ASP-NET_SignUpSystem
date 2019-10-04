@@ -18,33 +18,46 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LoadInSchoolSelectData();
+        }
+
+        private void LoadInSchoolSelectData()
+        {
+            DropDownList1.Items.Clear();
+
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlDataAdapter da = new SqlDataAdapter("select Name from School ", conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            this.DropDownList1.DataSource = ds;
-            this.DropDownList1.DataTextField = "name";
-            this.DropDownList1.DataBind();
+            SqlCommand da = new SqlCommand("SELECT Name FROM School ", conn);
+            SqlDataReader dr = da.ExecuteReader();
+            while (dr.Read())
+                DropDownList1.Items.Add(dr["Name"].ToString());
+            dr.Close();
+            da.Cancel();
+
+
         }
-
-
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-       
 
         protected void btn_Save_Click(object sender, EventArgs e)
         {
-            
+            string SchoolID = "";
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
+            SqlCommand command = new SqlCommand($"SELECT Id FROM School WHERE Name='{ DropDownList1.SelectedItem.Text}'", conn);
+            SqlDataReader dr = command.ExecuteReader();
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    SchoolID=dr["Id"].ToString();
+                }
+            }
+            dr.Close();
+            command.Cancel();
 
-            SqlCommand command = new SqlCommand("INSERT INTO Account * values (@Username,@Password,@Name,@Phone,@Email,@Vegetarian,@SchoolID)", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,Vegetarian,SchoolID)" +
+                "values (@Username,@Password,@Name,@Phone,@Email,@Vegetarian,@SchoolID)", conn);
             command.Parameters.AddWithValue(@"Username", UsernameInput.Value);
             command.Parameters.AddWithValue(@"Password", PasswordInput.Value);
             command.Parameters.AddWithValue(@"Name", NameInput.Value);
@@ -54,9 +67,8 @@ namespace SignUpSystem
                 command.Parameters.AddWithValue(@"Vegetarian", "true");
             else
                 command.Parameters.AddWithValue(@"Vegetarian", "false");
-            SqlDataReader dr = command.ExecuteReader();
-
-            IDataRecord data = (IDataRecord)dr;
+            command.Parameters.AddWithValue(@"SchoolID", SchoolID);
+            command.ExecuteNonQuery();
             
 
             MailMessage msg = new MailMessage();
@@ -74,7 +86,7 @@ namespace SignUpSystem
             msg.To.Add(EmailInput.Value.ToString());
 
             // Email content
-            msg.Body = data["Name"].ToString()+"老師您好,已為您開通抗震大作戰帳號,煩請您前往本次報名系統網站進行帳號登入確認帳號內容，若有問題請盡速聯繫我們!" + lineSymbol+
+            msg.Body = NameInput.Value + "老師您好,已為您開通抗震大作戰帳號,煩請您前往本次報名系統網站進行帳號登入確認帳號內容，若有問題請盡速聯繫我們!" + lineSymbol+
                       
                         "報名系統網站:htttp://203.64.97.214/"+ lineSymbol+
                         "本次賽程報名開放時間:2019/09/30 18:00~2019/10/14 18:00"+ lineSymbol+
@@ -89,6 +101,7 @@ namespace SignUpSystem
             client.Send(msg);
             client.Dispose();
             msg.Dispose();
+            Response.Redirect("~/BackgroundDataManagement.aspx");
         }
 
         protected void btn_AddSchool_Click(object sender, EventArgs e)

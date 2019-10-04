@@ -111,7 +111,7 @@ namespace SignUpSystem
             HtmlAnchor control = (HtmlAnchor)sender;
             string[] sendInfo = control.ID.Split('|');
             Session["UpdateId"] = sendInfo[2];
-            Response.Redirect("AccountAddin.aspx");
+            Response.Redirect("AccountUpdate.aspx");
         }
 
         private void TeamView(object sender, EventArgs e)
@@ -140,10 +140,16 @@ namespace SignUpSystem
                 $"<div class=\"col-sm-1\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">是否吃素：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["IsVegetarian"].ToString()}  </label>" +
+                 $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-1\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">帳號：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["UserName"].ToString()}  </label>" +
+                 $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-1\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">密碼：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["Password"].ToString()}  </label>" +
+                 $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-1\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">連絡電話：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["Phone"].ToString()}  </label>" +
                 $"<div class=\"col-sm-1\"></div>" +
