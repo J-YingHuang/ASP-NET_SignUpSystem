@@ -137,6 +137,9 @@ namespace SignUpSystem
         //確認資料後允許報名
         public bool CheckRegistrationData()
         {
+            if (!IsFirstSubmit)
+                return false;
+
             string errMes = "";
             int mainCount = 1;
 
