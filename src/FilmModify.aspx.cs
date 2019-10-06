@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataProcessing;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -8,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Text;
+using System.IO;
 
 namespace SignUpSystem
 {
@@ -20,6 +23,13 @@ namespace SignUpSystem
                     Response.Redirect("ManagerLogin.aspx");
 
             LoadTeamByAccount();
+            LoadSchoolSelectData();
+
+        }
+
+        private void LoadSchoolSelectData()
+        {
+           
         }
 
         private void LoadTeamByAccount()
@@ -138,37 +148,32 @@ namespace SignUpSystem
             Div2.InnerHtml = dr["Name"].ToString();
             MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
-                $"<label class=\"col-sm-5 col-form-label\">DesignConcept：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr["DesignConcept"].ToString()} </label>" +
+                $"<label class=\"col-sm-4 col-form-label\">DesignConcept：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["DesignConcept"].ToString()} </label>" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
-                $"<label class=\"col-sm-6 col-form-label\">Outline：</label>";
-
-            
-                MemberInfo.InnerHtml += $"<label class=\"col-sm-5 col-form-label\">{dr["Outline"].ToString()}</label>";
-           
-               
-
-            MemberInfo.InnerHtml += $"<div class=\"col-sm-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">Outline：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["Outline"].ToString()}</label>" +
+                $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
-                $"<label class=\"col-sm-5 col-form-label\">FileLink：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr["FileLink"]}</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">FileLink：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["FileLink"]}</label>" +
                 $"<div class=\"col-2\"></div>" +
                 $"</div>";
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
                $"<div class=\"col-sm-2\"></div>" +
-               $"<label class=\"col-sm-6 col-form-label\">TeamType：</label>";
+               $"<label class=\"col-sm-4 col-form-label\">TeamType：</label>" +
+               $"<label class=\"col-sm-5 col-form-label\">{dr["TeamType"].ToString()}</label>" +
+               $"<div class=\"col-2\"></div>" +
+               $"</div>";
 
-            
-                MemberInfo.InnerHtml += $"<label class=\"col-sm-5 col-form-label\">{dr["TeamType"].ToString()}</label>";
-            
         }
 
         private HtmlGenericControl NewDiv(string classString)
@@ -178,5 +183,6 @@ namespace SignUpSystem
 
             return divEle;
         }
+        
     }
 }

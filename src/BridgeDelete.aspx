@@ -1,60 +1,66 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BridgeDelete.aspx.cs" Inherits="SignUpSystem.BridgeDelete" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="row">
-        <div class="col-3">
-            <div class="form-group">
-                <label for="select_Name">查詢</label>
-                <asp:DropDownList class="form-control" ID="select_Name" runat="server" AutoPostBack="true" OnSelectedIndexChanged="select_Name_SelectedIndexChanged">
-                    <asp:ListItem>All</asp:ListItem>
-                </asp:DropDownList>
-
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" OnRowDeleteing="GridView1_RowDeleteing" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
-                    <Columns>
-                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-                        <asp:BoundField DataField="Count" HeaderText="Count" SortExpression="Count" />
-                        <asp:BoundField DataField="Vegetarian" HeaderText="Vegetarian" SortExpression="Vegetarian" />
-                        <asp:BoundField DataField="LeaderName" HeaderText="LeaderName" SortExpression="LeaderName" />
-                        <asp:BoundField DataField="LeaderID" HeaderText="LeaderID" SortExpression="LeaderID" />
-                        <asp:BoundField DataField="LeaderBirthday" HeaderText="LeaderBirthday" SortExpression="LeaderBirthday" />
-                        <asp:BoundField DataField="PlayerName1" HeaderText="PlayerName1" SortExpression="PlayerName1" />
-                        <asp:BoundField DataField="PlayerID1" HeaderText="PlayerID1" SortExpression="PlayerID1" />
-                        <asp:BoundField DataField="PlayerBirthday1" HeaderText="PlayerBirthday1" SortExpression="PlayerBirthday1" />
-                        <asp:BoundField DataField="PlayerName2" HeaderText="PlayerName2" SortExpression="PlayerName2" />
-                        <asp:BoundField DataField="PlayerID2" HeaderText="PlayerID2" SortExpression="PlayerID2" />
-                        <asp:BoundField DataField="PlayerBirthday2" HeaderText="PlayerBirthday2" SortExpression="PlayerBirthday2" />
-                        <asp:BoundField DataField="PlayerName3" HeaderText="PlayerName3" SortExpression="PlayerName3" />
-                        <asp:BoundField DataField="PlayerID3" HeaderText="PlayerID3" SortExpression="PlayerID3" />
-                        <asp:BoundField DataField="PlayerBirthday3" HeaderText="PlayerBirthday3" SortExpression="PlayerBirthday3" />
-                        <asp:BoundField DataField="PlayerName4" HeaderText="PlayerName4" SortExpression="PlayerName4" />
-                        <asp:BoundField DataField="PlayerID4" HeaderText="PlayerID4" SortExpression="PlayerID4" />
-                        <asp:BoundField DataField="PlayerBirthday4" HeaderText="PlayerBirthday4" SortExpression="PlayerBirthday4" />
-                        <asp:BoundField DataField="SecondTeacher" HeaderText="SecondTeacher" SortExpression="SecondTeacher" />
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete" Text="刪除"></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-
-                </asp:GridView>
-
-
-
-
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:CTCSignUpConnectionString %>" SelectCommand="SELECT [Name], [Count], [Vegetarian], [LeaderName], [LeaderID], [LeaderBirthday], [PlayerName1], [PlayerID1], [PlayerBirthday1], [PlayerName2], [PlayerID2], [PlayerBirthday2], [PlayerName3], [PlayerID3], [PlayerBirthday3], [PlayerName4], [PlayerID4], [PlayerBirthday4], [SecondTeacher] FROM [BridgeTeam] "  
-                    DeleteCommand="DELETE FROM[Bridge] WHERE  [Name]=@name AND [Count]=@count AND [Vegetarian]=@vegetarian AND [LeaderName]=@leadername AND [LeaderID]=@leaderid AND [LeaderBirthday]=@lb AND [PlayName1]=@pn1 AND [PlayerID1]=@pd1 AND [PlayerBirthday1]=@pb1 AND [PlayName2]=@pn2 AND [PlayerID2]=@pd2 AND [PlayerBirthday2]=@pb2 AND [PlayName3]=@pn3 AND [PlayerID3]=@pd3 AND [PlayerBirthday3]=@pb3 AND [PlayName4]=@pn4 AND [PlayerID4]=@pd4 AND [PlayerBirthday4]=@pb4 AND [SecondTeacher]=@st">
-                    <DeleteParameters>
-                    </DeleteParameters>
-
-
-
-                </asp:SqlDataSource>
-
-
-
-
+   <div class="row">
+            <br />
+            <br />
+            <br />
+            <br />
+               
             </div>
-        </div>
+            <div class="col-md-9">
+                <h4>BridgeTeam
+                </h4>
+                <hr />
+                <div class="card text-center">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item" id="card_">
+                                <a id="Bridge" class="nav-link active" href="#" style="color: dimgray" runat="server">隊伍資料</a>
+                            </li>
+                        </ul>
+                    </div>
+                 </div>
+                    <div class="card-body">
+                        <div class="row">
+                        </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="div1" runat="server"></div>
+                            </div>
+                        </div>
+                    </div>   
+    <div class="modal fade" id="TeamView" tabindex="-1" role="dialog" aria-labelledby="UpdateModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UpdateModal">隊伍資訊</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+              </div>
+            </div>
+           </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <div class="col-sm-2"></div>
+                            <label class="col-sm-4 col-form-label "></label>
+                            <div class="col-sm-2">
+                            <label class="col-sm-4 col-form-label" id="Div2" runat="server"></label>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+
+                      
+                            <div id="MemberInfo" runat="server"></div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+        
     </div>
 </asp:Content>

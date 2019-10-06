@@ -48,7 +48,7 @@
                         <div class="form-group row">
                             <div class="col-sm-1"></div>
                             <label class="col-sm-4 col-form-label ">Name：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-1">
                             <label class="col-sm-4 col-form-label" id="Div2" runat="server"></label>
                             </div>
 

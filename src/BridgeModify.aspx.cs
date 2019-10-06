@@ -138,17 +138,17 @@ namespace SignUpSystem
             Div2.InnerHtml = dr["Name"].ToString();
             MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
-                $"<label class=\"col-sm-5 col-form-label\">素食人數：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">素食人數：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
-                $"<label class=\"col-sm-6 col-form-label\">共同指導老師：</label>";
+                $"<label class=\"col-sm-4 col-form-label\">共同指導老師：</label>";
 
             if (dr["SecondTeacher"].ToString() != "")
-                MemberInfo.InnerHtml += $"<label class=\"col-sm-5 col-form-label\">{dr["SecondTeacher"].ToString()}</label>";
+                MemberInfo.InnerHtml += $"<label class=\"col-sm-4 col-form-label\">{dr["SecondTeacher"].ToString()}</label>";
             else
                 MemberInfo.InnerHtml += $"<label class=\"col-sm-4 col-form-label\">無</label>";
 
@@ -157,12 +157,16 @@ namespace SignUpSystem
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
-                $"<label class=\"col-sm-5 col-form-label\">隊長姓名：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr["LeaderName"].ToString()}</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">隊長生日：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr["LeaderBirthday"].ToString()}</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">隊長身分證字號：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr["LeaderID"].ToString()}</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊長姓名：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["LeaderName"].ToString()}</label>" + $"<div class=\"col-2\"></div>" + $"</div>";
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊長生日：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["LeaderBirthday"].ToString()}</label>" + $"<div class=\"col-2\"></div>"  +$"</div>";
+            MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊長身分證字號：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr["LeaderID"].ToString()}</label>" +
                 $"<div class=\"col-2\"></div>" +
                 $"</div>";
 
@@ -170,12 +174,18 @@ namespace SignUpSystem
             {
                 MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
-                $"<label class=\"col-sm-6 col-form-label\">隊員{i}姓名：</label>" +
-                $"<label class=\"col-sm-6 col-form-label\">{dr[$"PlayerName{i}"].ToString()}</label>" +
-                $"<label class=\"col-sm-6 col-form-label\">隊員{i}生日：</label>"+
-                $"<label class=\"col-sm-6 col-form-label\">{dr[$"PlayerBirthday{i}"].ToString()}</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">>隊員{i}身分證字號：</label>" +
-                $"<label class=\"col-sm-5 col-form-label\">{dr[$"PlayerID{i}"].ToString()}</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊員{i}姓名：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr[$"PlayerName{i}"].ToString()}</label>" + $"<div class=\"col-2\"></div>" +
+                $"</div>";
+                MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊員{i}生日：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr[$"PlayerBirthday{i}"].ToString()}</label>" + $"<div class=\"col-2\"></div>" +
+                $"</div>";
+                MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">隊員{i}身分證字號：</label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr[$"PlayerID{i}"].ToString()}</label>" + $"<div class=\"col-2\"></div>" +
                 $"<div class=\"col-2\"></div>" +
                 $"</div>";
             }

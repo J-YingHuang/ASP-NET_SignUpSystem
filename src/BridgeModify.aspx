@@ -19,6 +19,7 @@
                             </li>
                         </ul>
                     </div>
+                   
                     <div class="card-body">
                         <div class="row">
                             
@@ -29,8 +30,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                     </div>
+                    </div>
+               
        
       
 
@@ -49,25 +51,31 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group row">
-                            <div class="col-sm-1"></div>
+                            <div class="col-sm-2"></div>
                             <label class="col-sm-4 col-form-label ">Name：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">
                             <label class="col-sm-4 col-form-label" id="Div2" runat="server"></label>
-                            </div>
-
-                      
-                            <div id="MemberInfo" runat="server"></div>
                         </div>
+                            
+                       </div>
+                            <div id="MemberInfo" runat="server"></div>
+                         
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
-                        </div>
-                    </div>
-                </div>
+                        
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                    
+                           
+
+               
 
 
               
           
-        </div>
-    </div>
+   
 </asp:Content>

@@ -6,80 +6,64 @@
             <div class="col">
                 <br />
                 <div id="lab_Title" runat="server" class="row justify-content-center">
-                    5.帳戶資訊
+                    帳戶資訊
                 </div>
             </div>
         </div>
-      <div class="form-group row" style="font-size: 18px">
-            <div class="col-4">
+      <div class="form-group " style="font-size: 18px">
+           
                 <p align="left">
                     1.帳號：
                 </p>
-                <input id="input_Username" class="form-control form-control-sm" type="text"  style="font-size: 8px;" maxlength="10" runat="server">
+                <input id="input_Username" class="form-control form-control-sm4" type="text"  style="font-size: 8px;" maxlength="10" runat="server">
             </div>
 
-            <div class="col-4">
+             <div class="form-group " >
                 <p align="left">
                     2. 密碼：
                 </p>
-                 <input id="Text1" class="form-control form-control-sm" type="text"  style="font-size: 8px;" maxlength="10" runat="server">
-               
-                  </div> 
-                
-
-            </div>
-            <div class="col-4">
+                 <input id="Text1" class="form-control form-control-sm4" type="text"  style="font-size: 8px;" maxlength="10" runat="server">
+                                         
+           </div>
+             <div class="form-group " >
                 <p align="left">
                     3. 名稱：
                 </p>
-                <input id="input_Name" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server">
+                <input id="input_Name" class="form-control form-control-sm4" type="text" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
-       
-
-        <div class="form-group row" style="font-size: 18px;">
-            <div class="col ">
+               <div class="form-group " style="font-size: 18px;">
+           
                 <p align="left">
                     4.手機：
                      </p>
-                <input id="Text2" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server">
+                <input id="Text2" class="form-control form-control-sm4" type="text" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
-            <div class="form-group row" style="font-size: 18px;">
-            <div class="col ">
+            <div class="form-group" style="font-size: 18px;">
+            
                 <p align="left">
                     5.E-mail:
                     </p>
-                <input id="Text3" class="form-control form-control-sm" type="text" style="font-size: 8px;"  runat="server">
+                <input id="Text3" class="form-control form-control-sm4" type="text" style="font-size: 8px;"  runat="server">
             </div>
-            <div class="form-group row" style="font-size: 18px;">
-            <div class="col ">
+            <div class="form-group " style="font-size: 18px;">
+            
                 <p align="left">
-                    </div>
+                    
           
                     6.SchoolID:
                     </p>
-                <input id="Text4" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server">
+                <input id="Text4" class="form-control form-control-sm4" type="text" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
-            <div class="form-group row" style="font-size: 18px;">
-            <div class="col ">
+            <div class="form-group " style="font-size: 18px;">
+            
                 <p align="left">
+                           
                      7.ID:
                     </p>
-                <input id="Text5" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server" disabled>
+                <input id="Text5" class="form-control form-control-sm4" type="text" style="font-size: 8px;" maxlength="10" runat="server" disabled>
             </div>
-            <div class="form-group row" style="font-size: 18px;">
-            <div class="col ">
-                <p align="left">
-                
-                
-                        
-
-                
-
-
-        
-
-
-        <p align="right">
+            <div class="form-group " style="font-size: 18px;">
+               <p align="right">
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="Submit" runat="server" onserverclick="btn_Submit_ServerClick">提交</button>
             <button type="submit" style="margin-right: 5px;" class="btn btn-outline-dark" id="btn_Close" runat="server" onserverclick="btn_Close_ServerClick">取消</button>
         </p>

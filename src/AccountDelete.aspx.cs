@@ -28,8 +28,7 @@ namespace SignUpSystem
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT Account.Name AS teamName,Account.Id AS teamid,School.Name AS SchoolName FROM Account LEFT JOIN  School ON Account.SchoolID=School.Id "
-                 , conn);
+            SqlCommand command = new SqlCommand($"SELECT Account.Name AS teamName,Account.Id AS teamid,School.Name AS SchoolName FROM Account LEFT JOIN  School ON Account.SchoolID=School.Id ", conn);
             SqlDataReader dataReader = command.ExecuteReader();
 
 
@@ -103,7 +102,7 @@ namespace SignUpSystem
             conn.Open();
             SqlCommand command;
             SqlDataReader dr;
-            command = new SqlCommand($"DELETE * FROM Account WHERE Id= '{sendInfo[2]}'", conn);
+            command = new SqlCommand($"DELETE  FROM Account WHERE Id= '{sendInfo[2]}'", conn);
             dr = command.ExecuteReader();
 
         }

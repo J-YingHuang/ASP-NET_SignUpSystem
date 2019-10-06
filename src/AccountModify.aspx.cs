@@ -136,28 +136,39 @@ namespace SignUpSystem
         private void ViewAccountInfo(SqlDataReader dr)
         {
             Div2.InnerHtml = dr["Name"].ToString();
-            MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
-                $"<div class=\"col-sm-1\"></div>" +
-                $"<label class=\"col-sm-4 col-form-label\">是否吃素：</label>" +
-                $"<label class=\"col-sm-4 col-form-label\">{dr["IsVegetarian"].ToString()}  </label>" +
-                 $"<div class=\"form-group row\">" +
-                $"<div class=\"col-sm-1\"></div>" +
-                $"<label class=\"col-sm-4 col-form-label\">帳號：</label>" +
-                $"<label class=\"col-sm-4 col-form-label\">{dr["UserName"].ToString()}  </label>" +
-                 $"<div class=\"form-group row\">" +
-                $"<div class=\"col-sm-1\"></div>" +
-                $"<label class=\"col-sm-4 col-form-label\">密碼：</label>" +
+            MemberInfo.InnerHtml =
+                $"<div class=\"form-group row\">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-4 col-form-label\">是否吃素：</label>" +
+                $"<label class=\"col-4 col-form-label\">{dr["IsVegetarian"].ToString()}  </label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>" +
+
+                $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-4 col-form-label\">帳號：</label>" +
+                $"<label class=\"col-4 col-form-label\">{dr["UserName"].ToString()}  </label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>" +
+
+                $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-4 col-form-label\" >密碼：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["Password"].ToString()}  </label>" +
-                 $"<div class=\"form-group row\">" +
-                $"<div class=\"col-sm-1\"></div>" +
-                $"<label class=\"col-sm-4 col-form-label\">連絡電話：</label>" +
+                $"<div class=\"col-2\"></div>" +
+                $"</div>" +
+
+                $"<div class=\"form-group row \">" +
+                $"<div class=\"col-2\"></div>" +
+                $"<label class=\"col-4 col-form-label\">連絡電話：</label>" +
                 $"<label class=\"col-sm-4 col-form-label\">{dr["Phone"].ToString()}  </label>" +
-                $"<div class=\"col-sm-1\"></div>" +
+                $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
+                
 
-           
 
-            
+
+
         }
 
         private HtmlGenericControl NewDiv(string classString)
