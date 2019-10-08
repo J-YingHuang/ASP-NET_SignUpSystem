@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataProcessing;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -16,26 +17,54 @@ namespace SignUpSystem
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                if ((Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y") == false)
+            {
+                if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
+                {
                     Response.Redirect("ManagerLogin.aspx");
+                }
+                LoadSchoolSelectData();
+            }
+                
 
             LoadTeamByAccount();
         }
 
+        private void LoadSchoolSelectData()
+        {
+            Select_School.Items.Clear();
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+            SqlCommand da = new SqlCommand("SELECT Name FROM School ", conn);
+            SqlDataReader dr = da.ExecuteReader();
+            while (dr.Read())
+                Select_School.Items.Add(dr["Name"].ToString());
+            dr.Close();
+            da.Cancel();
+        }
+
         private void LoadTeamByAccount()
         {
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT Account.Name AS teamName,Account.Id AS teamid,School.Name AS SchoolName FROM Account LEFT JOIN  School ON Account.SchoolID=School.Id " 
-                 , conn);
-            SqlDataReader dataReader = command.ExecuteReader();
+            SqlCommand command;
+            SqlDataReader dr;
+            string queryCommand= $"SELECT Account.Name AS teamName," +
+                $"Account.Id AS teamid,School.Name AS SchoolName FROM Account " +
+                $"LEFT JOIN  School ON Account.SchoolID=School.Id ";
+            if (Select_School.Items[Select_School.SelectedIndex].Text != "All")
+                queryCommand += $"WHERE School.Name = '{Select_School.Items[Select_School.SelectedIndex].Text}' AND Account.CreateDate " +
+                    appPro.GetBetweenSignUpTime();
+            command = new SqlCommand(queryCommand + ";", conn);
+            dr = command.ExecuteReader();
 
 
-            if (dataReader.HasRows)
+            if (dr.HasRows)
             {
-                while (dataReader.Read())
+                while (dr.Read())
                 {
-                    IDataRecord record = (IDataRecord)dataReader;
+                    IDataRecord record = (IDataRecord)dr;
                     string teamName = record["teamName"].ToString();
                     string SchoolName = record["SchoolName"].ToString();
                     string teamID = record["teamid"].ToString();
@@ -116,13 +145,15 @@ namespace SignUpSystem
 
         private void TeamView(object sender, EventArgs e)
         {
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             HtmlAnchor control = (HtmlAnchor)sender;
             string[] sendInfo = (control.ID).Split('|');
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
             SqlCommand command;
             SqlDataReader dr;
-            command = new SqlCommand($"SELECT * FROM Account ", conn);
+            command = new SqlCommand($"SELECT * FROM Account WHERE Id = '{sendInfo[2]}' AND Account.CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             while (dr.Read())
             {
@@ -154,7 +185,7 @@ namespace SignUpSystem
                 $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
                 $"<label class=\"col-4 col-form-label\" >密碼：</label>" +
-                $"<label class=\"col-sm-4 col-form-label\">{dr["Password"].ToString()}  </label>" +
+                $"<label class=\"col-sm-4 col-form-label\">{dr[2].ToString()}  </label>" +
                 $"<div class=\"col-2\"></div>" +
                 $"</div>" +
 
@@ -164,11 +195,6 @@ namespace SignUpSystem
                 $"<label class=\"col-sm-4 col-form-label\">{dr["Phone"].ToString()}  </label>" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
-                
-
-
-
-
         }
 
         private HtmlGenericControl NewDiv(string classString)
@@ -177,6 +203,11 @@ namespace SignUpSystem
             divEle.Attributes.Add("class", classString);
 
             return divEle;
+        }
+
+        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

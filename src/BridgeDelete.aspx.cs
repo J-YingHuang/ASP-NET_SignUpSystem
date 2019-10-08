@@ -17,26 +17,54 @@ namespace SignUpSystem
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 if ((Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y") == false)
+                {
                     Response.Redirect("ManagerLogin.aspx");
+                }
+                LoadSchoolSelectData();
+            }
+
 
             LoadTeamByAccount();
         }
 
+        private void LoadSchoolSelectData()
+        {
+           
+            Select_School.Items.Clear();
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+            SqlCommand da = new SqlCommand("SELECT Name FROM School " , conn);
+            SqlDataReader dr = da.ExecuteReader();
+            while (dr.Read())
+                Select_School.Items.Add(dr["Name"].ToString());
+            dr.Close();
+            da.Cancel();
+        }
+
         private void LoadTeamByAccount()
         {
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT BridgeTeam.Name AS teamName,BridgeTeam.Id AS teamid,School.Name AS SchoolName FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
-                 $"LEFT JOIN School ON Account.SchoolID=School.Id",conn);
-            SqlDataReader dataReader = command.ExecuteReader();
+            SqlCommand command;
+            SqlDataReader dr;
+            string queryCommand = $"SELECT BridgeTeam.Name AS teamName,BridgeTeam.Id AS teamid,School.Name AS SchoolName FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
+                 $"LEFT JOIN School ON Account.SchoolID=School.Id ";
+            if (Select_School.Items[Select_School.SelectedIndex].Text != "All")
+                queryCommand += $"WHERE School.Name = '{Select_School.Items[Select_School.SelectedIndex].Text}' AND BridgeTeam.CreateDate " +
+                    appPro.GetBetweenSignUpTime();
+            command = new SqlCommand(queryCommand + ";", conn);
+            dr = command.ExecuteReader();
 
 
-            if (dataReader.HasRows)
+            if (dr.HasRows)
             {
-                while (dataReader.Read())
+                while (dr.Read())
                 {
-                    IDataRecord record = (IDataRecord)dataReader;
+                    IDataRecord record = (IDataRecord)dr;
                     string teamName = record["teamName"].ToString();
                     string SchoolName = record["SchoolName"].ToString();
                     string teamID = record["teamid"].ToString();
@@ -84,7 +112,7 @@ namespace SignUpSystem
             viewBtnA.Controls.Add(viewSpan);
 
             div1.Controls.Add(cardDiv);
-        
+
         }
 
         private HtmlGenericControl NewDiv(string classString)
@@ -97,6 +125,7 @@ namespace SignUpSystem
 
         private void TeamView(object sender, EventArgs e)
         {
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             string AccountId = "";
             HtmlAnchor control = (HtmlAnchor)sender;
             string[] sendInfo = (control.ID).Split('|');
@@ -104,7 +133,8 @@ namespace SignUpSystem
             conn.Open();
             SqlCommand command;
             SqlDataReader dr;
-            command = new SqlCommand($"SELECT AccountId FROM BridgeTeam WHERE Id = '{sendInfo[2]}'", conn);
+            command = new SqlCommand($"SELECT AccountId FROM BridgeTeam WHERE Id = '{sendInfo[2]}' AND BridgeTeam.CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             if (dr.HasRows)
             {
@@ -123,6 +153,11 @@ namespace SignUpSystem
 
             command = new SqlCommand($"DELETE FROM BridgeTeam WHERE Id= '{sendInfo[2]}'", conn);
             command.ExecuteNonQuery();
+
+        }
+
+        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

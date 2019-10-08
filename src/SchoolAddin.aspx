@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SchoolAddin.aspx.cs" Inherits="SignUpSystem.SchoolAddin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-<form>
+
 
   <br />
     <br />
@@ -11,7 +11,7 @@
             <h4 class="alert-heading">新增學校</h4>
             <hr>
 
-            <form>
+     
                
                     <div class="col"></div>
                     <label class=" col-form-label" for="inputemail">校名: </label>
@@ -36,5 +36,5 @@
         </div>
     </div>
     <br />
-    </form>
+  
 </asp:Content>

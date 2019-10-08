@@ -13,7 +13,8 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+         
+            
         }
 
         protected void btn_SendEmail_Click(object sender, EventArgs e)
@@ -22,11 +23,12 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
-            SqlCommand command = new SqlCommand("INSERT INTO School * values (@Schoolname,@Address,@Area)", conn);
-            command.Parameters.AddWithValue(@"Username", School_name.Value);
-            command.Parameters.AddWithValue(@"Password", Address.Value);
-            command.Parameters.AddWithValue(@"Name", Area.Value);
-            Response.Redirect("AccountAddin.aspx");
+            SqlCommand command = new SqlCommand("INSERT INTO School  values (@Schoolname,@Address,@Area)", conn);
+            command.Parameters.AddWithValue(@"Schoolname", School_name.Value);
+            command.Parameters.AddWithValue(@"Address", Address.Value);
+            command.Parameters.AddWithValue(@"Area", Area.Value);
+            command.ExecuteNonQuery();
+            Server.Transfer("AccountAddin.aspx");
 
         }
     }

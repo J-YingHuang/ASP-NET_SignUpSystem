@@ -8,14 +8,18 @@
                
             </div>
             <div class="col-md-9">
-                <h4>Account
+                <h4>FilmInfo
                 </h4>
                 <hr />
+                <asp:DropDownList ID="Select_School" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Select_School_SelectedIndexChanged" class="form-control">
+            <asp:ListItem>All</asp:ListItem>
+        </asp:DropDownList>
+         <hr />
                 <div class="card text-center">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item" id="card_">
-                                <a id="Bridge" class="nav-link active" href="#" style="color: dimgray" runat="server">帳戶資料</a>
+                                <a id="Bridge" class="nav-link active" href="#" style="color: dimgray" runat="server">隊伍資料</a>
                             </li>
                         </ul>
                     </div>

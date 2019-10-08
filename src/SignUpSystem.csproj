@@ -118,6 +118,7 @@
     <Content Include="AccountUpdate.aspx" />
     <Content Include="BackgroundDataManagement.aspx" />
     <Content Include="BridgeDelete.aspx" />
+    <Content Include="FilmModify.aspx" />
     <Content Include="BridgeModify.aspx" />
     <Content Include="BridgeRegistration.aspx" />
     <Content Include="BridgeTeamList.aspx" />
@@ -206,7 +207,6 @@
     <Content Include="EearthquakeModify.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="FilmDelete.aspx" />
-    <Content Include="FilmModify.aspx" />
     <Content Include="FilmRegistration.aspx" />
     <Content Include="FilmTeamList.aspx" />
     <Content Include="FilmUpdate.aspx" />
@@ -585,13 +585,6 @@
     <Compile Include="FilmDelete.aspx.designer.cs">
       <DependentUpon>FilmDelete.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FilmModify.aspx.cs">
-      <DependentUpon>FilmModify.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FilmModify.aspx.designer.cs">
-      <DependentUpon>FilmModify.aspx</DependentUpon>
-    </Compile>
     <Compile Include="FilmRegistration.aspx.cs">
       <DependentUpon>FilmRegistration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -672,6 +665,13 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="FilmModify.aspx.cs">
+      <DependentUpon>FilmModify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FilmModify.aspx.designer.cs">
+      <DependentUpon>FilmModify.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

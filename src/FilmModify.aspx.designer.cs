@@ -13,13 +13,22 @@ namespace SignUpSystem {
     public partial class FilmModify_aspx {
         
         /// <summary>
-        /// Bridge 控制項。
+        /// Select_School 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Bridge;
+        protected global::System.Web.UI.WebControls.DropDownList Select_School;
+        
+        /// <summary>
+        /// FilmInfo 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor FilmInfo;
         
         /// <summary>
         /// div1 控制項。

@@ -18,7 +18,16 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+              
+               
+            }
             LoadInSchoolSelectData();
+
+
+
+
         }
 
         private void LoadInSchoolSelectData()
@@ -44,7 +53,7 @@ namespace SignUpSystem
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT Id FROM School WHERE Name='{ DropDownList1.SelectedItem.Text}'", conn);
+            SqlCommand command = new SqlCommand($"SELECT Id FROM School WHERE Name='{ DropDownList1.Items[DropDownList1.SelectedIndex].Text}'", conn);
             SqlDataReader dr = command.ExecuteReader();
             if (dr.HasRows)
             {
@@ -56,17 +65,17 @@ namespace SignUpSystem
             dr.Close();
             command.Cancel();
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,Vegetarian,SchoolID)" +
-                "values (@Username,@Password,@Name,@Phone,@Email,@Vegetarian,@SchoolID)", conn);
+            command = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,IsVegetarian,SchoolID)" +
+                "values (@Username,@Password,@Name,@Phone,@Email,@IsVegetarian,@SchoolID)", conn);
             command.Parameters.AddWithValue(@"Username", UsernameInput.Value);
             command.Parameters.AddWithValue(@"Password", PasswordInput.Value);
             command.Parameters.AddWithValue(@"Name", NameInput.Value);
             command.Parameters.AddWithValue(@"Phone", PhoneInput.Value);
             command.Parameters.AddWithValue(@"Email", EmailInput.Value);
             if(inlineRadio1.Checked)
-                command.Parameters.AddWithValue(@"Vegetarian", "true");
+                command.Parameters.AddWithValue(@"IsVegetarian", "true");
             else
-                command.Parameters.AddWithValue(@"Vegetarian", "false");
+                command.Parameters.AddWithValue(@"IsVegetarian", "false");
             command.Parameters.AddWithValue(@"SchoolID", SchoolID);
             command.ExecuteNonQuery();
             
@@ -86,10 +95,10 @@ namespace SignUpSystem
             msg.To.Add(EmailInput.Value.ToString());
 
             // Email content
-            msg.Body = NameInput.Value + "老師您好,已為您開通抗震大作戰帳號,煩請您前往本次報名系統網站進行帳號登入確認帳號內容，若有問題請盡速聯繫我們!" + lineSymbol+
-                      
-                        "報名系統網站:htttp://203.64.97.214/"+ lineSymbol+
-                        "本次賽程報名開放時間:2019/09/30 18:00~2019/10/14 18:00"+ lineSymbol+
+            msg.Body = NameInput.Value + "老師您好"+ lineSymbol +
+                        "已為您開通抗震大作戰帳號，煩請您前往本次報名系統網站進行帳號登入確認帳號內容，若有問題請盡速聯繫我們！" + lineSymbol+
+                        "報名系統網站：htttp：//203.64.97.214/"+ lineSymbol+
+                        "本次賽程報名開放時間：2019/09/30 18：00～2019/10/14 18：00"+ lineSymbol+
                         "國立高雄科技大學 土木工程系 敬上";
 
             SmtpClient client = new SmtpClient();
@@ -106,7 +115,20 @@ namespace SignUpSystem
 
         protected void btn_AddSchool_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SchoolAddin.aspx");
+
+
+            string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConn);
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("INSERT INTO School  values (@Schoolname,@Address,@Area)", conn);
+            command.Parameters.AddWithValue(@"Schoolname", School_name.Value);
+            command.Parameters.AddWithValue(@"Address", Address.Value);
+            command.Parameters.AddWithValue(@"Area", Area.Value);
+            command.ExecuteNonQuery();
+            
+
+
         }
     }
 }
