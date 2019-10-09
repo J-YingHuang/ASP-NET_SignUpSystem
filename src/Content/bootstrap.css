@@ -3282,6 +3282,8 @@ input[type="button"].btn-block {
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+    top: -2px;
+    left: 271px;
 }
 
 .btn-group > .btn,

@@ -16,7 +16,7 @@
         <asp:DropDownList ID="Select_School" runat="server" AutoPostBack="true" class="form-control">
             <asp:ListItem>All</asp:ListItem>
         </asp:DropDownList>
-         <hr />
+        <hr />
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
@@ -30,6 +30,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div id="div1" runat="server"></div>
+                        <asp:Button ID="Button1" runat="server" Text="回上一頁" class="float-right btn btn-secondary" OnClick="Button1_Click" />
                     </div>
                 </div>
             </div>

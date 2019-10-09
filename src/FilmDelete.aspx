@@ -29,12 +29,18 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div id="div1" runat="server"></div>
+                                <div id="div1" runat="server">
+                                    
+                                </div>
+                                <asp:Button ID="Button1" runat="server" Text="回上一頁" class="float-right btn btn-secondary" OnClick="Button1_Click"/> 
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            
+                </div>
+
+    
     <div class="modal fade" id="TeamView" tabindex="-1" role="dialog" aria-labelledby="UpdateModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -45,7 +51,7 @@
                     </button>
                 </div>
 
-
+                
 
                 <div class="modal-body">
                     <form>
@@ -65,11 +71,18 @@
                         </div>
                     </div>
                 </div>
-
+           
 
               
-          
+          </div> 
         </div>
-    </div>
+      
+        
+   
+   
     
+   
+     
+  
+         
 </asp:Content>

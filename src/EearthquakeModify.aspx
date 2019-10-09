@@ -34,6 +34,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div id="div1" runat="server"></div>
+
+                        <asp:Button ID="Button2" runat="server" Text="回上一頁" class="float-right btn btn-secondary" OnClick="Button1_Click" />
                     </div>
                 </div>
             </div>

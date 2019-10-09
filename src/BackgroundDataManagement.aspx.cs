@@ -328,6 +328,12 @@ namespace SignUpSystem
 
             return dr.GetString(index);
         }
+
+        protected void btn_Button1_Click(object sender, EventArgs e)
+        {
+            Session["ManageLogin"] = null;
+            Response.Redirect("ManagerLogin.aspx");
+        }
     }
 
         

@@ -12,11 +12,11 @@
         <h4>BridgeTeam
         </h4>
         <hr />
-         <label for="Select_School">學校</label>
-                <asp:DropDownList class="form-control" ID="Select_School" runat="server" AutoPostBack="true" >
-                    <asp:ListItem>All</asp:ListItem>
-                </asp:DropDownList>
-         <hr />
+        <label for="Select_School">學校</label>
+        <asp:DropDownList class="form-control" ID="Select_School" runat="server" AutoPostBack="true">
+            <asp:ListItem>All</asp:ListItem>
+        </asp:DropDownList>
+        <hr />
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
@@ -32,7 +32,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div id="div1" runat="server"></div>
+                        <asp:Button ID="Button1" runat="server" Text="回上一頁" class="float-right btn btn-secondary" OnClick="Button1_Click" />
                     </div>
+
                 </div>
             </div>
         </div>

@@ -30,6 +30,10 @@
     <div p class="text-info">-------------------------------------------------------</div>
     <p class="text-info">報名資訊匯出</p>
     <asp:Button ID="btn_ExportExcel" runat="server" Text="匯出Excel" class=" float btn btn-outline-info" OnClick="btn_ExportExcel_Click" />
+    <div p class="text-info">-------------------------------------------------------</div>
+    
+    <asp:Button ID="Button1" runat="server" Text="登出" class=" float btn btn-outline-info" OnClick="btn_Button1_Click" />
+    <br />
     <br />
     <br />
 
@@ -188,5 +192,12 @@
             });
         });
     </script>
+   
+   
+   
+
+   
+   
+   
 </asp:Content>
 

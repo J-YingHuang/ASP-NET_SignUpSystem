@@ -225,5 +225,10 @@ namespace SignUpSystem
             Session["UpdateId"] = sendInfo[2];
             Response.Redirect("BridgeUpdate.aspx");
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BackgroundDataManagement.aspx");
+        }
     }
 }

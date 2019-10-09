@@ -129,5 +129,10 @@ namespace SignUpSystem
             dr = command.ExecuteReader();
 
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BackgroundDataManagement.aspx");
+        }
     }
 }

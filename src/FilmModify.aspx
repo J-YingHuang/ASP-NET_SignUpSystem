@@ -35,6 +35,9 @@
 
                 <div class="col-12">
                     <div id="div1" runat="server"></div>
+
+                    <asp:Button ID="Button2" runat="server" Text="回上一頁" class="float-right btn btn-secondary" OnClick="Button1_Click" />
+
                 </div>
             </div>
         </div>
@@ -55,21 +58,21 @@
 
 
                 <div class="modal-body">
-                 
-                        <div class="form-group row">
-                            <div class="col-sm-1"></div>
-                            <label class="col-sm-4 col-form-label ">Name：</label>
-                            <div class="col-sm-2">
-                                <label class="col-sm-4 col-form-label" id="Div2" runat="server"></label>
-                            </div>
 
-
-                            <div id="MemberInfo" runat="server"></div>
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <label class="col-sm-4 col-form-label ">Name：</label>
+                        <div class="col-sm-2">
+                            <label class="col-sm-4 col-form-label" id="Div2" runat="server"></label>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                        </div>
+
+                        <div id="MemberInfo" runat="server"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
                 </div>
             </div>
 
