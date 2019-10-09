@@ -18,9 +18,8 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-
-                if ((Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y") == false)
-                { Response.Redirect("ManagerLogin.aspx"); }
+                if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
+                    Response.Redirect("~/ManagerLogin.aspx");
                 LoadSchoolSelectData();
             }
 
@@ -40,6 +39,7 @@ namespace SignUpSystem
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -62,14 +62,11 @@ namespace SignUpSystem
             {
                 while (dr.Read())
                 {
-                    IDataRecord record = (IDataRecord)dr;
-                    string teamName = record["teamName"].ToString();
-                    string SchoolName = record["SchoolName"].ToString();
-                    string teamID = record["teamid"].ToString();
+                    string teamName = dr["teamName"].ToString();
+                    string SchoolName = dr["SchoolName"].ToString();
+                    string teamID = dr["teamid"].ToString();
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
-
-
             }
             conn.Close();
         }
@@ -160,6 +157,7 @@ namespace SignUpSystem
             dr.Close();
             command.Cancel();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#TeamView').modal('show');", true);
+            conn.Close();
         }
 
         private void ViewBridgeInfo(SqlDataReader dr)
@@ -226,11 +224,6 @@ namespace SignUpSystem
             string[] sendInfo = control.ID.Split('|');
             Session["UpdateId"] = sendInfo[2];
             Response.Redirect("BridgeUpdate.aspx");
-        }
-
-        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

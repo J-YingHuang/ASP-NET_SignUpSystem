@@ -14,7 +14,7 @@
         </h4>
         <hr />
         <label for="Select_School">學校</label>
-        <asp:DropDownList class="form-control" ID="Select_School" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Select_School_SelectedIndexChanged">
+        <asp:DropDownList class="form-control" ID="Select_School" runat="server" AutoPostBack="true">
             <asp:ListItem>All</asp:ListItem>
         </asp:DropDownList>
         <hr />

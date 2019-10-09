@@ -15,7 +15,11 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if(!IsPostBack)
+            {
+                if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
+                    Response.Redirect("~/ManagerLogin.aspx");
+            }
         }
 
         protected void btn_Addin_Click(object sender, EventArgs e)

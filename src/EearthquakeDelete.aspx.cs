@@ -18,17 +18,11 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-                if ((Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y") == false)
-                {
-                    Response.Redirect("ManagerLogin.aspx");
-                }
+                if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
+                    Response.Redirect("~/ManagerLogin.aspx");
                 LoadSchoolSelectData();
             }
-                
-
             LoadTeamByAccount();
-           
-            
         }
 
         private void LoadSchoolSelectData()
@@ -44,6 +38,7 @@ namespace SignUpSystem
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -62,10 +57,6 @@ namespace SignUpSystem
             command = new SqlCommand(queryCommand + ";", conn);
             dr = command.ExecuteReader();
 
-
-            
-
-
             if (dr.HasRows)
             {
                 while (dr.Read())
@@ -77,9 +68,9 @@ namespace SignUpSystem
              
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
-
-
             }
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
 
@@ -124,41 +115,33 @@ namespace SignUpSystem
         private void TeamView(object sender, EventArgs e)
         {
             ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-            string AccountId = "";
+            string teamName = "";
             HtmlAnchor control = (HtmlAnchor)sender;
             string[] sendInfo = (control.ID).Split('|');
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
             SqlCommand command;
             SqlDataReader dr;
-            command = new SqlCommand($"SELECT AccountId FROM EarthquakeTeam WHERE Id = '{sendInfo[2]}' AND EarthquakeTeam.CreateDate " +
+            command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE Id = '{sendInfo[2]}' AND EarthquakeTeam.CreateDate " +
                     appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             if (dr.HasRows)
             {
                 while (dr.Read())
                 {
-                    IDataRecord data = (IDataRecord)dr;
-                   AccountId = dr["AccountId"].ToString();
-
-
+                    teamName = dr["Name"].ToString();
                 }
             }
             dr.Close();
             command.Cancel();
-            command = new SqlCommand($"DELETE FROM FilmInfo WHERE AccountId = '{AccountId}'", conn);
+            command = new SqlCommand($"DELETE FROM FilmInfo WHERE AccountId = '{teamName}' AND CreateDate " +
+                  appPro.GetBetweenSignUpTime() + $" AND TeamType = 'Earthquake';", conn);
             command.ExecuteNonQuery();
-           
+            command.Cancel();
+
             command = new SqlCommand($"DELETE FROM EarthquakeTeam WHERE Id= '{sendInfo[2]}'", conn);
             command.ExecuteNonQuery();
-
-
-
-
-
-
-
-
+            command.Cancel();
         }
 
         private HtmlGenericControl NewDiv(string classString)
@@ -169,9 +152,5 @@ namespace SignUpSystem
             return divEle;
         }
 
-        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

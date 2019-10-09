@@ -17,7 +17,7 @@ namespace SignUpSystem
         {
             string UserName = account_name.Value.Trim();
             string PW = Text1.Value.Trim();
-            if ((UserName == "civilkuas@gmail.com") && (PW == "manager"))
+            if ((UserName == "civilkuas@gmail.com") && (PW == "Kuascivil2017"))
             {
                 Session["ManageLogin"] = "Y";
                 Response.Redirect("BackgroundDataManagement.aspx");

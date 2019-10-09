@@ -19,12 +19,9 @@ namespace SignUpSystem
             if (!IsPostBack)
             {
                 if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
-                {
-                    Response.Redirect("ManagerLogin.aspx");
-                }
+                    Response.Redirect("~/ManagerLogin.aspx");
                 LoadSchoolSelectData();
             }
-                
 
             LoadTeamByAccount();
         }
@@ -35,12 +32,13 @@ namespace SignUpSystem
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlCommand da = new SqlCommand("SELECT Name FROM School ", conn);
+            SqlCommand da = new SqlCommand("SELECT Name FROM School;", conn);
             SqlDataReader dr = da.ExecuteReader();
             while (dr.Read())
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -64,10 +62,9 @@ namespace SignUpSystem
             {
                 while (dr.Read())
                 {
-                    IDataRecord record = (IDataRecord)dr;
-                    string teamName = record["teamName"].ToString();
-                    string SchoolName = record["SchoolName"].ToString();
-                    string teamID = record["teamid"].ToString();
+                    string teamName = dr["teamName"].ToString();
+                    string SchoolName = dr["SchoolName"].ToString();
+                    string teamID = dr["teamid"].ToString();
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
 
@@ -152,8 +149,7 @@ namespace SignUpSystem
             conn.Open();
             SqlCommand command;
             SqlDataReader dr;
-            command = new SqlCommand($"SELECT * FROM Account WHERE Id = '{sendInfo[2]}' AND Account.CreateDate " +
-                    appPro.GetBetweenSignUpTime(), conn);
+            command = new SqlCommand($"SELECT * FROM Account WHERE Id = '{sendInfo[2]}';", conn);
             dr = command.ExecuteReader();
             while (dr.Read())
             {
@@ -162,6 +158,7 @@ namespace SignUpSystem
             dr.Close();
             command.Cancel();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#TeamView').modal('show');", true);
+            conn.Close();
         }
 
         private void ViewAccountInfo(SqlDataReader dr)
@@ -203,11 +200,6 @@ namespace SignUpSystem
             divEle.Attributes.Add("class", classString);
 
             return divEle;
-        }
-
-        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

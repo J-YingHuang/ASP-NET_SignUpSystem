@@ -18,32 +18,27 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-              
-                if ((Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y") == false)
-                {
-                    Response.Redirect("ManagerLogin.aspx");
-                }
-               LoadSchoolSelectData();
+                if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
+                    Response.Redirect("~/ManagerLogin.aspx");
+                LoadSchoolSelectData();
             }
-                
 
             LoadTeamByAccount();
 
         }
         private void LoadSchoolSelectData()
         {
-            
-
             Select_School.Items.Clear();
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlCommand da = new SqlCommand("SELECT Name FROM School ", conn);
+            SqlCommand da = new SqlCommand("SELECT Name FROM School;", conn);
             SqlDataReader dr = da.ExecuteReader();
             while (dr.Read())
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -58,20 +53,16 @@ namespace SignUpSystem
             if (Select_School.Items[Select_School.SelectedIndex].Text != "All")
                 queryCommand += $"WHERE School.Name = '{Select_School.Items[Select_School.SelectedIndex].Text}' AND Account.CreateDate " +
                     appPro.GetBetweenSignUpTime(); 
-
             command = new SqlCommand(queryCommand + ";", conn);
             dr = command.ExecuteReader();
-            
-
 
             if (dr.HasRows)
             {
                 while (dr.Read())
                 {
-                    IDataRecord record = (IDataRecord)dr;
-                    string teamName = record["teamName"].ToString();
-                    string SchoolName = record["SchoolName"].ToString();
-                    string teamID = record["teamid"].ToString();
+                    string teamName = dr["teamName"].ToString();
+                    string SchoolName = dr["SchoolName"].ToString();
+                    string teamID = dr["teamid"].ToString();
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
 
@@ -136,11 +127,6 @@ namespace SignUpSystem
             SqlDataReader dr;
             command = new SqlCommand($"DELETE  FROM Account WHERE Id= '{sendInfo[2]}'", conn);
             dr = command.ExecuteReader();
-
-        }
-
-        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
     }

@@ -18,13 +18,10 @@ namespace SignUpSystem
         {
             if (!IsPostBack)
             {
-                if ((Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y") == false)
-                {
-                    Response.Redirect("ManagerLogin.aspx");
-                }
+                if (Session["ManageLogin"] == null || Session["ManageLogin"].ToString() != "Y")
+                    Response.Redirect("~/ManagerLogin.aspx");
                 LoadSchoolSelectData();
             }
-
 
             LoadTeamByAccount();
         }
@@ -36,12 +33,13 @@ namespace SignUpSystem
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlCommand da = new SqlCommand("SELECT Name FROM School " , conn);
+            SqlCommand da = new SqlCommand("SELECT Name FROM School;" , conn);
             SqlDataReader dr = da.ExecuteReader();
             while (dr.Read())
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -64,10 +62,9 @@ namespace SignUpSystem
             {
                 while (dr.Read())
                 {
-                    IDataRecord record = (IDataRecord)dr;
-                    string teamName = record["teamName"].ToString();
-                    string SchoolName = record["SchoolName"].ToString();
-                    string teamID = record["teamid"].ToString();
+                    string teamName = dr["teamName"].ToString();
+                    string SchoolName = dr["SchoolName"].ToString();
+                    string teamID = dr["teamid"].ToString();
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
 
@@ -126,38 +123,33 @@ namespace SignUpSystem
         private void TeamView(object sender, EventArgs e)
         {
             ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-            string AccountId = "";
+            string teamName = "";
             HtmlAnchor control = (HtmlAnchor)sender;
             string[] sendInfo = (control.ID).Split('|');
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
             SqlCommand command;
             SqlDataReader dr;
-            command = new SqlCommand($"SELECT AccountId FROM BridgeTeam WHERE Id = '{sendInfo[2]}' AND BridgeTeam.CreateDate " +
+            command = new SqlCommand($"SELECT Name FROM BridgeTeam WHERE Id = '{sendInfo[2]}' AND BridgeTeam.CreateDate " +
                     appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             if (dr.HasRows)
             {
                 while (dr.Read())
                 {
-                    IDataRecord data = (IDataRecord)dr;
-                    AccountId = dr["AccountId"].ToString();
-
-
+                    teamName = dr["Name"].ToString();
                 }
             }
             dr.Close();
             command.Cancel();
-            command = new SqlCommand($"DELETE FROM FilmInfo WHERE AccountId = '{AccountId}'", conn);
+
+            command = new SqlCommand($"DELETE FROM FilmInfo WHERE Name = '{teamName}' AND CreateDate " +
+                  appPro.GetBetweenSignUpTime() + $" AND TeamType = 'Bridge';", conn);
             command.ExecuteNonQuery();
+            command.Cancel();
 
             command = new SqlCommand($"DELETE FROM BridgeTeam WHERE Id= '{sendInfo[2]}'", conn);
             command.ExecuteNonQuery();
-
-        }
-
-        protected void Select_School_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
     }
