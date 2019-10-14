@@ -73,7 +73,7 @@
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
         <label class="form-check-label" for="inlineRadio2">素</label>
     </div>
-    <asp:Button ID="btn_Save" type="button" class=" float-right btn btn-secondary"style="margin-bottom:10px;" runat="server" OnClick="btn_Save_Click" Text="Save" />
+    <asp:Button ID="btn_Save" type="button" class=" float-right btn btn-secondary" style="margin-bottom:10px;" runat="server" OnClick="btn_Save_Click" Text="Save" />
     <asp:Button ID="btn_Return" type="button" class="float-right btn btn-secondary" style="margin-right:10px; margin-bottom:10px;" runat="server" Onclick="btn_Return_Click" Text="回上一頁" />
 
 
