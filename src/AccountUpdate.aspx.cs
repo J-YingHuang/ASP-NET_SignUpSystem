@@ -21,13 +21,8 @@ namespace SignUpSystem
                 if (Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y")
                     InitLoad();
                 else
-                    Response.Redirect("Login.aspx");
-                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-                lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName) + "報名資訊";
-
+                    Response.Redirect("~/ManagerLogin.aspx");
             }
-
-         
         }
 
         private void InitLoad()
@@ -50,7 +45,7 @@ namespace SignUpSystem
         protected void btn_Close_ServerClick(object sender, EventArgs e)
         {
             Session["UpdateId"] = null;
-            Response.Redirect("Intro.aspx");
+            Response.Redirect("~/BackgroundDataManagement.aspx");
         }
         protected void btn_Submit_ServerClick(object sender, EventArgs e)
         {
@@ -71,16 +66,9 @@ namespace SignUpSystem
             }
             else
             {
-                
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                
             }
-                
-            
-
         }
-
-       
         }
     }
 

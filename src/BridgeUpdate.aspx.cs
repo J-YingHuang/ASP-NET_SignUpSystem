@@ -361,7 +361,10 @@ namespace SignUpSystem
         protected void btn_Close_ServerClick(object sender, EventArgs e)
         {
             Session["UpdateId"] = null;
-            Response.Redirect("Intro.aspx");
+            if (Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y")
+                Response.Redirect("~/BridgeModify.aspx");
+            else
+                Response.Redirect("Intro.aspx");
         }
     }
 

@@ -182,7 +182,10 @@ namespace SignUpSystem
         protected void btn_Cancel_ServerClick(object sender, EventArgs e)
         {
             Session["UpdateId"] = null;
-            Response.Redirect("Intro.aspx");
+            if (Session["ManageLogin"] != null && Session["ManageLogin"].ToString() == "Y")
+                Response.Redirect("~/FilmModify.aspx");
+            else
+                Response.Redirect("Intro.aspx");
         }
     }
 }

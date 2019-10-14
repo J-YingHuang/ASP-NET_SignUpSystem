@@ -134,5 +134,10 @@ namespace SignUpSystem
             command.Cancel();
             conn.Close();
         }
+
+        protected void btn_Return_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/BackgroundDataManagement.aspx");
+        }
     }
 }
