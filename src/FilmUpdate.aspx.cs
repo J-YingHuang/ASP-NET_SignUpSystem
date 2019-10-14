@@ -65,18 +65,16 @@ namespace SignUpSystem
 
             //先抓抗震的
             SqlCommand command = new SqlCommand($"SELECT Name FROM EarthquakeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
-                $" AND CreateDate " +
-                appPro.GetBetweenSignUpTime(), conn);
+  $" AND CreateDate " +
+  appPro.GetBetweenSignUpTime(), conn);
             SqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
                 earList.Add(dr["Name"].ToString());
             dr.Close();
             command.Cancel();
-
-            //抓橋梁的
             command = new SqlCommand($"SELECT Name FROM BridgeTeam WHERE AccountID = {Session["LoginId"].ToString()}" +
-                $" AND CreateDate " +
-                appPro.GetBetweenSignUpTime(), conn);
+           $" AND CreateDate " +
+           appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
             while (dr.Read())
                 briList.Add(dr["Name"].ToString());
@@ -104,6 +102,7 @@ namespace SignUpSystem
             foreach (string team in briList)
                 select_Team.Items.Add(appPro.GetApplicationString(BaseInfo.BridgeName) +
                     $"|{team}");
+
         }
         protected void btn_Submit_ServerClick(object sender, EventArgs e)
         {

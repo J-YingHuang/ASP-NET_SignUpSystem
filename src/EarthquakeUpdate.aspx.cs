@@ -47,6 +47,7 @@ namespace SignUpSystem
             while (dr.Read())
             {
                 input_TeamName.Value = dr["Name"].ToString();
+                Session["OrginName"] = dr["Name"].ToString();
                 select_Veg.SelectedIndex = Convert.ToInt32(dr["Vegetarian"]);
 
                 if (dr["SecondTeacher"].ToString() != "")
@@ -167,7 +168,7 @@ namespace SignUpSystem
                 }
             }
 
-            string commandString = $"UPDATE EarthquakeTeam SET Count = {count}";
+            string commandString = $"UPDATE EarthquakeTeam SET Count = {count},Name ='{input_TeamName.Value}'";
 
             commandString += ", Vegetarian =";
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
@@ -219,6 +220,21 @@ namespace SignUpSystem
 
             command.Cancel();
             conn.Close();
+
+            //Update Name of FilmInfo 
+            commandString = $"UPDATE FilmInfo SET Name ='{input_TeamName.Value}' WHERE Name='{Session["OrginName"].ToString()}'";
+
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            conn.Open();
+            command = new SqlCommand(commandString, conn);
+            command.ExecuteNonQuery();
+
+            command.Cancel();
+            conn.Close();
+
+            
+
+
 
             Session["UpdateId"] = null;
 
