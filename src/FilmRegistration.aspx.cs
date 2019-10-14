@@ -12,6 +12,8 @@ namespace SignUpSystem
 {
     public partial class FilmRegistration : System.Web.UI.Page
     {
+        bool IsFirstSubmit = true;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -83,8 +85,16 @@ namespace SignUpSystem
         }
         protected void btn_Submit_ServerClick(object sender, EventArgs e)
         {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
             if (!CheckRegistrationData())
                 return;
+            if (IsFirstSubmit)
+                IsFirstSubmit = false;
+            else
+                return;
+
             string commandString = "";
 
             string[] teamInfo = select_Team.Items[select_Team.SelectedIndex].Text.Split('|');
@@ -92,6 +102,11 @@ namespace SignUpSystem
             string teamType = teamInfo[0];
             for (int i = 1; i < teamInfo.Count(); i++)
                 teamName += teamInfo[i];
+
+            if (teamType == appPro.GetApplicationString(BaseInfo.EarthquakeName))
+                teamType = "Earthquake";
+            else
+                teamType = "Bridge";
 
             if (input_Link.Value == "")
                 commandString = $"INSERT INTO FilmInfo (Name, DesignConcept, Outline, AccountID, TeamType)" +
@@ -122,6 +137,9 @@ namespace SignUpSystem
         //確認資料後允許報名
         public bool CheckRegistrationData()
         {
+            if (!IsFirstSubmit)
+                return false;
+
             string errMes = "";
             int mainCount = 1;
 
@@ -158,7 +176,7 @@ namespace SignUpSystem
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
             conn.Open();
             SqlCommand command = new SqlCommand($"SELECT Name FROM FilmInfo WHERE " +
-                $"Name = {teamName} AND CreateDate " +
+                $"Name = '{teamName}' AND CreateDate " +
                 appPro.GetBetweenSignUpTime() +
                 $";", conn);
             SqlDataReader dr = command.ExecuteReader();
@@ -168,8 +186,6 @@ namespace SignUpSystem
                 errMes = $"不好意思，該隊伍已報名" +
                     appPro.GetApplicationString(BaseInfo.FilmName) +
                     $"賽程！";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                Response.Redirect("Intro.aspx");
             }
 
             if (errMes != "")

@@ -13,6 +13,15 @@ namespace SignUpSystem {
     public partial class Login {
         
         /// <summary>
+        /// lab_LoginTitle 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lab_LoginTitle;
+        
+        /// <summary>
         /// account 控制項。
         /// </summary>
         /// <remarks>
@@ -47,6 +56,15 @@ namespace SignUpSystem {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor btn_ForgetPassword;
+        
+        /// <summary>
+        /// A1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
         
         /// <summary>
         /// loginSession 控制項。

@@ -312,7 +312,8 @@ namespace SignUpSystem
                 command.Cancel();
 
                 command = new SqlCommand($"SELECT Count(*) AS Count FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id" +
-                    $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                    $" WHERE Account.SchoolID = {accountSchoolId}" +
+                    $"AND EarthquakeTeam.CreateDate {appPro.GetBetweenSignUpTime()}", conn);
                 dr = command.ExecuteReader();
 
                 while (dr.Read())
@@ -351,7 +352,8 @@ namespace SignUpSystem
                 command.Cancel();
 
                 command = new SqlCommand($"SELECT Account.Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id" +
-                    $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                    $" WHERE Account.SchoolID = {accountSchoolId}" +
+                    $"AND BridgeTeam.CreateDate {appPro.GetBetweenSignUpTime()}", conn);
                 dr = command.ExecuteReader();
 
                 if (dr.HasRows)
@@ -551,6 +553,18 @@ namespace SignUpSystem
                 $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
 
+            MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">共同指導老師：</label>";
+
+            if(dr["SecondTeacher"].ToString() != "")
+                MemberInfo.InnerHtml += $"<label class=\"col-sm-4 col-form-label\">{dr["SecondTeacher"].ToString()}</label>";
+            else
+                MemberInfo.InnerHtml += $"<label class=\"col-sm-4 col-form-label\">無</label>";
+
+            MemberInfo.InnerHtml += $"<div class=\"col-sm-2\"></div>" +
+                $"</div>";
+
             MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">隊長姓名：</label>" +
@@ -577,6 +591,19 @@ namespace SignUpSystem
                 $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"</div>";
+
+            MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
+                $"<div class=\"col-sm-2\"></div>" +
+                $"<label class=\"col-sm-4 col-form-label\">共同指導老師：</label>";
+
+            if (dr["SecondTeacher"].ToString() != "")
+                MemberInfo.InnerHtml += $"<label class=\"col-sm-4 col-form-label\">{dr["SecondTeacher"].ToString()}</label>";
+            else
+                MemberInfo.InnerHtml += $"<label class=\"col-sm-4 col-form-label\">無</label>";
+
+            MemberInfo.InnerHtml += $"<div class=\"col-sm-2\"></div>" +
+                $"</div>";
+
 
             MemberInfo.InnerHtml += $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +

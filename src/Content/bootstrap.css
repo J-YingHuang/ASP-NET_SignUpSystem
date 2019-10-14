@@ -615,7 +615,6 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-    text-align: center;
 }
 
 .col {
@@ -3283,6 +3282,8 @@ input[type="button"].btn-block {
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+    top: -2px;
+    left: 271px;
 }
 
 .btn-group > .btn,

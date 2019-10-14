@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="row mx-auto">
-            <div id="div_TeamCard" runat="server"></div>
+            <div id="div_TeamCard"  class="card-columns"  runat="server"></div>
             <%--            <div class="col-4 text-left ">
                 <div class="card w-100" style="width: 18rem; margin-bottom: 15px;">
                     <div class="card-body text-left">

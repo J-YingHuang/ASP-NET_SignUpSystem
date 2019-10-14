@@ -13,6 +13,7 @@ namespace SignUpSystem
 {
     public partial class EarthquakeRegistrationPage : System.Web.UI.Page
     {
+        bool IsFirstSubmit = true;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -110,6 +111,11 @@ namespace SignUpSystem
             if (!CheckRegistrationData())
                 return;
 
+            if (IsFirstSubmit)
+                IsFirstSubmit = false;
+            else
+                return;
+
             int teamCount = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList().Count;
             List<string> teamMembers = new List<string>();
             string leader = "";
@@ -134,10 +140,18 @@ namespace SignUpSystem
                 }
             }
 
+            //判斷有沒有第二位老師
+            bool hasSecondTeacher = false;
+            if (input_SecondTeacher.Value != "")
+                hasSecondTeacher = true;
+
             string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, Vegetarian, LeaderName";
 
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}";
+
+            if (hasSecondTeacher)
+                commandString += ", SecondTeacher";
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
@@ -172,6 +186,9 @@ namespace SignUpSystem
             foreach (string peo in teamMembers)
                 commandString += $", '{peo}'";
 
+            if (hasSecondTeacher)
+                commandString += $", '{input_SecondTeacher.Value}'";
+
             commandString += ");";
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
@@ -187,6 +204,9 @@ namespace SignUpSystem
         //確認資料後允許報名
         public bool CheckRegistrationData()
         {
+            if (!IsFirstSubmit)
+                return false;
+
             string errMes = "";
             int mainCount = 1;
             //讀取Application Data
@@ -311,7 +331,8 @@ namespace SignUpSystem
             command.Cancel();
 
             command = new SqlCommand($"SELECT Count(*) AS Count FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id" +
-                $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                $" WHERE Account.SchoolID = {accountSchoolId}" +
+                $"AND EarthquakeTeam.CreateDate " + appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
 
             while (dr.Read())
@@ -323,7 +344,6 @@ namespace SignUpSystem
                         appPro.GetApplicationString(BaseInfo.EarthquakeName) +
                         $"隊伍，不得再進行本賽程報名！";
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                    Response.Redirect("Intro.aspx");
                 }
             }
 

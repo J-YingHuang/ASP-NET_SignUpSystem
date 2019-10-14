@@ -12,7 +12,7 @@
                 <br />
                 <br />
                 <h3>國立高雄科技大學</h3>
-                <h3>2019 第15屆抗震盃報名系統</h3>
+                <h3 id="lab_LoginTitle" runat="server">2019 第15屆抗震盃報名系統</h3>
                 <br />
                 <p>請登入或註冊帳號以便進行後續報名相關手續</p>
                 <hr width="50%" />
@@ -35,20 +35,22 @@
                         </div>
                     </div>
                     <div class="form-group row">
-			<div class="col-sm-1"></div>
+                        <div class="col-sm-1"></div>
                         <div class="col-sm-10">
                             <asp:Button ID="btn_Login" runat="server" Text="Login" Width="100%" CssClass="btn btn-outline-secondary" OnClick="btn_Login_Click" />
                         </div>
-			<div class="col-sm-1"></div>
+                        <div class="col-sm-1"></div>
                     </div>
                     <div class="form-group row">
-			<div class="col-sm-4"></div>
-                        <div class="col-sm-4 text-center" style="font-size: 12px;">                                                   
-                            <a href="#" Id="btn_ForgetPassword" style="color: dimgray;" runat="server" onserverclick="btn_ForgetPassword_Click">
-                                忘記密碼
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6 text-center" style="font-size: 12px;">
+                            <a href="#" id="btn_ForgetPassword" style="color: dimgray;" runat="server" onserverclick="btn_ForgetPassword_Click">忘記密碼
+                            </a>
+                            |
+                            <a href="#" id="A1" style="color: dimgray;" runat="server" onserverclick="btn_manager_Click">管理者登入
                             </a>
                         </div>
-			<div class="col-sm-4"></div>
+                        <div class="col-sm-3"></div>
                     </div>
                 </form>
             </div>

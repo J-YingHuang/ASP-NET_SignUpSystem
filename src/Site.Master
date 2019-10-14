@@ -8,12 +8,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>高科大抗震盃報名系統</title>
-
+    <webopt:BundleReference runat="server" Path="~/Content/css"></webopt:BundleReference>
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-
-    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/images/校徽無框.jpg" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body>
@@ -51,26 +49,27 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="EarthquakeTeamList.aspx">團隊來對震</a>
-                            <a class="dropdown-item" href="BridgeTeamList.aspx">橋梁變變變</a>
-                            <a class="dropdown-item" href="FilmTeamList.aspx">影領創視界</a>
+                            <a id="list_Eqrthquake" runat="server" class="dropdown-item" href="EarthquakeTeamList.aspx">團隊來對震</a>
+                            <a id="list_Bridge" runat="server" class="dropdown-item" href="BridgeTeamList.aspx">橋梁變變變</a>
+                            <a id="list_Film" runat="server" class="dropdown-item" href="FilmTeamList.aspx">影領創視界</a>
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">聯絡我們</a></li>
                 </ul>
-                    <ul class="navbar-nav" style="margin-right:29%">
-                        <%
-                            if (Session["Login"] == null || Session["Login"].ToString() != "Y")
-                            {%>
-                        <li class="nav-item"><a class="nav-link" style=" color: black;" runat="server" href="#" onserverclick="Unnamed_ServerClick">登入</a></li>
-                        <% }
-                            else
-                            {
-                        %>
-                        <li class="nav-item"><a class="nav-link" style="color: black;" runat="server" href="#" onserverclick="Unnamed_ServerClick1">登出</a></li>
-                        <%
+                <ul class="navbar-nav" style="margin-right: 29%">
+                    <%
+                        if (Session["Login"] == null || Session["Login"].ToString() != "Y")
+                        {%>
+                    <li class="nav-item"><a class="nav-link" style="color: black;" runat="server" href="#" onserverclick="Unnamed_ServerClick">登入</a></li>
+                    <% }
+                        else
+                        {
+                    %>
+                    <li class="nav-item"><a class="nav-link" style="color: black;" href="Intro.aspx">帳戶資訊</a></li>
+                    <li class="nav-item"><a class="nav-link" style="color: black;" runat="server" href="#" onserverclick="Unnamed_ServerClick1">登出</a></li>
+                    <%
                         } %>
-                    </ul>
+                </ul>
             </div>
         </nav>
         <div class="container body-content">

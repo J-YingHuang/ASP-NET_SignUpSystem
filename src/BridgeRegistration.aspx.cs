@@ -15,6 +15,8 @@ namespace SignUpSystem
 {
     public partial class BridgeRegistration : System.Web.UI.Page
     {
+        bool IsFirstSubmit = true;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -127,6 +129,11 @@ namespace SignUpSystem
             if (!CheckRegistrationData())
                 return;
 
+            if (IsFirstSubmit)
+                IsFirstSubmit = false;
+            else
+                return;
+
             int teamCount = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList().Count;
             List<teamPeople> teamMembers = new List<teamPeople>();
             teamPeople leader = new teamPeople();
@@ -160,10 +167,18 @@ namespace SignUpSystem
                 }
             }
 
+            //判斷有沒有第二位老師
+            bool hasSecondTeacher = false;
+            if (input_SecondTeacher.Value != "")
+                hasSecondTeacher = true;
+
             string commandString = $"INSERT INTO BridgeTeam (AccountID ,Name, Count, Vegetarian, LeaderName, LeaderID, LeaderBirthday";
 
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}, PlayerID{i}, PlayerBirthday{i}";
+
+            if (hasSecondTeacher)
+                commandString += ", SecondTeacher";
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
@@ -193,10 +208,14 @@ namespace SignUpSystem
                     break;
             }
 
+
             commandString += $", '{leader.Name}', '{leader.Id}', '{leader.Birthday}'";
 
             foreach(teamPeople peo in teamMembers)
                 commandString += $", '{peo.Name}', '{peo.Id}', '{peo.Birthday}'";
+
+            if (hasSecondTeacher)
+                commandString += $", '{input_SecondTeacher.Value}'";
 
             commandString += ");";
 
@@ -214,6 +233,9 @@ namespace SignUpSystem
         //確認資料後允許報名
         public bool CheckRegistrationData()
         {
+            if (!IsFirstSubmit)
+                return false;
+
             string errMes = "";
             int mainCount = 1;
             //讀取Application Data
@@ -237,7 +259,7 @@ namespace SignUpSystem
                 SqlDataReader theDr = comm.ExecuteReader();
                 if (theDr.HasRows)
                 {
-                    errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
+                    errMes += $"<p>{mainCount}. 本年度比賽已存在相同隊名之隊伍，請更換隊名!</p>";
                     mainCount++;
                 }
                 else
@@ -251,7 +273,7 @@ namespace SignUpSystem
                     theDr = comm.ExecuteReader();
                     if (theDr.HasRows)
                     {
-                        errMes += $"<p>{mainCount}. 本已存在相同隊名之隊伍，請更換隊名!</p>";
+                        errMes += $"<p>{mainCount}. 本年度比賽已存在相同隊名之隊伍，請更換隊名!</p>";
                         mainCount++;
                     }
                 }
@@ -349,7 +371,8 @@ namespace SignUpSystem
             command.Cancel();
 
             command = new SqlCommand($"SELECT Account.Name FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id" +
-                $" WHERE Account.SchoolID = {accountSchoolId}", conn);
+                $" WHERE Account.SchoolID = {accountSchoolId}" +
+                $"AND BridgeTeam.CreateDate " + appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
 
             if (dr.HasRows)
@@ -359,7 +382,6 @@ namespace SignUpSystem
                     appPro.GetApplicationString(BaseInfo.BridgeName) +
                     $"隊伍，不得再進行本賽程報名！";
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
-                Response.Redirect("Intro.aspx");
             }
 
             if (errMes == "")
