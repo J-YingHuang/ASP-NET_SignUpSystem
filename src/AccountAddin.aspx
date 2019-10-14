@@ -47,7 +47,9 @@
                             <input type="text" class="form-control" id="Area" runat="server">
                         </div>
 
-
+                        <div class="form-group">
+                            <label class="col-form-label" id="lab_Message" runat="server"></label>
+                        </div>
 
 
 
