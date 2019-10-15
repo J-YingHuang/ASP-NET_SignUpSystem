@@ -133,6 +133,7 @@ namespace SignUpSystem
             command.ExecuteNonQuery();
             command.Cancel();
             conn.Close();
+            LoadInSchoolSelectData();
         }
 
         protected void btn_Return_Click(object sender, EventArgs e)
