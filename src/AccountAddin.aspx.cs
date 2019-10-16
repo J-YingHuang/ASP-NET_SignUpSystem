@@ -34,7 +34,7 @@ namespace SignUpSystem
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlCommand da = new SqlCommand("SELECT Name FROM School;", conn);
+            SqlCommand da = new SqlCommand("SELECT School.Name FROM School LEFT JOIN Account ON School.Id =  Account.SchoolID;", conn);
             SqlDataReader dr = da.ExecuteReader();
             while (dr.Read())
                 DropDownList1.Items.Add(dr["Name"].ToString());
@@ -65,9 +65,9 @@ namespace SignUpSystem
             command.Parameters.AddWithValue(@"Phone", PhoneInput.Value);
             command.Parameters.AddWithValue(@"Email", EmailInput.Value);
             if(inlineRadio1.Checked)
-                command.Parameters.AddWithValue(@"IsVegetarian", "true");
-            else
                 command.Parameters.AddWithValue(@"IsVegetarian", "false");
+            else
+                command.Parameters.AddWithValue(@"IsVegetarian", "true");
             command.Parameters.AddWithValue(@"SchoolID", SchoolID);
             command.ExecuteNonQuery();
             command.Clone();
