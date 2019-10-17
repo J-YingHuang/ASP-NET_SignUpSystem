@@ -13,14 +13,13 @@ namespace SignUpSystem
 {
     public partial class EarthquakeRegistrationPage : System.Web.UI.Page
     {
-        bool IsFirstSubmit = true;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 if (Session["LogIn"] == null || Session["LogIn"].ToString() != "Y")
                     Response.Redirect("Login.aspx");
-
+                Session["IsFirstSubmit"] = "Y";
                 //讀取Application Data
                 ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
                 lab_Title.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName) + "報名表";
@@ -85,7 +84,6 @@ namespace SignUpSystem
 
             fieldSpace.Controls.Add(formGroup);
         }
-
         public HtmlGenericControl CreateDiv(string classString, string styleString)
         {
             HtmlGenericControl newDiv = new HtmlGenericControl("DIV");
@@ -111,10 +109,13 @@ namespace SignUpSystem
             if (!CheckRegistrationData())
                 return;
 
-            if (IsFirstSubmit)
-                IsFirstSubmit = false;
+            if (Session["IsFirstSubmit"] == null || Session["IsFirstSubmit"].ToString() == "Y")
+                Session["IsFirstSubmit"] = "N";
             else
-                return;
+            {
+                Session["IsFirstSubmit"] = null;
+                Response.Redirect("Intro.aspx");
+            }
 
             int teamCount = Request.Form.AllKeys.Where(key => key.Contains("input_Name")).ToList().Count;
             List<string> teamMembers = new List<string>();
@@ -199,13 +200,14 @@ namespace SignUpSystem
             command.Cancel();
             conn.Close();
 
+            Session["IsFirstSubmit"] = null;
             Response.Redirect("Intro.aspx");
         }
         //確認資料後允許報名
         public bool CheckRegistrationData()
         {
-            if (!IsFirstSubmit)
-                return false;
+            if (Session["IsFirstSubmit"] == null || Session["IsFirstSubmit"].ToString() == "N")
+                return true;
 
             string errMes = "";
             int mainCount = 1;
@@ -359,6 +361,7 @@ namespace SignUpSystem
 
         protected void btn_Cancel_ServerClick(object sender, EventArgs e)
         {
+            Session["IsFirstSubmit"] = null;
             Response.Redirect("Intro.aspx");
         }
     }

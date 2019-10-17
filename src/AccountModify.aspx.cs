@@ -52,8 +52,7 @@ namespace SignUpSystem
                 $"Account.Id AS teamid,School.Name AS SchoolName FROM Account " +
                 $"LEFT JOIN  School ON Account.SchoolID=School.Id ";
             if (Select_School.Items[Select_School.SelectedIndex].Text != "All")
-                queryCommand += $"WHERE School.Name = '{Select_School.Items[Select_School.SelectedIndex].Text}' AND Account.CreateDate " +
-                    appPro.GetBetweenSignUpTime();
+                queryCommand += $"WHERE School.Name = '{Select_School.Items[Select_School.SelectedIndex].Text}'";
             command = new SqlCommand(queryCommand + ";", conn);
             dr = command.ExecuteReader();
 
