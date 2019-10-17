@@ -65,7 +65,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <textarea class="form-control" id="text_Outline" runat="server" style="min-width: 100%; margin-left: 5px;" rows="15" placeholder=" 限500字以內" maxlength="10"></textarea>
+                    <textarea class="form-control" id="text_Outline" runat="server" style="min-width: 100%; margin-left: 5px;" rows="15" placeholder=" 限500字以內" maxlength="500"></textarea>
                 </div>
             </div>
         </div>
