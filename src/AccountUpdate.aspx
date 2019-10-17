@@ -50,12 +50,11 @@
                 <p align="left">
                     
           
-                    6.SchoolID:
+                    6.School:
                     </p>
-                <input id="Text4" class="form-control form-control-sm4" type="text" style="font-size: 8px;" maxlength="10" runat="server">
-            </div>
-            <div class="form-group " style="font-size: 18px;">
-            
+               
+        <asp:DropDownList ID="Select_School" runat="server" AutoPostBack="true" class="form-control">
+        </asp:DropDownList>
                 <p align="left">
                            
                      7.ID:
@@ -87,4 +86,5 @@
         </div>
     </div>
 
+</div>
 </asp:Content>
