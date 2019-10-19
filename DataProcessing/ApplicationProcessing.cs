@@ -37,6 +37,7 @@ namespace DataProcessing
                 HttpContext.Current.Application.Add("EndUpdateInfo", dr["EndUpdateInfo"].ToString());
                 HttpContext.Current.Application.Add("EndFilmUpdate", dr["EndFilmUpdate"].ToString());
                 HttpContext.Current.Application.Add("GameNumber", dr["GameNumber"].ToString());
+                HttpContext.Current.Application.Add("GameDate", dr["GameDate"].ToString());
             }
         }
         public string GetApplicationString(BaseInfo infoType)
@@ -55,5 +56,6 @@ namespace DataProcessing
 
             return $"BETWEEN '{startSiguUp}' AND '{endSignUp}'";
         }
+
     }
 }

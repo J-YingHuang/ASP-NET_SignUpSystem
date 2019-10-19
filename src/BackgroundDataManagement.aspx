@@ -156,6 +156,25 @@
                         </div>
                         <div class="col-1"></div>
                     </div>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <label>9. 當年度比賽時間(時間預設為18:00)：</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <div class='input-group date' id='datePicker_GameDate'>
+                                <input id="input_GameDate" runat="server" type='text' style="width: 80px;" class="form-control" />
+                                <span class="input-group-addon">
+                                    <button type="button" class="btn btn-outline-secondary">
+                                        <img width="20" src="https://img.icons8.com/android/50/000000/calendar.png">
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

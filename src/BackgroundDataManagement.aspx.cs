@@ -79,6 +79,7 @@ namespace SignUpSystem
                 $"EndSignUp = '{input_EndSignUp.Value} 18:00:00', " +
                 $"EndUpdateInfo = '{input_EndUpdateInfo.Value} 18:00:00', " +
                 $"EndFilmUpdate = '{input_EndFilmUpdate.Value} 18:00:00', " +
+                $"GameDate = '{input_GameDate.Value} 18:00:00, '" +
                 $"GameNumber = '{input_GameNumber.Value}' Where Id = 1;";
 
             SqlCommand comm = new SqlCommand(commStr, conn);
@@ -282,10 +283,11 @@ namespace SignUpSystem
                 filmWorksheet.Range[1, 4].Text = "故事大綱";
                 filmWorksheet.Range[1, 5].Text = "作品連結";
                 filmWorksheet.Range[1, 6].Text = "隊伍類型";
+                filmWorksheet.Range[1, 7].Text = "帶隊老師";
 
                 //匯出資料
-                comm = new SqlCommand($"SELECT * FROM FilmInfo " +
-                    $"WHERE CreateDate " +
+                comm = new SqlCommand($"SELECT * FROM FilmInfo LEFT JOIN Account ON FilmInfo.AccountID = Account.Id " +
+                    $"WHERE FilmInfo.CreateDate " +
                     appPro.GetBetweenSignUpTime(), conn);
                 dr = comm.ExecuteReader();
 
@@ -299,6 +301,7 @@ namespace SignUpSystem
                     filmWorksheet.Range[num, 4].Text = dr[3].ToString();
                     filmWorksheet.Range[num, 5].Text = dr[4].ToString();
                     filmWorksheet.Range[num, 6].Text = dr[7].ToString();
+                    filmWorksheet.Range[num, 7].Text = dr[11].ToString();
 
                     num++;
                 }
@@ -315,6 +318,38 @@ namespace SignUpSystem
                 //值
                 eatWorksheet.Range[1, 2].Text = eatCount.ToString();
                 eatWorksheet.Range[2, 2].Text = VegetarianCount.ToString();
+
+                IWorksheet accountWorkSheet = workbook.Worksheets.Create("帳戶資訊");
+
+                //標題列
+                //Insert sample text into cell “A1”
+                accountWorkSheet.Range[1, 1].Text = "老師名稱";
+                accountWorkSheet.Range[1, 2].Text = "連絡電話";
+                accountWorkSheet.Range[1, 3].Text = "Email";
+                accountWorkSheet.Range[1, 4].Text = "任職學校";
+                accountWorkSheet.Range[1, 5].Text = "學校地址";
+                accountWorkSheet.Range[1, 6].Text = "素食者";
+
+                //匯出資料
+                comm = new SqlCommand($"SELECT * FROM Account LEFT JOIN School ON Account.SchoolID = School.Id ;", conn);
+                dr = comm.ExecuteReader();
+
+                num = 2;
+                while (dr.Read())
+                {
+                    //匯出每一筆資料
+                    accountWorkSheet.Range[num, 1].Text = dr[3].ToString();
+                    accountWorkSheet.Range[num, 2].Text = dr[4].ToString();
+                    accountWorkSheet.Range[num, 3].Text = dr[5].ToString();
+                    accountWorkSheet.Range[num, 4].Text = dr[10].ToString();
+                    accountWorkSheet.Range[num, 5].Text = dr[11].ToString();
+                    accountWorkSheet.Range[num, 6].Text = dr[8].ToString();
+
+                    num++;
+                }
+
+                dr.Close();
+                comm.Cancel();
 
                 //Save the workbook to disk in xlsx format
                 workbook.SaveAs("Output.xlsx", Response, ExcelDownloadType.Open, ExcelHttpContentType.Excel2016);

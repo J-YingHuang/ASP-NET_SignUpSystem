@@ -40,6 +40,24 @@ namespace SignUpSystem {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lab_SignTime;
         
         /// <summary>
+        /// lab_UpdateTime 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lab_UpdateTime;
+        
+        /// <summary>
+        /// lab_FilmUpdateTime 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lab_FilmUpdateTime;
+        
+        /// <summary>
         /// lab_Game1Name 控制項。
         /// </summary>
         /// <remarks>

@@ -21,7 +21,7 @@ namespace SignUpSystem
                 ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
 
                 DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
-                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
+                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.GameDate));
                 if (DateTime.Now > startTime && DateTime.Now < endTime)
                     LoadInfoAboutTeam();
 
@@ -33,6 +33,12 @@ namespace SignUpSystem
                 lab_SignTime.InnerText = $"報名開放時間：" +
                     $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
                     $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy/MM/dd")}";
+                lab_UpdateTime.InnerText = $"隊伍資訊更正開放時間：" +
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndUpdateInfo, "yyyy/MM/dd")}";
+                lab_FilmUpdateTime.InnerText = $"{appPro.GetApplicationString(BaseInfo.FilmName)}作品繳交開放時間：" +
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndFilmUpdate, "yyyy/MM/dd")}";
                 lab_Game1Name.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
                 lab_Game2Name.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
                 lab_Game3Name.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);

@@ -5,6 +5,8 @@
         <h1 id="lab_TitleName" runat="server">國立高雄科技大學 第十五屆 抗震大作戰</h1>
         <p id="lab_TitleGameList" runat="server" class="lead">團隊來對震 X 橋梁變變變 X 影領創視界</p>
         <p id="lab_SignTime" runat="server">報名開放時間：2019/09/30 (一) ~ 2019/10/14 (一)</p>
+        <p id="lab_UpdateTime" runat="server">隊伍資訊可更新時間：2019/09/30 (一) ~ 2019/10/14 (一)</p>
+        <p id="lab_FilmUpdateTime" runat="server">隊伍資訊可更新時間：2019/09/30 (一) ~ 2019/10/14 (一)</p>
         <p><a href="Login" class="btn btn-outline-danger btn-lg">前往報名 &raquo;</a></p>
     </div>
 

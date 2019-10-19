@@ -15,6 +15,7 @@ namespace DataProcessing
         EndSignUp,
         EndUpdateInfo,
         EndFilmUpdate,
-        GameNumber
+        GameNumber,
+        GameDate
     }
 }

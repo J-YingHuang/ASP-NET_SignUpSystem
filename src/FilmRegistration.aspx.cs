@@ -154,9 +154,14 @@ namespace SignUpSystem
                 errMes += $"<p>{mainCount}. 請填寫隊名！</p>";
                 mainCount++;
             }
-                
+            else if(select_Team.Items[select_Team.SelectedIndex].Text == "")
+            {
+                errMes += $"<p>{mainCount}. 請填寫隊名！</p>";
+                mainCount++;
+            }
+
             //設計理念要填
-            if(text_Design.Value == "")
+            if (text_Design.Value == "")
             {
                 errMes += $"<p>{mainCount}. 請填寫設計理念！</p>";
                 mainCount++;

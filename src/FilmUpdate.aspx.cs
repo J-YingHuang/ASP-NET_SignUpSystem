@@ -110,11 +110,7 @@ namespace SignUpSystem
                 return;
             string commandString = "";
 
-            string[] teamInfo = select_Team.Items[select_Team.SelectedIndex].Text.Split('|');
-            string teamName = "";
-            string teamType = teamInfo[0];
-            for (int i = 1; i < teamInfo.Count(); i++)
-                teamName += teamInfo[i];
+            string teamName = select_Team.Items[select_Team.SelectedIndex].Text;
 
             if (input_Link.Value == "")
                 commandString = $"UPDATE FilmInfo SET" +
