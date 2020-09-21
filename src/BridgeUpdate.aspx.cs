@@ -50,7 +50,7 @@ namespace SignUpSystem
             {
                 input_TeamName.Value = dr["Name"].ToString();
                 Session["OrginName"] = dr["Name"].ToString();
-                select_Veg.SelectedIndex = Convert.ToInt32(dr["Vegetarian"]);
+                //select_Veg.SelectedIndex = Convert.ToInt32(dr["Vegetarian"]);
 
                 if (dr["SecondTeacher"].ToString() != "")
                     input_SecondTeacher.Value = dr["SecondTeacher"].ToString();
@@ -126,7 +126,7 @@ namespace SignUpSystem
             inputBirthday.Attributes.Add("maxlength", "10");
             inputBirthday.Attributes.Add("runat", "server");
             inputBirthday.ID = "input_Birthday" + count;
-            HtmlGenericControl colLeader = CreateDiv("col-2", "margin-left: 85px; margin-top: 7px;");
+            HtmlGenericControl colLeader = CreateDiv("col-2", "margin-left: 73px; margin-top: 7px;");
             HtmlInputRadioButton btn = new HtmlInputRadioButton();
             btn.Attributes.Add("class", "form-check");
             btn.Attributes.Add("runat", "server");
@@ -208,7 +208,7 @@ namespace SignUpSystem
 
             string commandString = $"UPDATE BridgeTeam SET Count = {count},Name='{input_TeamName.Value}'";
 
-            commandString += ", Vegetarian =";
+            /*commandString += ", Vegetarian =";
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
@@ -233,7 +233,7 @@ namespace SignUpSystem
                 case "5人":
                     commandString += " 5";
                     break;
-            }
+            }*/
 
             //隊長
             commandString += $", LeaderName = '{leader.Name}', LeaderID = '{leader.Id}', LeaderBirthday = '{leader.Birthday}'";
@@ -333,7 +333,7 @@ namespace SignUpSystem
             }
 
             //確認素食人數沒有大於隊伍人數
-            int vegCount = 0;
+            /*int vegCount = 0;
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
@@ -360,7 +360,7 @@ namespace SignUpSystem
                     break;
             }
             if (vegCount > count)
-                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";
+                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";*/
 
             if (errMes == "")
                 return true;

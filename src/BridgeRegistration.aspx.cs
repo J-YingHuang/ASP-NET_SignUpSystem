@@ -80,7 +80,7 @@ namespace SignUpSystem
             inputBirthday.Attributes.Add("maxlength", "10");
             inputBirthday.Attributes.Add("runat", "server");
             inputBirthday.ID = "input_Birthday" + count;
-            HtmlGenericControl colLeader = CreateDiv("col-2", "margin-left: 85px; margin-top: 7px;");
+            HtmlGenericControl colLeader = CreateDiv("col-2", "margin-left: 73px; margin-top: 7px;");
             HtmlInputRadioButton btn = new HtmlInputRadioButton();
             btn.Attributes.Add("class", "form-check");
             btn.Attributes.Add("runat", "server");
@@ -173,7 +173,8 @@ namespace SignUpSystem
             if (input_SecondTeacher.Value != "")
                 hasSecondTeacher = true;
 
-            string commandString = $"INSERT INTO BridgeTeam (AccountID ,Name, Count, Vegetarian, LeaderName, LeaderID, LeaderBirthday";
+            //string commandString = $"INSERT INTO BridgeTeam (AccountID ,Name, Count, Vegetarian, LeaderName, LeaderID, LeaderBirthday";
+            string commandString = $"INSERT INTO BridgeTeam (AccountID ,Name, Count, LeaderName, LeaderID, LeaderBirthday";
 
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}, PlayerID{i}, PlayerBirthday{i}";
@@ -183,7 +184,7 @@ namespace SignUpSystem
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
-            switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
+            /*switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
                     commandString += ", 0";
@@ -207,7 +208,7 @@ namespace SignUpSystem
                 case "5人":
                     commandString += ", 5";
                     break;
-            }
+            }*/
 
 
             commandString += $", '{leader.Name}', '{leader.Id}', '{leader.Birthday}'";
@@ -328,7 +329,7 @@ namespace SignUpSystem
             }
 
             //確認素食人數沒有大於隊伍人數
-            int vegCount = 0;
+            /*int vegCount = 0;
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
@@ -355,7 +356,7 @@ namespace SignUpSystem
                     break;
             }
             if (vegCount > count)
-                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";
+                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";*/
 
 
             //確認是否可以新增隊伍

@@ -79,7 +79,7 @@ namespace SignUpSystem
                 $"EndSignUp = '{input_EndSignUp.Value} 18:00:00', " +
                 $"EndUpdateInfo = '{input_EndUpdateInfo.Value} 18:00:00', " +
                 $"EndFilmUpdate = '{input_EndFilmUpdate.Value} 18:00:00', " +
-                $"GameDate = '{input_GameDate.Value} 18:00:00, '" +
+                $"GameDate = '{input_GameDate.Value} 18:00:00', " +
                 $"GameNumber = '{input_GameNumber.Value}' Where Id = 1;";
 
             SqlCommand comm = new SqlCommand(commStr, conn);
@@ -106,9 +106,6 @@ namespace SignUpSystem
                 //Create a workbook with a worksheet
                 IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                List<int> teacherId = new List<int>();
-                int eatCount = 0;
-                int VegetarianCount = 0;
 
                 //抗震大作戰Sheet
                 //Access first worksheet from the workbook instance
@@ -120,19 +117,18 @@ namespace SignUpSystem
                 earthquakeWorksheet.Range[1, 1].Text = "隊伍編號";
                 earthquakeWorksheet.Range[1, 2].Text = "隊伍名稱";
                 earthquakeWorksheet.Range[1, 3].Text = "報名人數";
-                earthquakeWorksheet.Range[1, 4].Text = "素食人數(不含老師)";
-                earthquakeWorksheet.Range[1, 5].Text = "隊長姓名";
-                earthquakeWorksheet.Range[1, 6].Text = "隊員一姓名";
-                earthquakeWorksheet.Range[1, 7].Text = "隊員二姓名";
-                earthquakeWorksheet.Range[1, 8].Text = "隊員三姓名";
-                earthquakeWorksheet.Range[1, 9].Text = "隊員四姓名";
-                earthquakeWorksheet.Range[1, 10].Text = "隊員五姓名";
-                earthquakeWorksheet.Range[1, 11].Text = "帶隊老師";
-                earthquakeWorksheet.Range[1, 12].Text = "帶隊老師電話";
-                earthquakeWorksheet.Range[1, 13].Text = "帶隊老師Email";
-                earthquakeWorksheet.Range[1, 14].Text = "共同指導老師";
-                earthquakeWorksheet.Range[1, 15].Text = "學校名稱";
-                earthquakeWorksheet.Range[1, 16].Text = "學校地址";
+                earthquakeWorksheet.Range[1, 4].Text = "隊長姓名";
+                earthquakeWorksheet.Range[1, 5].Text = "隊員一姓名";
+                earthquakeWorksheet.Range[1, 6].Text = "隊員二姓名";
+                earthquakeWorksheet.Range[1, 7].Text = "隊員三姓名";
+                earthquakeWorksheet.Range[1, 8].Text = "隊員四姓名";
+                earthquakeWorksheet.Range[1, 9].Text = "隊員五姓名";
+                earthquakeWorksheet.Range[1, 10].Text = "帶隊老師";
+                earthquakeWorksheet.Range[1, 11].Text = "帶隊老師電話";
+                earthquakeWorksheet.Range[1, 12].Text = "帶隊老師Email";
+                earthquakeWorksheet.Range[1, 13].Text = "共同指導老師";
+                earthquakeWorksheet.Range[1, 14].Text = "學校名稱";
+                earthquakeWorksheet.Range[1, 15].Text = "學校地址";
 
                 //匯出資料
                 comm = new SqlCommand($"SELECT * FROM EarthquakeTeam LEFT JOIN Account ON EarthquakeTeam.AccountID = Account.Id " +
@@ -153,28 +149,13 @@ namespace SignUpSystem
                     earthquakeWorksheet.Range[num, 7].Text = dr[6].ToString();
                     earthquakeWorksheet.Range[num, 8].Text = dr[7].ToString();
                     earthquakeWorksheet.Range[num, 9].Text = dr[8].ToString();
-                    earthquakeWorksheet.Range[num, 10].Text = dr[9].ToString();
+                    earthquakeWorksheet.Range[num, 10].Text = dr[15].ToString();
                     earthquakeWorksheet.Range[num, 11].Text = dr[16].ToString();
                     earthquakeWorksheet.Range[num, 12].Text = dr[17].ToString();
-                    earthquakeWorksheet.Range[num, 13].Text = dr[18].ToString();
-                    earthquakeWorksheet.Range[num, 14].Text = dr[12].ToString();
-                    earthquakeWorksheet.Range[num, 15].Text = dr[23].ToString();
-                    earthquakeWorksheet.Range[num, 16].Text = dr[24].ToString();
+                    earthquakeWorksheet.Range[num, 13].Text = dr[11].ToString();
+                    earthquakeWorksheet.Range[num, 14].Text = dr[21].ToString();
+                    earthquakeWorksheet.Range[num, 15].Text = dr[22].ToString();
 
-                    //便當統計
-                    //teacher
-                    if (!teacherId.Contains((int)dr[13]))
-                    {
-                        teacherId.Add((int)dr[13]);
-                        if (dr[21].ToString() == "true")
-                            VegetarianCount++;
-                        else
-                            eatCount++;
-                    }
-
-                    //team member
-                    VegetarianCount += (int)dr[3];
-                    eatCount += (int)dr[2] - (int)dr[3];
 
                     num++;
                 }
@@ -191,28 +172,27 @@ namespace SignUpSystem
                 bridgeWorksheet.Range[1, 1].Text = "隊伍編號";
                 bridgeWorksheet.Range[1, 2].Text = "隊伍名稱";
                 bridgeWorksheet.Range[1, 3].Text = "報名人數";
-                bridgeWorksheet.Range[1, 4].Text = "素食人數(不含老師)";
-                bridgeWorksheet.Range[1, 5].Text = "隊長姓名";
-                bridgeWorksheet.Range[1, 6].Text = "隊長身分證字號";
-                bridgeWorksheet.Range[1, 7].Text = "隊長生日";
-                bridgeWorksheet.Range[1, 8].Text = "隊員一姓名";
-                bridgeWorksheet.Range[1, 9].Text = "隊員一身分證字號";
-                bridgeWorksheet.Range[1, 10].Text = "隊員一生日";
-                bridgeWorksheet.Range[1, 11].Text = "隊員二姓名";
-                bridgeWorksheet.Range[1, 12].Text = "隊員二身分證字號";
-                bridgeWorksheet.Range[1, 13].Text = "隊員二生日";
-                bridgeWorksheet.Range[1, 14].Text = "隊員三姓名";
-                bridgeWorksheet.Range[1, 15].Text = "隊員三身分證字號";
-                bridgeWorksheet.Range[1, 16].Text = "隊員三生日";
-                bridgeWorksheet.Range[1, 17].Text = "隊員四姓名";
-                bridgeWorksheet.Range[1, 18].Text = "隊員四身分證字號";
-                bridgeWorksheet.Range[1, 19].Text = "隊員四生日";
-                bridgeWorksheet.Range[1, 20].Text = "帶隊老師";
-                bridgeWorksheet.Range[1, 21].Text = "帶隊老師電話";
-                bridgeWorksheet.Range[1, 22].Text = "帶隊老師Email";
-                bridgeWorksheet.Range[1, 23].Text = "共同指導老師";
-                bridgeWorksheet.Range[1, 24].Text = "學校名稱";
-                bridgeWorksheet.Range[1, 25].Text = "學校地址";
+                bridgeWorksheet.Range[1, 4].Text = "隊長姓名";
+                bridgeWorksheet.Range[1, 5].Text = "隊長身分證字號";
+                bridgeWorksheet.Range[1, 6].Text = "隊長生日";
+                bridgeWorksheet.Range[1, 7].Text = "隊員一姓名";
+                bridgeWorksheet.Range[1, 8].Text = "隊員一身分證字號";
+                bridgeWorksheet.Range[1, 9].Text = "隊員一生日";
+                bridgeWorksheet.Range[1, 10].Text = "隊員二姓名";
+                bridgeWorksheet.Range[1, 11].Text = "隊員二身分證字號";
+                bridgeWorksheet.Range[1, 12].Text = "隊員二生日";
+                bridgeWorksheet.Range[1, 13].Text = "隊員三姓名";
+                bridgeWorksheet.Range[1, 14].Text = "隊員三身分證字號";
+                bridgeWorksheet.Range[1, 15].Text = "隊員三生日";
+                bridgeWorksheet.Range[1, 16].Text = "隊員四姓名";
+                bridgeWorksheet.Range[1, 17].Text = "隊員四身分證字號";
+                bridgeWorksheet.Range[1, 18].Text = "隊員四生日";
+                bridgeWorksheet.Range[1, 19].Text = "帶隊老師";
+                bridgeWorksheet.Range[1, 20].Text = "帶隊老師電話";
+                bridgeWorksheet.Range[1, 21].Text = "帶隊老師Email";
+                bridgeWorksheet.Range[1, 22].Text = "共同指導老師";
+                bridgeWorksheet.Range[1, 23].Text = "學校名稱";
+                bridgeWorksheet.Range[1, 24].Text = "學校地址";
 
                 //匯出資料
                 comm = new SqlCommand($"SELECT * FROM BridgeTeam LEFT JOIN Account ON BridgeTeam.AccountID = Account.Id " +
@@ -229,41 +209,26 @@ namespace SignUpSystem
                     bridgeWorksheet.Range[num, 3].Text = dr[2].ToString();
                     bridgeWorksheet.Range[num, 4].Text = dr[3].ToString();
                     bridgeWorksheet.Range[num, 5].Text = dr[4].ToString();
-                    bridgeWorksheet.Range[num, 6].Text = dr[5].ToString();
-                    bridgeWorksheet.Range[num, 7].Text = dr[6].ToString().Replace("上午 12:00:00","");
+                    bridgeWorksheet.Range[num, 6].Text = dr[5].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 7].Text = dr[6].ToString();
                     bridgeWorksheet.Range[num, 8].Text = dr[7].ToString();
-                    bridgeWorksheet.Range[num, 9].Text = dr[8].ToString();
-                    bridgeWorksheet.Range[num, 10].Text = dr[9].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 9].Text = dr[8].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 10].Text = dr[9].ToString();
                     bridgeWorksheet.Range[num, 11].Text = dr[10].ToString();
-                    bridgeWorksheet.Range[num, 12].Text = dr[11].ToString();
-                    bridgeWorksheet.Range[num, 13].Text = dr[12].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 12].Text = dr[11].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 13].Text = dr[12].ToString();
                     bridgeWorksheet.Range[num, 14].Text = dr[13].ToString();
-                    bridgeWorksheet.Range[num, 15].Text = dr[14].ToString();
-                    bridgeWorksheet.Range[num, 16].Text = dr[15].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 15].Text = dr[14].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 16].Text = dr[15].ToString();
                     bridgeWorksheet.Range[num, 17].Text = dr[16].ToString();
-                    bridgeWorksheet.Range[num, 18].Text = dr[17].ToString();
-                    bridgeWorksheet.Range[num, 19].Text = dr[18].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 18].Text = dr[17].ToString().Replace("上午 12:00:00", "");
+                    bridgeWorksheet.Range[num, 19].Text = dr[24].ToString();
                     bridgeWorksheet.Range[num, 20].Text = dr[25].ToString();
                     bridgeWorksheet.Range[num, 21].Text = dr[26].ToString();
-                    bridgeWorksheet.Range[num, 22].Text = dr[27].ToString();
-                    bridgeWorksheet.Range[num, 23].Text = dr[21].ToString();
-                    bridgeWorksheet.Range[num, 24].Text = dr[32].ToString();
-                    bridgeWorksheet.Range[num, 25].Text = dr[33].ToString();
+                    bridgeWorksheet.Range[num, 22].Text = dr[20].ToString();
+                    bridgeWorksheet.Range[num, 23].Text = dr[30].ToString();
+                    bridgeWorksheet.Range[num, 24].Text = dr[31].ToString();
 
-                    //便當統計
-                    //teacher
-                    if (!teacherId.Contains((int)dr[22]))
-                    {
-                        teacherId.Add((int)dr[22]);
-                        if (dr[30].ToString() == "true")
-                            VegetarianCount++;
-                        else
-                            eatCount++;
-                    }
-
-                    //team member
-                    VegetarianCount += (int)dr[3];
-                    eatCount += (int)dr[2] - (int)dr[3];
 
                     num++;
                 }
@@ -309,15 +274,49 @@ namespace SignUpSystem
                 dr.Close();
                 comm.Cancel();
 
+
+
                 IWorksheet eatWorksheet = workbook.Worksheets.Create("便當統計");
                 //標題列
                 //Insert sample text into cell “A1”
-                eatWorksheet.Range[1, 1].Text = "葷食便當";
-                eatWorksheet.Range[2, 1].Text = "素食便當";
+                eatWorksheet.Range[1, 1].Text = "總葷食便當";
+                eatWorksheet.Range[1, 2].Text = "總素食便當";
+                eatWorksheet.Range[1, 4].Text = "帶隊老師";
+                eatWorksheet.Range[1, 5].Text = "學校名稱";
+                eatWorksheet.Range[1, 6].Text = "葷食便當";
+                eatWorksheet.Range[1, 7].Text = "素食便當";
 
+                //匯出資料
+                comm = new SqlCommand($"SELECT * FROM LunchInfo LEFT JOIN Account ON LunchInfo.AccountID = Account.Id " +
+                    $"LEFT JOIN School ON Account.SchoolID = School.Id WHERE LunchInfo.CreateDate " +
+                    appPro.GetBetweenSignUpTime(), conn);
+                dr = comm.ExecuteReader();
+                int VegLunch_Count = 0;
+                int Lunch_Count = 0;
+
+                num = 2;
+                while (dr.Read())
+                {
+                    //匯出每一筆資料
+                    eatWorksheet.Range[num, 4].Text = dr[8].ToString();
+                    eatWorksheet.Range[num, 5].Text = dr[14].ToString();
+                    eatWorksheet.Range[num, 6].Text = dr[1].ToString();
+                    eatWorksheet.Range[num, 7].Text = dr[2].ToString();
+                    VegLunch_Count += (int)dr[1];
+                    Lunch_Count += (int)dr[2];
+
+                    num++;
+                }
+
+                dr.Close();
+                comm.Cancel();
+                
                 //值
-                eatWorksheet.Range[1, 2].Text = eatCount.ToString();
-                eatWorksheet.Range[2, 2].Text = VegetarianCount.ToString();
+                eatWorksheet.Range[2, 1].Text =VegLunch_Count.ToString();
+                eatWorksheet.Range[2, 2].Text = Lunch_Count.ToString();
+
+
+
 
                 IWorksheet accountWorkSheet = workbook.Worksheets.Create("帳戶資訊");
 
@@ -328,7 +327,6 @@ namespace SignUpSystem
                 accountWorkSheet.Range[1, 3].Text = "Email";
                 accountWorkSheet.Range[1, 4].Text = "任職學校";
                 accountWorkSheet.Range[1, 5].Text = "學校地址";
-                accountWorkSheet.Range[1, 6].Text = "素食者";
 
                 //匯出資料
                 comm = new SqlCommand($"SELECT * FROM Account LEFT JOIN School ON Account.SchoolID = School.Id ;", conn);
@@ -343,7 +341,6 @@ namespace SignUpSystem
                     accountWorkSheet.Range[num, 3].Text = dr[5].ToString();
                     accountWorkSheet.Range[num, 4].Text = dr[10].ToString();
                     accountWorkSheet.Range[num, 5].Text = dr[11].ToString();
-                    accountWorkSheet.Range[num, 6].Text = dr[8].ToString();
 
                     num++;
                 }

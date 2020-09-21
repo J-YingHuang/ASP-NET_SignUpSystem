@@ -17,9 +17,7 @@
         <input class="form-control" type="text" id="EmailInput" runat="server">
         <div class="form-group">
             <label for="DropDownList1">校名</label>
-            <asp:DropDownList ID="DropDownList1" runat="server">
-            </asp:DropDownList>
-
+            <select class="form-control" id="sel_School" runat="server"></select>
             <button id="AddSchool" type="button" class="  btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="+">+ </button>
         </div>
     </div>
@@ -51,8 +49,6 @@
                             <label class="col-form-label" id="lab_Message" runat="server"></label>
                         </div>
 
-
-
                         <div id="MemberInfo" runat="server"></div>
 
                         <div class="modal-footer">
@@ -65,14 +61,14 @@
     </div>
 
 
-    <div class="form-check form-check-inline">
+    <!--<div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" runat="server">
         <label class="form-check-label" for="inlineRadio1">葷</label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
         <label class="form-check-label" for="inlineRadio2">素</label>
-    </div>
+    </div>-->
     <asp:Button ID="btn_Save" type="button" class=" float-right btn btn-secondary" style="margin-bottom:10px;" runat="server" OnClick="btn_Save_Click" Text="Save" />
     <asp:Button ID="btn_Return" type="button" class="float-right btn btn-secondary" style="margin-right:10px; margin-bottom:10px;" runat="server" Onclick="btn_Return_Click" Text="回上一頁" />
 

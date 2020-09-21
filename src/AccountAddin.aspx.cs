@@ -29,7 +29,9 @@ namespace SignUpSystem
 
         private void LoadInSchoolSelectData()
         {
-            DropDownList1.Items.Clear();
+            int index = sel_School.SelectedIndex;
+
+            sel_School.Items.Clear();
 
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
@@ -37,9 +39,11 @@ namespace SignUpSystem
             SqlCommand da = new SqlCommand("SELECT School.Name FROM School LEFT JOIN Account ON School.Id =  Account.SchoolID;", conn);
             SqlDataReader dr = da.ExecuteReader();
             while (dr.Read())
-                DropDownList1.Items.Add(dr["Name"].ToString());
+                sel_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+
+            sel_School.SelectedIndex = index;
         }
 
         protected void btn_Save_Click(object sender, EventArgs e)
@@ -48,7 +52,7 @@ namespace SignUpSystem
             string strConn = ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString;
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
-            SqlCommand command = new SqlCommand($"SELECT Id FROM School WHERE Name='{DropDownList1.Items[DropDownList1.SelectedIndex].Text}';", conn);
+            SqlCommand command = new SqlCommand($"SELECT Id FROM School WHERE Name='{sel_School.Items[sel_School.SelectedIndex].Text}';", conn);
             SqlDataReader dr = command.ExecuteReader();
             if (dr.HasRows)
                 while (dr.Read())
@@ -57,17 +61,19 @@ namespace SignUpSystem
             dr.Close();
             command.Cancel();
 
-            command = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,IsVegetarian,SchoolID)" +
-                "values (@Username,@Password,@Name,@Phone,@Email,@IsVegetarian,@SchoolID)", conn);
+            /*command = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,IsVegetarian,SchoolID)" +
+                "values (@Username,@Password,@Name,@Phone,@Email,@IsVegetarian,@SchoolID)", conn);*/
+            command = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,SchoolID)" +
+                "values (@Username,@Password,@Name,@Phone,@Email,@SchoolID)", conn);
             command.Parameters.AddWithValue(@"Username", UsernameInput.Value);
             command.Parameters.AddWithValue(@"Password", PasswordInput.Value);
             command.Parameters.AddWithValue(@"Name", NameInput.Value);
             command.Parameters.AddWithValue(@"Phone", PhoneInput.Value);
             command.Parameters.AddWithValue(@"Email", EmailInput.Value);
-            if(inlineRadio1.Checked)
+            /*if(inlineRadio1.Checked)
                 command.Parameters.AddWithValue(@"IsVegetarian", "false");
             else
-                command.Parameters.AddWithValue(@"IsVegetarian", "true");
+                command.Parameters.AddWithValue(@"IsVegetarian", "true");*/
             command.Parameters.AddWithValue(@"SchoolID", SchoolID);
             command.ExecuteNonQuery();
             command.Clone();
@@ -96,15 +102,15 @@ namespace SignUpSystem
                         $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy-MM-dd HH:mm")}" + lineSymbol + lineSymbol +
                         "國立高雄科技大學 土木工程系 敬上";
 
-            SmtpClient client = new SmtpClient();
-            //wix gmail username & password
-            client.Credentials = new NetworkCredential("civilkuas@gmail.com", "Kuascivil2017");
-            client.Host = "smtp.gmail.com";
-            client.Port = 25;
-            client.EnableSsl = true;
-            client.Send(msg);
-            client.Dispose();
-            msg.Dispose();
+            //SmtpClient client = new SmtpClient();
+            ////wix gmail username & password
+            //client.Credentials = new NetworkCredential("civilkuas@gmail.com", "Kuascivil2017");
+            //client.Host = "smtp.gmail.com";
+            //client.Port = 25;
+            //client.EnableSsl = true;
+            //client.Send(msg);
+            //client.Dispose();
+            //msg.Dispose();
             Response.Redirect("~/BackgroundDataManagement.aspx");
         }
 

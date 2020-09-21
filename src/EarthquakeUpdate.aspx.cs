@@ -48,7 +48,7 @@ namespace SignUpSystem
             {
                 input_TeamName.Value = dr["Name"].ToString();
                 Session["OrginName"] = dr["Name"].ToString();
-                select_Veg.SelectedIndex = Convert.ToInt32(dr["Vegetarian"]);
+                //select_Veg.SelectedIndex = Convert.ToInt32(dr["Vegetarian"]);
 
                 if (dr["SecondTeacher"].ToString() != "")
                     input_SecondTeacher.Value = dr["SecondTeacher"].ToString();
@@ -170,7 +170,7 @@ namespace SignUpSystem
 
             string commandString = $"UPDATE EarthquakeTeam SET Count = {count},Name ='{input_TeamName.Value}'";
 
-            commandString += ", Vegetarian =";
+            /*commandString += ", Vegetarian =";
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
@@ -195,7 +195,7 @@ namespace SignUpSystem
                 case "5人":
                     commandString += " 5";
                     break;
-            }
+            }*/
 
             //隊長
             commandString += $", LeaderName = '{leader}'";
@@ -287,7 +287,7 @@ namespace SignUpSystem
                 errMes += $"<p>{mainCount}. 請選擇一位隊長!</p>";
                 mainCount++;
             }
-
+            /*
             //確認素食人數沒有大於隊伍人數
             int vegCount = 0;
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
@@ -317,7 +317,7 @@ namespace SignUpSystem
             }
             if (vegCount > count)
                 errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";
-
+            */
             if (errMes == "")
                 return true;
             else

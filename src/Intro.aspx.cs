@@ -23,28 +23,28 @@ namespace SignUpSystem
                     LoadAccountInfo();
                 else
                     Response.Redirect("Login.aspx");
-
-                //讀取Application Data
-                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-
-                DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
-                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
-                if (!(DateTime.Now >= startTime && DateTime.Now <= endTime))
-                    btn_NewTeam.Enabled = false;
-
-                a_Earthquake.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
-                a_Bridge.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
-                a_Film.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
-
-
-
             }
+            update_AppData();
             if (a_Earthquake.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Earthquake);
             if (a_Bridge.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Bridge);
             if (a_Film.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Film);
+        }
+        private void update_AppData()
+        {
+            //讀取Application Data
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
+            DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
+            DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
+            if (!(DateTime.Now >= startTime && DateTime.Now <= endTime))
+                btn_NewTeam.Enabled = false;
+
+            a_Earthquake.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
+            a_Bridge.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
+            a_Film.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
         }
         protected void a_Earthquake_Click(object sender, EventArgs e)
         {

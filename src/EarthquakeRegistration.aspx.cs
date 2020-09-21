@@ -146,7 +146,8 @@ namespace SignUpSystem
             if (input_SecondTeacher.Value != "")
                 hasSecondTeacher = true;
 
-            string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, Vegetarian, LeaderName";
+            //string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, Vegetarian, LeaderName";
+            string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, LeaderName";
 
             for (int i = 1; i < count; i++)
                 commandString += $", PlayerName{i}";
@@ -156,7 +157,7 @@ namespace SignUpSystem
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
 
-            switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
+            /*switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
                     commandString += ", 0";
@@ -180,7 +181,7 @@ namespace SignUpSystem
                 case "5人":
                     commandString += ", 5";
                     break;
-            }
+            }*/
 
             commandString += $", '{leader}'";
 
@@ -289,7 +290,7 @@ namespace SignUpSystem
             }
 
             //確認素食人數沒有大於隊伍人數
-            int vegCount = 0;
+            /*int vegCount = 0;
             switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
             {
                 case "無":
@@ -316,7 +317,7 @@ namespace SignUpSystem
                     break;
             }
             if(vegCount > count)
-                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";
+                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";*/
 
             //確認是否可以新增隊伍
             //抗震是一校六隊

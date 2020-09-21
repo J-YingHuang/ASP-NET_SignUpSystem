@@ -8,6 +8,7 @@
                 <br />
                 <div id="lab_Title" runat="server" class="row justify-content-center">
                     團隊來對震報名表 
+               
                 </div>
             </div>
         </div>
@@ -17,38 +18,48 @@
         <div class="form-group row" style="font-size: 16px">
             <div class="col">
                 <hr />
-                <div class="card text-white bg-light mb-3" style="max-width: 1300rem; background-color: transparent;">
+                <div class="card text-white bg-light mb-3" style="max-width: 1000; background-color: transparent;">
                     <font color="#FF3333" />
                     <div class="card-header text-center" style="font-size: 20px">注意事項</div>
                     <h5 class="card-title"></h5>
                     <p class="card-text" align="left" style="margin-left: 25px;">
                         1. 每隊人數含隊長在內為3-6名。
+                   
                     </p>
                     <p class="card-text" align="left" style="margin-left: 25px;">
-                        2. 隊伍名稱不得超過10個中文字，同時報名完成後非特殊緣由不得更改，若必須更改請透過"聯繫我們"提供之聯繫方式
+                        2. 隊伍名稱不得超過10個中文字，同時報名完成後非特殊緣由不得更改，若必須更改請透過"聯繫我們"
+                   
                     </p>
-                    <p class="card-text" align="left" style="margin-left: 40px;">
-                        ，詢問相關承辦人員。
+                    <p class="card-text" align="left" style="margin-bottom: 20px; margin-left: 40px;">
+                        提供之聯繫方式，詢問相關承辦人員。
+                   
                     </p>
-                    <p class="card-text" align="left" style="margin-bottom: 20px; margin-left: 25px;">
+                    <%--<p class="card-text" align="left" style="margin-bottom: 20px; margin-left: 25px;">
                         3. 吃素人數統計不包含帶隊老師。
-                    </p>
+                    </p>--%>
                 </div>
                 </font>
+           
             </div>
 
             <hr />
         </div>
 
         <div class="form-group row" style="font-size: 18px">
-            <div class="col-4">
+
+            <div class="col-1"></div>
+
+            <div class="col-5">
                 <p align="left">
                     1. 隊伍名稱：
+               
                 </p>
                 <input id="input_TeamName" class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
 
-            <div class="col-4">
+            <div class="col-1"></div>
+
+            <!--<div class="col-4">
                 <p align="left">
                     2. 吃素人數：(不含老師)
                 </p>
@@ -61,28 +72,34 @@
                     <option>5人</option>
                 </select>
 
-            </div>
-            <div class="col-4">
+            </div>-->
+            <div class="col">
                 <p align="left">
-                    3. 共同指導老師(選填)：
+                    2. 共同指導老師(選填)：
+               
                 </p>
                 <input id="input_SecondTeacher" class="form-control form-control-sm" type="text" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
         </div>
 
         <div class="form-group row" style="font-size: 18px;">
-            <div class="col ">
+            <div class="col-1"></div>
+            <div class="col-10 ">
+                <p></p>
                 <p align="left">
-                    4.隊員資訊：
+                    3.隊員資訊：
                 </p>
+                <hr />
                 <div class="form-group row " style="font-size: 18px;">
                     <div class="col-4"></div>
                     <div class="col-2" style="margin-left: 65px;">
                         隊員名字
+                   
                     </div>
                     <div class="col-1"></div>
                     <div class="col-2" style="margin-left: 53px;">
                         隊長
+                   
                     </div>
                     <div class="col-2"></div>
 
