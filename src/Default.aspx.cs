@@ -15,31 +15,34 @@ namespace SignUpSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //讀取Application Data
-            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            if (!IsPostBack)
+            {
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
 
-            DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
-            DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.GameDate));
-            if (DateTime.Now > startTime && DateTime.Now < endTime)
-                LoadInfoAboutTeam();
+                DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
+                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.GameDate));
+                if (DateTime.Now > startTime && DateTime.Now < endTime)
+                    LoadInfoAboutTeam();
 
-            //加入每屆的資料
-            lab_TitleName.InnerText = $"國立高雄科技大學 {appPro.GetApplicationString(BaseInfo.GameNumber)} 抗震大作戰";
-            lab_TitleGameList.InnerText = $"{appPro.GetApplicationString(BaseInfo.EarthquakeName)}X" +
-                $"{appPro.GetApplicationString(BaseInfo.BridgeName)}X" +
-                $"{appPro.GetApplicationString(BaseInfo.FilmName)}";
-            lab_SignTime.InnerText = $"報名開放時間：" +
-                $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
-                $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy/MM/dd")}";
-            lab_UpdateTime.InnerText = $"隊伍資訊更正開放時間：" +
-                $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
-                $"{appPro.GetDateFormat(BaseInfo.EndUpdateInfo, "yyyy/MM/dd")}";
-            lab_FilmUpdateTime.InnerText = $"{appPro.GetApplicationString(BaseInfo.FilmName)}作品繳交開放時間：" +
-                $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
-                $"{appPro.GetDateFormat(BaseInfo.EndFilmUpdate, "yyyy/MM/dd")}";
-            lab_Game1Name.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
-            lab_Game2Name.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
-            lab_Game3Name.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
+                //加入每屆的資料
+                lab_TitleName.InnerText = $"國立高雄科技大學 {appPro.GetApplicationString(BaseInfo.GameNumber)} 抗震大作戰";
+                lab_TitleGameList.InnerText = $"{appPro.GetApplicationString(BaseInfo.EarthquakeName)}X" +
+                    $"{appPro.GetApplicationString(BaseInfo.BridgeName)}X" +
+                    $"{appPro.GetApplicationString(BaseInfo.FilmName)}";
+                lab_SignTime.InnerText = $"報名開放時間：" +
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy/MM/dd")}";
+                lab_UpdateTime.InnerText = $"隊伍資訊更正開放時間：" +
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndUpdateInfo, "yyyy/MM/dd")}";
+                lab_FilmUpdateTime.InnerText = $"{appPro.GetApplicationString(BaseInfo.FilmName)}作品繳交開放時間：" +
+                    $"{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy/MM/dd")} ~ " +
+                    $"{appPro.GetDateFormat(BaseInfo.EndFilmUpdate, "yyyy/MM/dd")}";
+                lab_Game1Name.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
+                lab_Game2Name.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
+                lab_Game3Name.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
+            }
         }
 
         public void LoadInfoAboutTeam()

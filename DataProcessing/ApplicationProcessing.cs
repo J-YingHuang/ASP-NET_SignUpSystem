@@ -19,9 +19,6 @@ namespace DataProcessing
         }
         public void GetBaseInfo(string strConn)
         {
-            if (HttpContext.Current.Application.Get("EarthquakeName") != null)
-                return;
-
             SqlConnection conn = new SqlConnection(strConn);
             conn.Open();
 
@@ -29,6 +26,7 @@ namespace DataProcessing
             SqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
+                HttpContext.Current.Application.Clear();
                 HttpContext.Current.Application.Add("EarthquakeName", dr["EarthquakeName"].ToString());
                 HttpContext.Current.Application.Add("BridgeName", dr["BridgeName"].ToString());
                 HttpContext.Current.Application.Add("FilmName", dr["FilmName"].ToString());

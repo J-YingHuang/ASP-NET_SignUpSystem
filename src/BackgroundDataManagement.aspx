@@ -210,6 +210,11 @@
                 format: 'yyyy-mm-dd'
             });
         });
+        $(function () {
+            $('#datePicker_GameDate').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
     </script>
    
    
