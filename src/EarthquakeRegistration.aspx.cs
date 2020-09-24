@@ -146,7 +146,6 @@ namespace SignUpSystem
             if (input_SecondTeacher.Value != "")
                 hasSecondTeacher = true;
 
-            //string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, Vegetarian, LeaderName";
             string commandString = $"INSERT INTO EarthquakeTeam (AccountID ,Name, Count, LeaderName";
 
             for (int i = 1; i < count; i++)
@@ -156,32 +155,6 @@ namespace SignUpSystem
                 commandString += ", SecondTeacher";
 
             commandString += $") VALUES('{Session["LoginId"]}', '{input_TeamName.Value}', {teamMembers.Count + 1}";
-
-            /*switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
-            {
-                case "無":
-                    commandString += ", 0";
-                    break;
-                case "1人":
-                    commandString += ", 1";
-                    break;
-
-                case "2人":
-                    commandString += ", 2";
-                    break;
-
-                case "3人":
-                    commandString += ", 3";
-                    break;
-
-                case "4人":
-                    commandString += ", 4";
-                    break;
-
-                case "5人":
-                    commandString += ", 5";
-                    break;
-            }*/
 
             commandString += $", '{leader}'";
 
@@ -289,36 +262,6 @@ namespace SignUpSystem
                 mainCount++;
             }
 
-            //確認素食人數沒有大於隊伍人數
-            /*int vegCount = 0;
-            switch (select_Veg.Items[select_Veg.SelectedIndex].Text)
-            {
-                case "無":
-                    vegCount = 0;
-                    break;
-                case "1人":
-                    vegCount = 1;
-                    break;
-
-                case "2人":
-                    vegCount = 2;
-                    break;
-
-                case "3人":
-                    vegCount = 3;
-                    break;
-
-                case "4人":
-                    vegCount = 4;
-                    break;
-
-                case "5人":
-                    vegCount = 5;
-                    break;
-            }
-            if(vegCount > count)
-                errMes += $"<p>{mainCount}. 素食人數不得大於隊伍人數!</p>";*/
-
             //確認是否可以新增隊伍
             //抗震是一校六隊
             string accountSchoolId = "";
@@ -349,7 +292,9 @@ namespace SignUpSystem
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#Modal_ErrMsg').modal('show');", true);
                 }
             }
-
+            command.Cancel();
+            dr.Close();
+            conn.Close();
             if (errMes == "")
                 return true;
             else

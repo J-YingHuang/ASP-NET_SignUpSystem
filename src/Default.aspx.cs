@@ -44,7 +44,6 @@ namespace SignUpSystem
                 lab_Game3Name.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
             }
         }
-
         public void LoadInfoAboutTeam()
         {
             //讀取Application Data
@@ -145,6 +144,7 @@ namespace SignUpSystem
 
             p_Film_Count.InnerText = count.ToString() + " 隊";
             p_Film_SchoolCount.InnerText = school.Count().ToString() + " 校";
+            conn.Close();
         }
     }
 }

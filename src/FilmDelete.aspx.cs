@@ -42,6 +42,7 @@ namespace SignUpSystem
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -71,9 +72,9 @@ namespace SignUpSystem
                     string teamID = record["teamid"].ToString();
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
-
-
             }
+            dr.Close();
+            command.Cancel();
             conn.Close();
         
     }
@@ -128,6 +129,9 @@ namespace SignUpSystem
             command = new SqlCommand($"DELETE  FROM FilmInfo WHERE Id= '{sendInfo[2]}' AND FilmInfo.CreateDate " +
                     appPro.GetBetweenSignUpTime(), conn);
             dr = command.ExecuteReader();
+            dr.Close();
+            command.Cancel();
+            conn.Close();
         }
 
         private HtmlGenericControl NewDiv(string classString)

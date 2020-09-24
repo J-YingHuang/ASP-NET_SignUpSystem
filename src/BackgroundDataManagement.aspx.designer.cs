@@ -7,13 +7,11 @@
 // </自動產生的>
 //------------------------------------------------------------------------------
 
-namespace SignUpSystem
-{
-
-
-    public partial class BackgroundDataManagement
-    {
-
+namespace SignUpSystem {
+    
+    
+    public partial class BackgroundDataManagement {
+        
         /// <summary>
         /// btn_Addin 控制項。
         /// </summary>
@@ -22,7 +20,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_Addin;
-
+        
         /// <summary>
         /// btn_AccountModify 控制項。
         /// </summary>
@@ -31,7 +29,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_AccountModify;
-
+        
         /// <summary>
         /// btn_AccountDelete 控制項。
         /// </summary>
@@ -40,7 +38,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_AccountDelete;
-
+        
         /// <summary>
         /// btn_EearthquakeModify 控制項。
         /// </summary>
@@ -49,7 +47,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_EearthquakeModify;
-
+        
         /// <summary>
         /// btn_EearthquakeDelete 控制項。
         /// </summary>
@@ -58,7 +56,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_EearthquakeDelete;
-
+        
         /// <summary>
         /// btn_BridgeModify 控制項。
         /// </summary>
@@ -67,7 +65,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_BridgeModify;
-
+        
         /// <summary>
         /// btn_BridgeDelete 控制項。
         /// </summary>
@@ -76,7 +74,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_BridgeDelete;
-
+        
         /// <summary>
         /// btn_FilmModify 控制項。
         /// </summary>
@@ -85,7 +83,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_FilmModify;
-
+        
         /// <summary>
         /// btn_FilmDelete 控制項。
         /// </summary>
@@ -94,7 +92,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_FilmDelete;
-
+        
         /// <summary>
         /// btn_ExportExcel 控制項。
         /// </summary>
@@ -103,7 +101,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_ExportExcel;
-
+        
         /// <summary>
         /// Button1 控制項。
         /// </summary>
@@ -112,7 +110,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-
+        
         /// <summary>
         /// input_GameNumber 控制項。
         /// </summary>
@@ -121,7 +119,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_GameNumber;
-
+        
         /// <summary>
         /// input_EarthquakeName 控制項。
         /// </summary>
@@ -130,7 +128,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_EarthquakeName;
-
+        
         /// <summary>
         /// input_BridgeName 控制項。
         /// </summary>
@@ -139,7 +137,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_BridgeName;
-
+        
         /// <summary>
         /// input_FilmName 控制項。
         /// </summary>
@@ -148,7 +146,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_FilmName;
-
+        
         /// <summary>
         /// input_StartSignUp 控制項。
         /// </summary>
@@ -157,7 +155,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_StartSignUp;
-
+        
         /// <summary>
         /// input_EndSignUp 控制項。
         /// </summary>
@@ -166,7 +164,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_EndSignUp;
-
+        
         /// <summary>
         /// input_EndUpdateInfo 控制項。
         /// </summary>
@@ -175,7 +173,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_EndUpdateInfo;
-
+        
         /// <summary>
         /// input_EndFilmUpdate 控制項。
         /// </summary>
@@ -184,7 +182,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_EndFilmUpdate;
-
+        
         /// <summary>
         /// input_GameDate 控制項。
         /// </summary>
@@ -193,7 +191,7 @@ namespace SignUpSystem
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText input_GameDate;
-
+        
         /// <summary>
         /// btn_UpdateToNextYear 控制項。
         /// </summary>

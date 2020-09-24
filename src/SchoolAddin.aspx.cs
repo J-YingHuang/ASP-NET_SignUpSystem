@@ -29,6 +29,8 @@ namespace SignUpSystem
             command.Parameters.AddWithValue(@"Area", Area.Value);
             command.ExecuteNonQuery();
             Server.Transfer("AccountAddin.aspx");
+            command.Cancel();
+            conn.Close();
 
         }
     }

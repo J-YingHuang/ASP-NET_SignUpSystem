@@ -62,17 +62,6 @@
             <div id="div_TeamCard" class="card-columns" runat="server">
                 
             </div>
-            <%--            <div class="col-4 text-left ">
-                <div class="card w-100" style="width: 18rem; margin-bottom: 15px;">
-                    <div class="card-body text-left">
-                        <h5 class="card-title">I'm Team Name.</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">國立高雄科技大學</h6>
-                        <p class="card-subtitle mb-2 text-muted">指導老師：XXX</p>
-                        <a href="#" class="card-link">隊伍人數：5人</a>
-                        <a href="#" class="card-link">吃素人數：3人</a>
-                    </div>
-                </div>
-            </div>--%>
         </div>
     </div>
 </asp:Content>

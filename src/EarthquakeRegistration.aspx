@@ -34,9 +34,6 @@
                         提供之聯繫方式，詢問相關承辦人員。
                    
                     </p>
-                    <%--<p class="card-text" align="left" style="margin-bottom: 20px; margin-left: 25px;">
-                        3. 吃素人數統計不包含帶隊老師。
-                    </p>--%>
                 </div>
                 </font>
            
@@ -59,20 +56,6 @@
 
             <div class="col-1"></div>
 
-            <!--<div class="col-4">
-                <p align="left">
-                    2. 吃素人數：(不含老師)
-                </p>
-                <select class="form-control form-control-sm" style="font-size: 12px;" id="select_Veg" runat="server">
-                    <option>無</option>
-                    <option>1人</option>
-                    <option>2人</option>
-                    <option>3人</option>
-                    <option>4人</option>
-                    <option>5人</option>
-                </select>
-
-            </div>-->
             <div class="col">
                 <p align="left">
                     2. 共同指導老師(選填)：

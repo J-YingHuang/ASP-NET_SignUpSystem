@@ -129,9 +129,6 @@ namespace SignUpSystem
             //讀隊伍, 然後把隊伍加進去Card
             foreach (string teacherId in TeacherIdToName.Keys)
             {
-                /*command = new SqlCommand($"SELECT Name, Count, Vegetarian FROM EarthquakeTeam WHERE AccountID = {teacherId} AND CreateDate " +
-                    appPro.GetBetweenSignUpTime() +
-                    $";", conn);*/
                 command = new SqlCommand($"SELECT Name, Count FROM EarthquakeTeam WHERE AccountID = {teacherId} AND CreateDate " +
                     appPro.GetBetweenSignUpTime() +
                     $";", conn);
@@ -141,14 +138,12 @@ namespace SignUpSystem
                     IDataRecord data = (IDataRecord)dr;
                     string name = data["Name"].ToString();
                     string count = data["Count"].ToString();
-                    //string vegat = data["Vegetarian"].ToString();                  
                     string innerHtmltext = "<div class=\"card\" style=\"margin-bottom: 2%; display: inline-block;\">"
                         + "<div class=\"card-body text-left\">"
                         + "<h5 class=\"card-title\">" + name + "</h5>"
                         + "<h6 class=\"card-subtitle mb-2 text-muted\">" + TeacherIdToSchool[teacherId] + "</h6>"
                         + "<p class=\"card-subtitle mb-2 text-muted\">指導老師：" + TeacherIdToName[teacherId] + "</p>"
                         + "<a href=\"#\" class=\"card-link\">隊伍人數：" + count + "人</a>"
-                        //+ "<a href=\"#\" class=\"card-link\">吃素人數：" + vegat + "人</a>"
                         + "</div></div>";
 
                     div_TeamCard.InnerHtml += innerHtmltext;

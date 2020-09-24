@@ -59,7 +59,8 @@ namespace SignUpSystem
             }
             else
                 loginSession.InnerText = "Login Error";
-
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
 

@@ -84,7 +84,9 @@ namespace SignUpSystem
 
             SqlCommand comm = new SqlCommand(commStr, conn);
             comm.ExecuteNonQuery();
+            comm.Cancel();
             conn.Close();
+            Response.Redirect(Request.FilePath);
         }
 
         protected void btn_ExportExcel_Click(object sender, EventArgs e)
@@ -346,6 +348,7 @@ namespace SignUpSystem
                 }
 
                 dr.Close();
+                comm.Cancel();
                 comm.Cancel();
 
                 //Save the workbook to disk in xlsx format

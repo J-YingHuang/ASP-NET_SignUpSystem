@@ -68,6 +68,8 @@ namespace SignUpSystem
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
             }
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
 
@@ -163,13 +165,6 @@ namespace SignUpSystem
         private void ViewBridgeInfo(SqlDataReader dr)
         {
             Div2.InnerHtml = dr["Name"].ToString();
-            //MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
-            //    $"<div class=\"col-sm-2\"></div>" +
-            //    $"<label class=\"col-sm-4 col-form-label\">素食人數：</label>" +
-            //    $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
-            //    $"<div class=\"col-sm-2\"></div>" +
-            //    $"</div>";
-
             MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">共同指導老師：</label>";

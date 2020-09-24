@@ -73,6 +73,7 @@ namespace SignUpSystem
             }
             dr.Close();
             command.Cancel();
+            conn.Close();
 
             foreach (string team in earList)
                 select_Team.Items.Add(appPro.GetApplicationString(BaseInfo.EarthquakeName) +
@@ -194,6 +195,9 @@ namespace SignUpSystem
                     appPro.GetApplicationString(BaseInfo.FilmName) +
                     $"賽程！";
             }
+            dr.Close();
+            command.Cancel();
+            conn.Close();
 
             if (errMes != "")
             {

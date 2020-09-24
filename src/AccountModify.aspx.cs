@@ -69,6 +69,8 @@ namespace SignUpSystem
 
 
             }
+            command.Cancel();
+            dr.Close();
             conn.Close();
         }
 
@@ -164,13 +166,6 @@ namespace SignUpSystem
         {
             Div2.InnerHtml = dr["Name"].ToString();
             MemberInfo.InnerHtml =
-                /*$"<div class=\"form-group row\">" +
-                $"<div class=\"col-2\"></div>" +
-                $"<label class=\"col-4 col-form-label\">是否吃素：</label>" +
-                $"<label class=\"col-4 col-form-label\">{dr["IsVegetarian"].ToString()}  </label>" +
-                $"<div class=\"col-2\"></div>" +
-                $"</div>" +*/
-
                 $"<div class=\"form-group row \">" +
                 $"<div class=\"col-2\"></div>" +
                 $"<label class=\"col-4 col-form-label\">帳號：</label>" +

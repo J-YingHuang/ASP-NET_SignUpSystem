@@ -24,9 +24,6 @@
                         1. 隊伍人數為1~5人。
                    
                     </p>
-                    <!--<p class="card-text" align="left" style="margin-left: 25px;">
-                        2. 吃素人數統計不包含老師。
-                    </p>-->
                     <p class="card-text" align="left" style="margin-left: 25px; margin-bottom: 0px;">
                         2. 隊伍名稱不得超過10個中文字，同時報名完成後非特殊緣由不得更改，若必須更改請透過"聯繫我們"
                    
@@ -70,20 +67,6 @@
                 <input id="input_TeamName" class="form-control form-control-sm" type="text" placeholder="不得超過10個字" style="font-size: 8px;" maxlength="10" runat="server">
             </div>
 
-            <!--<div class="col-4">
-                <p align="left">
-                    2. 吃素人數：(不含老師)
-                </p>
-                <select class="form-control form-control-sm" style="font-size: 12px;" id="select_Veg" runat="server">
-                    <option>無</option>
-                    <option>1人</option>
-                    <option>2人</option>
-                    <option>3人</option>
-                    <option>4人</option>
-                    <option>5人</option>
-                </select>
-
-            </div>-->
             <div class="col-1"></div>
             <div class="col-5">
                 <p align="left">

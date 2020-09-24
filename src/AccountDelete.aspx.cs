@@ -68,6 +68,8 @@ namespace SignUpSystem
 
 
             }
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
 
@@ -127,6 +129,9 @@ namespace SignUpSystem
             SqlDataReader dr;
             command = new SqlCommand($"DELETE  FROM Account WHERE Id= '{sendInfo[2]}'", conn);
             dr = command.ExecuteReader();
+            command.Cancel();
+            dr.Close();
+            conn.Close();
 
         }
 

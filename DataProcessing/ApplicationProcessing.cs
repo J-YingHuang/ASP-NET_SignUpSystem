@@ -37,6 +37,8 @@ namespace DataProcessing
                 HttpContext.Current.Application.Add("GameNumber", dr["GameNumber"].ToString());
                 HttpContext.Current.Application.Add("GameDate", dr["GameDate"].ToString());
             }
+            dr.Close();
+            conn.Close();
         }
         public string GetApplicationString(BaseInfo infoType)
         {

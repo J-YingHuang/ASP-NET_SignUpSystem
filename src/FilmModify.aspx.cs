@@ -43,6 +43,7 @@ namespace SignUpSystem
                 Select_School.Items.Add(dr["Name"].ToString());
             dr.Close();
             da.Cancel();
+            conn.Close();
         }
 
         private void LoadTeamByAccount()
@@ -75,6 +76,8 @@ namespace SignUpSystem
 
 
             }
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
 
@@ -163,6 +166,7 @@ namespace SignUpSystem
             }
             dr.Close();
             command.Cancel();
+            conn.Close();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#TeamView').modal('show');", true);
         }
 

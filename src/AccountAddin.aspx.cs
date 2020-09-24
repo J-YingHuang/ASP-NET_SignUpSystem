@@ -44,6 +44,7 @@ namespace SignUpSystem
             da.Cancel();
 
             sel_School.SelectedIndex = index;
+            conn.Close();
         }
 
         protected void btn_Save_Click(object sender, EventArgs e)
@@ -61,8 +62,6 @@ namespace SignUpSystem
             dr.Close();
             command.Cancel();
 
-            /*command = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,IsVegetarian,SchoolID)" +
-                "values (@Username,@Password,@Name,@Phone,@Email,@IsVegetarian,@SchoolID)", conn);*/
             command = new SqlCommand("INSERT INTO Account (Username,Password,Name,Phone,Email,SchoolID)" +
                 "values (@Username,@Password,@Name,@Phone,@Email,@SchoolID)", conn);
             command.Parameters.AddWithValue(@"Username", UsernameInput.Value);
@@ -70,37 +69,34 @@ namespace SignUpSystem
             command.Parameters.AddWithValue(@"Name", NameInput.Value);
             command.Parameters.AddWithValue(@"Phone", PhoneInput.Value);
             command.Parameters.AddWithValue(@"Email", EmailInput.Value);
-            /*if(inlineRadio1.Checked)
-                command.Parameters.AddWithValue(@"IsVegetarian", "false");
-            else
-                command.Parameters.AddWithValue(@"IsVegetarian", "true");*/
             command.Parameters.AddWithValue(@"SchoolID", SchoolID);
             command.ExecuteNonQuery();
             command.Clone();
+            command.Cancel();
             conn.Close();
 
-            MailMessage msg = new MailMessage();
-            string lineSymbol = "<br />";
-            // 寄信人資料 wix email & show name
-            msg.From = new MailAddress("civilkuas@gmail.com", "國立高雄科技大學土木工程系", Encoding.UTF8);
-            msg.SubjectEncoding = Encoding.UTF8;
-            msg.BodyEncoding = Encoding.UTF8;
-            msg.IsBodyHtml = true;
+            //MailMessage msg = new MailMessage();
+            //string lineSymbol = "<br />";
+            //// 寄信人資料 wix email & show name
+            //msg.From = new MailAddress("civilkuas@gmail.com", "國立高雄科技大學土木工程系", Encoding.UTF8);
+            //msg.SubjectEncoding = Encoding.UTF8;
+            //msg.BodyEncoding = Encoding.UTF8;
+            //msg.IsBodyHtml = true;
 
-            //email title
-            msg.Subject = "抗震大作戰教師帳號申請確認函";
+            ////email title
+            //msg.Subject = "抗震大作戰教師帳號申請確認函";
 
-            //send object
-            msg.To.Add(EmailInput.Value.ToString());
+            ////send object
+            //msg.To.Add(EmailInput.Value.ToString());
 
-            // Email content
-            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-            msg.Body = NameInput.Value + " 老師, 您好："+ lineSymbol+ lineSymbol+
-                        "已為您開通抗震大作戰帳號，煩請您前往本次報名系統網站進行帳號登入確認帳號內容，若有問題請盡速聯繫我們！" + lineSymbol+ lineSymbol +
-                        "報名系統網站：htttp://203.64.97.214/" + lineSymbol+
-                        $"本次賽程報名開放時間：{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy-MM-dd HH:mm")} ~ " +
-                        $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy-MM-dd HH:mm")}" + lineSymbol + lineSymbol +
-                        "國立高雄科技大學 土木工程系 敬上";
+            //// Email content
+            //ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            //msg.Body = NameInput.Value + " 老師, 您好："+ lineSymbol+ lineSymbol+
+            //            "已為您開通抗震大作戰帳號，煩請您前往本次報名系統網站進行帳號登入確認帳號內容，若有問題請盡速聯繫我們！" + lineSymbol+ lineSymbol +
+            //            "報名系統網站：htttp://203.64.97.214/" + lineSymbol+
+            //            $"本次賽程報名開放時間：{appPro.GetDateFormat(BaseInfo.StartSignUp, "yyyy-MM-dd HH:mm")} ~ " +
+            //            $"{appPro.GetDateFormat(BaseInfo.EndSignUp, "yyyy-MM-dd HH:mm")}" + lineSymbol + lineSymbol +
+            //            "國立高雄科技大學 土木工程系 敬上";
 
             //SmtpClient client = new SmtpClient();
             ////wix gmail username & password

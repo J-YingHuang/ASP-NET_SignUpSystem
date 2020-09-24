@@ -10,6 +10,7 @@ using System.Data;
 using System.Web.UI.HtmlControls;
 using DataProcessing;
 
+
 namespace SignUpSystem
 {
     public partial class Intro : System.Web.UI.Page
@@ -23,28 +24,29 @@ namespace SignUpSystem
                     LoadAccountInfo();
                 else
                     Response.Redirect("Login.aspx");
+                //讀取Application Data
+                ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+
+                DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
+                DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
+                if (!(DateTime.Now >= startTime && DateTime.Now <= endTime))
+                {
+                    btn_NewTeam.Enabled = false;
+                    to_update_Lunch.Attributes.Add("disabled", "true");
+                }
+                    
+
+                a_Earthquake.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
+                a_Bridge.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
+                a_Film.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
+
             }
-            update_AppData();
             if (a_Earthquake.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Earthquake);
             if (a_Bridge.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Bridge);
             if (a_Film.Attributes["class"].Contains("active"))
                 LoadTeamByAccount(TeamType.Film);
-        }
-        private void update_AppData()
-        {
-            //讀取Application Data
-            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
-
-            DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
-            DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
-            if (!(DateTime.Now >= startTime && DateTime.Now <= endTime))
-                btn_NewTeam.Enabled = false;
-
-            a_Earthquake.InnerText = appPro.GetApplicationString(BaseInfo.EarthquakeName);
-            a_Bridge.InnerText = appPro.GetApplicationString(BaseInfo.BridgeName);
-            a_Film.InnerText = appPro.GetApplicationString(BaseInfo.FilmName);
         }
         protected void a_Earthquake_Click(object sender, EventArgs e)
         {
@@ -64,6 +66,7 @@ namespace SignUpSystem
             a_Film.Attributes["class"] += " active";
             LoadTeamByAccount(TeamType.Film);
         }
+
         private void LoadTeamByAccount(TeamType type)
         {
             //讀取Application Data
@@ -91,6 +94,7 @@ namespace SignUpSystem
                         appPro.GetBetweenSignUpTime() +
                         $")", conn);
                     break;
+
             }
 
             SqlDataReader dataReader = command.ExecuteReader();
@@ -125,6 +129,8 @@ namespace SignUpSystem
                     + "</div></div></div></div>";
                 div_TeamInfo.InnerHtml = innerHtmlStr;
             }
+            command.Cancel();
+            dataReader.Close();
             conn.Close();
         }
         private void AddTeamCard(TeamType type, string teamName, string teamId, HtmlGenericControl parentControl, bool hasUpdate)
@@ -318,7 +324,7 @@ namespace SignUpSystem
 
                 while (dr.Read())
                 {
-                    if(Convert.ToInt32(dr["Count"]) == 6)
+                    if (Convert.ToInt32(dr["Count"]) == 6)
                     {
                         //有隊伍就不能新增
                         MsgBox_Data.InnerHtml = $"<p>帳號所屬學校已報名六隊" +
@@ -333,6 +339,9 @@ namespace SignUpSystem
                         Response.Redirect("EarthquakeRegistration.aspx");
                     }
                 }
+                command.Cancel();
+                dr.Close();
+                conn.Close();
 
             }
             else if (a_Bridge.Attributes["class"].Contains("active"))
@@ -370,6 +379,9 @@ namespace SignUpSystem
                     //去填橋梁變變變資料
                     Response.Redirect("BridgeRegistration.aspx");
                 }
+                dr.Close();
+                command.Cancel();
+                conn.Close();
             }
             else
             {
@@ -415,7 +427,7 @@ namespace SignUpSystem
                 dr.Close();
                 command.Cancel();
 
-                if(earList.Count == 0 && briList.Count == 0)
+                if (earList.Count == 0 && briList.Count == 0)
                 {
                     MsgBox_Data.InnerHtml = $"<p>帳號中" +
                         appPro.GetApplicationString(BaseInfo.EarthquakeName) +
@@ -431,6 +443,7 @@ namespace SignUpSystem
                 {
                     Response.Redirect("FilmRegistration.aspx");
                 }
+                conn.Close();
             }
         }
         private void LoadAccountInfo()
@@ -440,6 +453,9 @@ namespace SignUpSystem
             SqlCommand command = new SqlCommand($"SELECT * FROM Account WHERE Id = {Session["LoginId"]};", conn);
             SqlDataReader reader = command.ExecuteReader();
             int schoolid = 0;
+            num_Lunch.Visible = false;
+            num_VegLunch.Visible = false;
+            id_Lunch.Visible = false;
             while (reader.Read())
             {
                 IDataRecord record = (IDataRecord)reader;
@@ -449,8 +465,36 @@ namespace SignUpSystem
                 user_Email.InnerText = record["Email"].ToString();
                 updateEmail.Value = record["Email"].ToString();
                 schoolid = Convert.ToInt32(record["SchoolID"]);
+                
+
             }
             reader.Close();
+
+            ApplicationProcessing appPro = new ApplicationProcessing(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+            DateTime startTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.StartSignUp));
+            DateTime endTime = Convert.ToDateTime(appPro.GetApplicationString(BaseInfo.EndSignUp));
+            command = new SqlCommand($"SELECT * FROM LunchInfo WHERE AccountID = {Session["LoginId"]}", conn);
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                IDataRecord record = (IDataRecord)reader;
+                DateTime dt = Convert.ToDateTime(record["CreateDate"]);
+                if ((dt >= startTime )&&(dt<= endTime))
+                {
+                    Lunch.InnerText = $"便當數量 (葷):   " + record["Lunch"].ToString();
+                    VegLunch.InnerText = $"便當數量 (素):    " + record["VegLunch"].ToString();
+                    text_uLunch.Value = record["Lunch"].ToString();
+                    text_uVegLunch.Value = record["VegLunch"].ToString();
+                    num_Lunch.InnerText = record["Lunch"].ToString();
+                    num_VegLunch.InnerText = record["VegLunch"].ToString();
+                    id_Lunch.InnerText = record["Id"].ToString();
+
+
+                }
+            }
+            reader.Close();
+
+
             command = new SqlCommand($"SELECT Name FROM School WHERE Id = {schoolid}", conn);
             reader = command.ExecuteReader();
             while (reader.Read())
@@ -458,7 +502,10 @@ namespace SignUpSystem
                 IDataRecord record = (IDataRecord)reader;
                 user_School.InnerText = record["Name"].ToString();
             }
+            reader.Close();
 
+
+            command.Cancel();
             conn.Close();
         }
         protected void Btn_updateAccount_ServerClick(object sender, EventArgs e)
@@ -467,9 +514,39 @@ namespace SignUpSystem
             conn.Open();
             SqlCommand command = new SqlCommand($"UPDATE Account SET Phone = '{updatePhone.Value.ToString()}', Email = '{updateEmail.Value.ToString()}' WHERE Id = {Session["LoginId"]}", conn);
             command.ExecuteNonQuery();
+            command.Cancel();
             conn.Close();
 
             LoadAccountInfo();
+        }
+        protected void Btn_Confirm_Click(object sender, EventArgs e)
+        {
+            if (num_Lunch.InnerText == "" && num_VegLunch.InnerText == "")
+            {
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                conn.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO LunchInfo(Lunch,VegLunch,AccountID)" +
+                "values (@updateLunch, @updateVegLunch, @AccountID)", conn);
+                command.Parameters.AddWithValue(@"updateLunch", text_uLunch.Value);
+                command.Parameters.AddWithValue(@"updateVegLunch", text_uVegLunch.Value);
+                command.Parameters.AddWithValue(@"AccountID", Session["LoginId"]);
+                command.ExecuteNonQuery();
+                command.Clone();
+                command.Cancel();
+                conn.Close();
+                LoadAccountInfo();
+            }
+            else
+            {
+                int num = int.Parse(id_Lunch.InnerText.ToString());
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlDB"].ConnectionString);
+                conn.Open();
+                SqlCommand command = new SqlCommand($"UPDATE LunchInfo SET Lunch = '{text_uLunch.Value.ToString()}', VegLunch = '{text_uVegLunch.Value.ToString()}' WHERE Id = {num} ", conn);
+                command.ExecuteNonQuery();
+                command.Cancel();
+                conn.Close();
+                LoadAccountInfo();
+            }
         }
         protected void TeamEdit(object sender, EventArgs e)
         {
@@ -529,7 +606,8 @@ namespace SignUpSystem
                     }
                     break;
             }
-
+            command.Cancel();
+            dr.Close();
             conn.Close();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "closepup", "$('#TeamViewer').modal('show');", true);
 
@@ -547,13 +625,6 @@ namespace SignUpSystem
         {
             lab_TeamName.InnerText = dr["Name"].ToString();
             MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
-                $"<div class=\"col-sm-2\"></div>" +
-                $"<label class=\"col-sm-4 col-form-label\">素食人數：</label>" +
-                $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
-                $"<div class=\"col-sm-2\"></div>" +
-                $"</div>";
-
-            MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">共同指導老師：</label>";
 
@@ -586,13 +657,6 @@ namespace SignUpSystem
         {
             lab_TeamName.InnerText = dr["Name"].ToString();
             MemberInfo.InnerHtml = $"<div class=\"form-group row\">" +
-                $"<div class=\"col-sm-2\"></div>" +
-                $"<label class=\"col-sm-4 col-form-label\">素食人數：</label>" +
-                $"<label class=\"col-sm-4 col-form-label\">{dr["Vegetarian"].ToString()}  人</label>" +
-                $"<div class=\"col-sm-2\"></div>" +
-                $"</div>";
-
-            MemberInfo.InnerHtml += $"<div class=\"form-group row\">" +
                 $"<div class=\"col-sm-2\"></div>" +
                 $"<label class=\"col-sm-4 col-form-label\">共同指導老師：</label>";
 

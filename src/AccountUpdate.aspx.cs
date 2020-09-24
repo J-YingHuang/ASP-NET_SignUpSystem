@@ -100,6 +100,7 @@ namespace SignUpSystem
                 command.ExecuteNonQuery();
 
                 command.Cancel();
+                dr.Close();
                 conn.Close();
                 
               

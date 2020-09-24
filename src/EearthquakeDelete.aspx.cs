@@ -142,6 +142,7 @@ namespace SignUpSystem
             command = new SqlCommand($"DELETE FROM EarthquakeTeam WHERE Id= '{sendInfo[2]}'", conn);
             command.ExecuteNonQuery();
             command.Cancel();
+            conn.Close();
         }
 
         private HtmlGenericControl NewDiv(string classString)

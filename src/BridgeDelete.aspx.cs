@@ -67,9 +67,9 @@ namespace SignUpSystem
                     string teamID = dr["teamid"].ToString();
                     AddTeamCard(teamName, SchoolName, teamID, div1);
                 }
-
-
             }
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
 
@@ -150,6 +150,8 @@ namespace SignUpSystem
 
             command = new SqlCommand($"DELETE FROM BridgeTeam WHERE Id= '{sendInfo[2]}'", conn);
             command.ExecuteNonQuery();
+            command.Cancel();
+            conn.Close();
 
         }
 

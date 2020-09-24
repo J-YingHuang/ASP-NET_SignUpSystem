@@ -95,6 +95,7 @@ namespace SignUpSystem
             }
             dr.Close();
             command.Cancel();
+            conn.Close();
 
             foreach (string team in earList)
                 select_Team.Items.Add(appPro.GetApplicationString(BaseInfo.EarthquakeName) +

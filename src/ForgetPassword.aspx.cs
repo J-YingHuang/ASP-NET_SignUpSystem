@@ -81,6 +81,8 @@ namespace SignUpSystem
             }
             else
                 serch_email.InnerText = "沒有此Email";
+            dr.Close();
+            command.Cancel();
             conn.Close();
         }
     }

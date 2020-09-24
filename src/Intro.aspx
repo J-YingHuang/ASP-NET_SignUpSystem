@@ -158,8 +158,7 @@
 
                 </div>
                 <div class="modal-footer">
-
-<%--                    <button type="button" class="btn btn-outline-info" data-dismiss="modal" id="btn_updateLunch" runat="server" onserverclick="Btn_Confirm_Click">儲存變更</button>--%>
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal" id="btn_updateLunch" runat="server" onserverclick="Btn_Confirm_Click">儲存變更</button>
                 </div>
             </div>
         </div>
